@@ -5,10 +5,10 @@ let auth = require('../helpers/auth')
 
 
 
-let web = require("../services/web.service");
+let user = require("../services/user.service");
 
 
-//router.post('/userList', auth.authenticateAdmin, user.userList);
+router.post('/signup', user.signup);
 
 
 

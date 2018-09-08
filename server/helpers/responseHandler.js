@@ -20,8 +20,8 @@ function withObjectData(res, responseCode, responseMessage, result) {
 }
 
 
-function toUser(res, err, success, sendResponse, resMsg, otherMsg) {
-    if (err) withOutData(res, 500, "Server error");
+function toUser(res, success, sendResponse, resMsg, otherMsg) {
+    if (!success) withOutData(res, 400, otherMsg);
     else if (success) {
         if (Array.isArray(success)) {
             if (success.length && sendResponse) withObjectData(res, 200, resMsg, success);

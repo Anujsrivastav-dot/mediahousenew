@@ -34,5 +34,6 @@ module.exports = {
   product: require("../models/product"),
   order: require("../models/order"),
   user: require("../models/user"),
-  admin: require("../models/admin")
+  admin: require("../models/admin"),
+  enquiry:require("../models/enquiry")
 }

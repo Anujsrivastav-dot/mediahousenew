@@ -6,49 +6,29 @@ var mongoose = require('mongoose'),
             type: ObjectId,
             ref: 'user'
         },
-        resturantId: {
-            type: ObjectId,
-            ref: 'restaurant'
-        },
         productId: {
             type: ObjectId,
             ref: 'item'
         },
-        caterogyId: {
-            type: ObjectId,
-            ref: 'category'
-        },
-        ingridents: [{
-            ingridentsId: {
-                type: ObjectId
-            },
-            count: {
-                type: Number
-            }
-        }],
-        specialRequest: {
-            type: String
-        },
-        totalPrice: {
+        quantity:{
+            type:String
+        }, 
+        totalAmount: {
             type: Number
         },
-        deliveryAddressId: {
-            type: ObjectId
+        orderId:{
+            type:String
         },
-        promoCodeId: {
-            type: ObjectId
-        },
-        payAmount: {
-            type: Number
-        },
-        paymentMode: {
-            type: String // COD | Paypal | Credit/Debit Card
-        },
+        
         status: {
             type: Number,
             default: 1 // status 1 is Active and 0 is Delete
+        },
+        deliveryData:{
+            type:Date
+        },
+        estimatedDeliveryDate:{
+            type:Date
         }
-    }, {
-        timestamps: true
     });
 module.exports = mongoose.model('order', order, 'order');

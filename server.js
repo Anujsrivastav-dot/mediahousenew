@@ -43,7 +43,7 @@ app.use("/storage", express.static(__dirname + '/storage'));
 
 //apply the routes to our application with the prefix /api
 app.use("/admin", require("./server/routes/adminRoute"));
-app.use("/web", require("./server/routes/webRoute"));
+app.use("/user", require("./server/routes/userRoute"));
 
 
 

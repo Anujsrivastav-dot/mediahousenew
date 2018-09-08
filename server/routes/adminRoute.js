@@ -4,11 +4,18 @@ let auth = require('../middleware/auth')
 
 
 
-let web = require("../services/web.service");
+let admin = require("../services/admin.service");
+
+router.post('/addCategory',admin.addCategory);
+router.post('/updateCategory',admin.updateCategory);
+router.post('/deleteCategory',admin.deleteCategory);   
+router.get('/getCategoryList',admin.getCategoryList);
 
 
-//router.post('/userList', auth.authenticateAdmin, user.userList);
-
+router.post('/addProduct',admin.addProduct);
+router.post('/updateProduct',admin.updateProduct);
+router.post('/deleteProduct',admin.deleteProduct);   
+router.get('/getProductList',admin.getProductList);
 
 
 module.exports = router;
