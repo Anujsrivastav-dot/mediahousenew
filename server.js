@@ -1,0 +1,61 @@
+let express = require("express");
+let app = express();
+let bodyParser = require("body-parser");
+let morgan = require("morgan");
+let helmet = require("helmet");
+let config = require("./server/helpers/config")();
+
+// connect with database
+require("./server/dbConnection/dao")
+app.use(helmet());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000
+}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+
+// use morgan to log requests to the console
+app.use(morgan("dev"));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    if ("OPTIONS" === req.method) {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
+
+
+
+//======= Dependency for upload file =======
+const fileUpload = require('express-fileupload');
+
+app.use(fileUpload())
+// Allow to access image in storage directory
+app.use("/storage", express.static(__dirname + '/storage'));
+
+//apply the routes to our application with the prefix /api
+app.use("/admin", require("./server/routes/adminRoute"));
+app.use("/web", require("./server/routes/webRoute"));
+
+
+
+// app.get('/', function(req, res) {
+//     res.sendFile(__dirname + '/public/index.html');
+// });
+
+// app.get('*', function(req, res) {
+//     res.sendFile(__dirname + '/public/index.html')
+// })
+
+// start the server =========
+let listener = app.listen(config.PORT, function(err, success) {
+    console.log("Listening on port-->> " + listener.address().port);
+});
