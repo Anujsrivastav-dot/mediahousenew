@@ -1,16 +1,17 @@
 const db=require("../dbConnection/dao");
 const sendResponse=require("../helpers/responseHandler");
 module.exports = {
-	// add,
-	addCategory,
+addCategory,
 updateCategory,
 deleteCategory,
 getCategoryList,
 addProduct,
 updateProduct,
 deleteProduct,
-getProductList
-	// list
+getProductList,
+enquiry,
+getEnquiryList,
+paginate
 };
 
 async function addCategory(req,res){
@@ -75,11 +76,30 @@ var success=await db.product.findByIdAndUpdate(req.body._id,{$set:{status:0}});
 }
 
 async function getProductList(req,res){
-
 var success=await db.product.find({status:1})
      sendResponse.toUser(res,success,true,"product list found","product does not exist");
 
 }
+
+
+async function enquiry(req,res){
+	var obj=new db.enquiry(req.body);
+	await obj.save();
+	 sendResponse.withOutData(res,200," enquiry saved")
+}
+
+async function getEnquiryList(req,res){
+var success=await db.enquiry.find({status:1})
+     sendResponse.toUser(res,success,true," enquirylist found","category does not exist");
+
+}
+
+async function paginate(req,res){
+var success=await db.product.paginate({"categoryId":req.body.categoryId},{page:1,limit:2});
+   console.log(success)
+     sendResponse.toUser(res,success,true,"product find","something went wrong");
+}
+
 
 
 

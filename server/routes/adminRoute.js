@@ -17,5 +17,10 @@ router.post('/updateProduct',admin.updateProduct);
 router.post('/deleteProduct',admin.deleteProduct);   
 router.get('/getProductList',admin.getProductList);
 
+router.post('/enquiry',admin.enquiry);
+router.get('/getEnquiryList',admin.getEnquiryList);
+
+router.post('/paginate',admin.paginate);
+
 
 module.exports = router;

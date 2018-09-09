@@ -9,6 +9,8 @@ let user = require("../services/user.service");
 
 
 router.post('/signup', user.signup);
+router.post('/addOrder',user.addOrder);
+router.post('/deleteOrder',user.deleteOrder);
 
 
 

@@ -1,7 +1,9 @@
 const db = require("../dbConnection/dao");
 const sendResponse = require("../helpers/responseHandler")
 module.exports = {
-	signup
+	signup,
+  addOrder,
+  deleteOrder
 }
 
 
@@ -26,3 +28,15 @@ async function signup(req,res){
   }
 
 }
+async function addOrder(req,res){
+  var obj = new db.order(req.body);
+     await obj.save();
+     sendResponse.withOutData(res,200," order saved");
+}
+
+
+async function deleteOrder(req,res){
+var success=await db.order.findByIdAndUpdate(req.body._id,{$set:{status:0}});
+     sendResponse.toUser(res,success,false,"order deleted","something went wrong");
+}
+
