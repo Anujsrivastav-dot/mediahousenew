@@ -1,14 +1,15 @@
 const db = require("../dbConnection/dao");
 const sendResponse = require("../helpers/responseHandler")
+const jwt = require('jsonwebtoken');
 module.exports = {
 	signup,
+  login,
   addOrder,
   deleteOrder
 }
 
 
 async function signup(req,res){
-  console.log(req.body);
   var condition = {
     $or:[{
     	emailId:req.body.emailId
@@ -16,18 +17,41 @@ async function signup(req,res){
     	phoneNumber:req.body.phoneNumber
     }]
   }
-
   var success = await db.user.findOne(condition);
   if(success){
-  	 sendResponse.withOutData(res,400,"Email id and phoneNumber must be unique");
+    console.log(success);
+     sendResponse.withOutData(res,404,"user is exist");
   }
   else{
   	var obj = new db.user(req.body);
   	var success = await obj.save();
-  	sendResponse.withObjectData(res,200,"User register successfully",success);
+    var token = jwt.sign(success.toJSON(), 'asddf'); 
+     sendResponse.withObjectData(res,200,"success",{"success":success,"token":token});	
   }
-
 }
+
+
+async function login(req,res){
+  var condition={
+    $or:[{
+      emailId:req.body.emailId,password:req.body.password
+    },{
+      phoneNumber:req.body.phoneNumber,password:req.body.password
+    }]
+  }
+  var success=await db.user.findOne(condition);
+  if(success){
+    var token = jwt.sign(success.toJSON(), 'asddf'); 
+     sendResponse.withObjectData(res,200,"success",{"success":success,"token":token});  
+  }
+  else{
+    sendResponse.withOutData(res,400,"emailId or password not matched");
+  }
+  
+}
+
+
+
 async function addOrder(req,res){
   var obj = new db.order(req.body);
      await obj.save();

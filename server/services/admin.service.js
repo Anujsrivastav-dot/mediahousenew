@@ -13,7 +13,7 @@ enquiry,
 getEnquiryList,
 paginate
 };
-
+// add cotegory 
 async function addCategory(req,res){
 	var condition = { name : req.body.name };
 	var success = await db.category.findOne(condition);
@@ -27,25 +27,22 @@ async function addCategory(req,res){
 	}	 
 }
 
-async function updateCategory(req,res){
 
+async function updateCategory(req,res){
 var success=await db.category.findByIdAndUpdate(req.body._id,{$set:{name:req.body.name}});
      sendResponse.toUser(res,success,false,"category updated","something went wrong");
 }
 
 
 async function deleteCategory(req,res){
-
 var success=await db.category.findByIdAndUpdate(req.body._id,{$set:{status:0}});
      sendResponse.toUser(res,success,false,"category deleted","something went wrong");
-
 }
 
-async function getCategoryList(req,res){
 
+async function getCategoryList(req,res){
 var success=await db.category.find({status:1})
      sendResponse.toUser(res,success,true,"category list found","category does not exist");
-
 }
 
 
@@ -60,7 +57,6 @@ async function addProduct(req,res){
 		 await obj.save();
 		 sendResponse.withOutData(res,200,"product added");
 	}	
-
 }
 
 async function updateProduct(req,res){
@@ -72,8 +68,8 @@ var success=await db.product.findByIdAndUpdate(req.body._id,req.body);
 async function deleteProduct(req,res){
 var success=await db.product.findByIdAndUpdate(req.body._id,{$set:{status:0}});
      sendResponse.toUser(res,success,false,"product deleted","something went wrong");
-
 }
+
 
 async function getProductList(req,res){
 var success=await db.product.find({status:1})

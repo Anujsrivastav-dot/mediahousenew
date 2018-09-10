@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
             ref: 'item'
         },
         quantity:{
-            type:String
+            type:Number
         }, 
         totalAmount: {
             type: Number
