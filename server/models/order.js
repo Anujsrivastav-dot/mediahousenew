@@ -10,25 +10,25 @@ var mongoose = require('mongoose'),
             type: ObjectId,
             ref: 'item'
         },
-        quantity:{
-            type:Number
-        }, 
+        quantity: {
+            type: Number
+        },
         totalAmount: {
             type: Number
         },
-        orderId:{
-            type:String
+        orderId: {
+            type: String
         },
-        
+
         status: {
             type: Number,
             default: 1 // status 1 is Active and 0 is Delete
         },
-        deliveryData:{
-            type:Date
+        deliveryDate: {
+            type: Date
         },
-        estimatedDeliveryDate:{
-            type:Date
+        estimatedDeliveryDate: {
+            type: Date
         }
     });
 module.exports = mongoose.model('order', order, 'order');

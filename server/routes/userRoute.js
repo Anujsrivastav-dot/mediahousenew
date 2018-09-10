@@ -1,18 +1,23 @@
 // Require the package 
 let express = require('express');
 let router = express.Router();
+// require token authentication file
 let auth = require('../helpers/auth')
-var verify=require('../middleware/verifyToken');
+var verify = require('../middleware/verifyToken');
 
 
-
+// user api services
 let user = require("../services/user.service");
 
 
-router.post('/signup',user.signup);
-router.post('/login',user.login);
-router.post('/addOrder',verify.verifyUserToken,user.addOrder);
-router.post('/deleteOrder',user.deleteOrder);
+// singup api route
+router.post('/signup', user.signup);
+// login api route
+router.post('/login', user.login);
+// add order api route
+router.post('/bookOrder', verify.verifyUserToken, user.bookOrder);
+// cancle order api route
+router.post('/cancelOrder', user.cancelOrder);
 
 
 
