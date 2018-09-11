@@ -54,11 +54,11 @@ app.use(express.static("admin"));
 
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/admin/index.html');
 });
 
 app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html')
+    res.sendFile(__dirname + '/admin/index.html')
 })
 
 // start the server =========

@@ -1,4 +1,4 @@
 'use strict';
-var app = angular.module('foodMeWeb', [
+var app = angular.module('preFix', [
 	'ui.router'
 ])

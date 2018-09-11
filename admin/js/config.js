@@ -1,5 +1,5 @@
 'use strict';
 app.config(($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) => {
-	$urlRouterProvider.otherwise('/order');
+	$urlRouterProvider.otherwise('/login');
 	$locationProvider.html5Mode(true);
 })
