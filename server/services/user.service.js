@@ -5,8 +5,8 @@ const generate = require("../helpers/generateAuthToken");
 module.exports = {
   signup,
   login,
-  addOrder,
-  deleteOrder
+  bookOrder,
+  cancelOrder
 }
 
 

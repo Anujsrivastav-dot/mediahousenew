@@ -47,13 +47,19 @@ app.use("/user", require("./server/routes/userRoute"));
 
 
 
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/public/index.html');
-// });
+// client side static folder
 
-// app.get('*', function(req, res) {
-//     res.sendFile(__dirname + '/public/index.html')
-// })
+app.use(express.static("admin"));
+
+
+
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('*', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html')
+})
 
 // start the server =========
 let listener = app.listen(config.PORT, function(err, success) {

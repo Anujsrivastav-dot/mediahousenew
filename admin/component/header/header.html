@@ -1,0 +1,96 @@
+<div class="wrapper">
+    <header class="main-header modify-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo logo-color">
+            <!-- mini logo for sidebar mini 50x50 pixels --><span class="logo-mini website-logo-mini logo-mini"><img src="dist/img/web-logo.png" alt="logo" class="img-responsive"></span>
+            <!-- logo for regular state and mobile devices --><span class="logo-lg website-logo"><img src="dist/img/web-logo.png" alt="logo" class="img-responsive"></span> </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top custom-navbar">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle modify-sidebar" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span> </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o custom-bell"></i> <span class="label label-warning custum-label-not">10</span> </a>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu custom-user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="dist/img/login-user-image.png" class="user-image" alt="User Image"> <span class="hidden-xs">Susheel Yadav</span> <i class="fa fa-caret-down fa-caret-down-custm" aria-hidden="true"></i> </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header"> <img src="dist/img/login-user-image.png" class="img-circle" alt="User Image">
+                                <p> Susheel Yadav <small>Member since 30 Aug,2018</small> </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left"> <a href="#" class="btn btn-default btn-flat">Profile</a> </div>
+                                <div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a> </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar custom-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu custom-sidebar-menu">
+                <li class="treeview" ng-class="{'active':activeTab=='dashboard'}">
+                    <a ng-href="dashboard"> <img src="dist/img/dashboard-icon.png" /> <span>Dashboard</span> </a>
+                </li>
+                <li class="treeview" ng-class="{'active':activeTab=='order'}">
+                    <a ng-href="order"> <img src="dist/img/order.png" /> <span>Order</span> </a>
+                </li>
+                <li class="treeview" ng-class="{'active':activeTab=='notification'}">
+                    <a href="notification"> <img src="dist/img/notification.png" /> <span>Notification</span> </a>
+                </li>
+                <li class="treeview">
+                    <a ng-href="offer"> <img src="dist/img/pricing.png" /> <span>Offer</span> </a>
+                </li>
+                <li class="treeview">
+                    <a href="#"> <img src="dist/img/account-icon.png" /> <span>Accounts</span> </a>
+                </li>
+                <li class="treeview">
+                    <a href="#"> <img src="dist/img/fleet.png" /> <span>Fleet</span> </a>
+                </li>
+                <li class="treeview">
+                    <a href="#"> <img src="dist/img/dashboard-icon.png" /> <span>Trips</span> </a>
+                </li>
+                <li class="treeview">
+                    <a href="#"> <img src="dist/img/documents.png" /> <span>Documents</span> </a>
+                </li>
+
+              
+                <li class="treeview">
+                    <a href="#"> <img src="dist/img/contact.png" /> <span>Contract</span> </a>
+                </li>
+                <li class="treeview">
+                    <a style="cursor:pointer;">
+                        <i class="fa fa-code"></i> <span>Static Content</span>
+                        <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a ng-href="term"><i class="fa fa-circle-o"></i> Terms & Condition</a></li>
+                        <li><a ng-href="privacy"><i class="fa fa-circle-o"></i> Privacy Policy</a></li>
+                        <li><a ng-href="aboutus"><i class="fa fa-circle-o"></i> About Us</a></li>
+                        <li><a ng-href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> FAQ
+                    </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <ui-view></ui-view>
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer modify-footer"> All right reserved at &copy;Glasswing </footer>
