@@ -1,5 +1,6 @@
 const db = require("../dbConnection/dao");
 const sendResponse = require("../helpers/responseHandler");
+const generate = require("../helpers/generateAuthToken");
 module.exports = {
 
 	addCategory,
@@ -12,10 +13,30 @@ module.exports = {
 	productList,
 	enquiry,
 	enquiryList,
-	paginate
+	paginate,
+	login
 };
 
 
+// admin login service
+async function login(req, res) {
+	var condition = {
+		emailId: req.body.emailId,
+		password: req.body.password
+	}
+	var success = await db.admin.findOne(condition, 'name');
+
+	if (success) {
+		authToken = generate.authToken(success);
+		// send success response
+		sendResponse.withObjectData(res, 200, "Your account successfully created", {
+			"result": success,
+			"authtoken": authToken
+		});
+	} else {
+		sendResponse.withOutData(res, 404, "Please enter correct emailId and password");
+	}
+}
 
 // add cotegory service 
 async function addCategory(req, res) {

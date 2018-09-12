@@ -18,12 +18,35 @@
 
     function Controller($state) {
         var vm = this;
-        vm.enquiry = enquiry;
+        vm.openModal = openModal;
 
-        function enquiry(){
-            $state.go('header.categoryList')
+        function openModal(...arg) {
+            console.log("comes in modal");
+            if (arg[0] == 'add') {
+                vm.form = null;
+                vm.modalInfo = arg;
+                $('#addEdit-category-modal').modal('show');
+            } else if (arg[0] == 'edit') {
+                vm.form = _.clone(arg[1]);
+                vm.modalInfo = arg;
+                $('#addEdit-category-modal').modal('show');
+            } else {
+                vm.modalInfo = arg;
+                vm.message = "Do you want to delete this category ?"
+                $('#confirmation-modal').modal('show');
+            }
+
         }
 
 
+        // function Controller($state) {
+        //     var vm = this;
+        //     vm.enquiry = enquiry;
+
+        //     function enquiry() {
+        //         $state.go('header.categoryList')
+        //     }
+
+        // }
     }
 })();

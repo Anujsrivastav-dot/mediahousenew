@@ -10,7 +10,7 @@ let auth = require('../middleware/auth')
 let admin = require("../services/admin.service");
 
 
-//router.post('/login', admin.login);
+router.post('/login', admin.login);
 // add category api route
 router.post('/addCategory', admin.addCategory);
 // update category api route

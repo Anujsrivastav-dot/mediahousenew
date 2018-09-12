@@ -16,12 +16,27 @@
         })
     }
 
-    function Controller($state) {
+    function Controller($state, httpService, toastr) {
         var vm = this;
+        // Initialize form
+        vm.loginForm = {
+            emailId: "admin@gmail.com",
+            password: "12345678"
+        };
+        //@ login function
         vm.login = login;
 
-        function login(){
-            $state.go('header.dashboard')
+        function login() {
+            httpService.login(vm.loginForm).then((objS) => {
+                console.log(objS)
+                if (objS.responseCode == 200) {
+                    localStorage.setItem('authtoken', objS.result.authtoken);
+                    toastr.success(objS.responseMessage);
+                    $state.go('header.dashboard')
+                }
+
+            })
+
         }
 
 

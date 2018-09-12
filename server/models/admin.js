@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     admin = new Schema({
-        name:{
-            type:String
+        name: {
+            type: String
         },
         emailId: {
             type: String
@@ -11,9 +11,9 @@ var mongoose = require('mongoose'),
         password: {
             type: String
         },
-        address:{
-            type:String
-        }  
+        address: {
+            type: String
+        }
     });
 
 
@@ -27,8 +27,8 @@ async function inIt() {
         var dataObj = {
             emailId: "admin@gmail.com",
             password: "12345678",
-            name:"admin",
-            address:"noida sector 15 new delhi"
+            name: "admin",
+            address: "noida sector 15 new delhi"
         }
         modelObj = new data(dataObj);
         modelObj.save();
