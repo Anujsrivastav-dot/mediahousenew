@@ -1,20 +1,30 @@
 
 <!-- Modal Add Category -->
-<div class="modal fade none-border" id="addEdit-category-modal">
+<div class="modal fade none-border" id="addEdit-product-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><strong>{{vm.modalInfo[0]=='add'?'Add Category':'Update Category'}}</strong></h4> </div>
+                <h4 class="modal-title"><strong>{{vm.modalInfo[0]=='add'?'Enter Product Name':'Update Product Name'}}</strong></h4> </div>
             <div class="modal-body">
                 <form name="categoryForm">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="control-label">Category Name</label>
+                            <label class="control-label">Product Name</label>
                             <input class="form-control form-white" placeholder="Enter category name" type="text" ng-model="vm.form.name" name="categoryName" required  ng-maxlength="80" maxlength="81"/>
                             <span  ng-show="categoryForm.categoryName.$dirty && categoryForm.categoryName.$invalid" style="color:red">
                             <span  ng-show="categoryForm.categoryName.$error.required">Category name is required.</span>
                              <span  ng-show=" categoryForm.categoryName.$error.maxlength">Please enter category name shorter than 80 characters</span> </span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Select Category</label>
+                            <select class="form-control">
+                                <option>Select Category</option>
+                                <option>Category1</option>
+                                <option>Category2</option>
+                                <option>Category3</option>
+                            </select>
+                           
                         </div>
                     </div>
                 </form>

@@ -5,9 +5,9 @@
 	  <div class="global-box">
 	    <div class="row">
 		  <div class="top-form">
-		    <div class="col-sm-6 col-md-4 col-lg-4">
+		    <div class="col-sm-4 col-md-4 col-lg-4">
 				<div class="input-group form-group">
-					<input type="text" class="form-control common-search-bar" placeholder="Search by Company Name" />
+					<input type="text" class="form-control common-search-bar" placeholder="Search by user Name" />
 					<span class="input-group-btn">
 						<button class="btn search-icon-btn" type="button">
 							<span class=" glyphicon glyphicon-search custom-search-icon"></span>
@@ -15,41 +15,7 @@
 					</span>
 				</div>
 			 </div>
-		    <div class="col-sm-6 col-md-4 col-lg-2">
-			   <div class="form-group"> 						    
-					 <select class="form-control common-select-box ">
-					  <option>Region</option>
-					 </select>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-2">
-			  <div class="form-group"> 						    
-					 <select class="form-control common-select-box ">
-					  <option>State</option>
-					 </select>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-2">
-			   <div class="form-group"> 						    
-					 <select class="form-control common-select-box ">
-					  <option>City</option>
-					 </select>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-2">
-			   <div class="form-group"> 						    
-					 <select class="form-control common-select-box ">
-					  <option>Branch</option>
-					 </select>
-				</div>
-			</div>
-		  </div>
-		</div>
-		
-		 <div class="top-box-border">
-			<div class="top-datepicker-row">
-			  <div class="row">
-				<div class="col-sm-6 col-md-4 col-lg-3">
+		    <div class="col-sm-4 col-md-4 col-lg-3">
 				    <div class="form-group"> 						    
 						<div class="row date-block">
 							<label class="col-sm-4">Date From</label>
@@ -62,7 +28,7 @@
 					    </div> 
 					</div>
 				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
+				<div class="col-sm-4 col-md-4 col-lg-3">
 				    <div class="form-group"> 						    
 						 <div class="row date-block">
 							<label class="col-sm-4">To</label>
@@ -75,164 +41,142 @@
 					    </div> 
 					</div>
 				</div>
-			</div>
 		  </div>
+		</div>
+		
+		 <div class="top-box-border">
+			
 		  <div class="table-responsive">
 			 <table class="table table-bordered custum-border">
 				<thead>
 				  <tr class="common-table-head">
-					<th>Job<br>ID</th>
-					<th>Customer<br>Name</th>
-					<th>Company<br>Name</th>
-					<th>Order<br>Value</th>
-					<th>Source<br>Location</th>
-					<th>Drop<br>Location </th>
+					<th>Order Id</th>
+					<th>Name</th>
+					<th>Phone Number</th>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Quantity</th>
+					<th>Order Date</th>
 					<th>Status</th>
-					<th>No.of<br>Trucks</th>
-					<th>Dispatched<br>Date</th>
-					<th>Arrival<br>Date</th>
-					<th>Cargo<br>Type</th>
-					<th>Service<br>Type</th>
 					<th>Action</th>
 				  </tr>
 				</thead>
 				<tbody class="common-table-inner">
 				  <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Unblock</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Block</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				<tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Unblock</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Block</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Unblock</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Block</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Unblock</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
-				  <tr>
+				   <tr>
 					<td>546242</td>
-					<td>Raj</td>
-					<td>Mobiloitte</td>
-					<td><i class="fa fa-inr rate"> </i> 50000/-</td>
-					<td>Delhi</td>
-					<td>Mumbai</td>
-					<td>Dispatched</td>
-					<td>5</td>
-					<td>08/07/2017</td>
-					<td>09/07/2017</td>
-					<td>Dry</td>
-					<td>09/07/2017</td>
+					<td>Susheel</td>
+					<td>8800418935</td>
+					<td>Product</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>12 Sep ,2018</td>
+					<td>Confirmed</td>
 					<td class="table-anchor">
-					  <a href="#"> Block</a>
+					  <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('confirm',data._id)"></i></a>
+                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('cancel',data._id)"></i></a>
 					</td >
 				  </tr>
+				  
+				  
+				 
 				  
 				</tbody>
 			 </table>
@@ -249,3 +193,4 @@
     
     <!-- /.content -->
   </div>
+  <div ng-include src="'component/common/modal.html'"></div>

@@ -26,7 +26,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left"> <a href="#" class="btn btn-default btn-flat">Profile</a> </div>
-                                <div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a> </div>
+                                <div class="pull-right"> <a href="#" class="btn btn-default btn-flat" ng-click="vm.logOut()">Sign out</a> </div>
                             </li>
                         </ul>
                     </li>
@@ -60,49 +60,14 @@
                 </li>
 
                 <li class="treeview" ng-class="{'active':activeTab=='categoryList'}">
-                    <a ng-href="categoryList"> <img src="dist/img/contact.png" /> <span>category List</span> </a>
+                    <a ng-href="categoryList"> <img src="dist/img/contact.png" /> <span>Category List</span> </a>
                 </li>
 
 
                 <li class="treeview" ng-class="{'active':activeTab=='productList'}">
                     <a ng-href="productList"> <img src="dist/img/contact.png" /> <span>Product List</span> </a>
                 </li>
-                 <li class="treeview" ng-class="{'active':activeTab=='notification'}">
-                    <a ng-href="notification"> <img src="dist/img/notification.png" /> <span>Notification</span> </a>
-                </li>
-                <li class="treeview">forgot
-                    <a ng-href="offer"> <img src="dist/img/pricing.png" /> <span>Offer</span> </a>
-                </li>
-               
-                <li class="treeview">
-                    <a href="#"> <img src="dist/img/fleet.png" /> <span>Fleet</span> </a>
-                </li>
-                <li class="treeview">
-                    <a href="#"> <img src="dist/img/dashboard-icon.png" /> <span>Trips</span> </a>
-                </li>
-                <li class="treeview">
-                    <a href="#"> <img src="dist/img/documents.png" /> <span>Documents</span> </a>
-                </li>
-
-              
-                <li class="treeview">
-                    <a href="#"> <img src="dist/img/contact.png" /> <span>Contract</span> </a>
-                </li>
-                <li class="treeview">
-                    <a style="cursor:pointer;">
-                        <i class="fa fa-code"></i> <span>Static Content</span>
-                        <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a ng-href="term"><i class="fa fa-circle-o"></i> Terms & Condition</a></li>
-                        <li><a ng-href="privacy"><i class="fa fa-circle-o"></i> Privacy Policy</a></li>
-                        <li><a ng-href="aboutus"><i class="fa fa-circle-o"></i> About Us</a></li>
-                        <li><a ng-href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> FAQ
-                    </a></li>
-                    </ul>
-                </li>
+                 
             </ul>
         </section>
         <!-- /.sidebar -->

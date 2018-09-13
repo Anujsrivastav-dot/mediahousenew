@@ -16,37 +16,46 @@
         })
     }
 
-    function Controller($state) {
+    function Controller(toastr) {
         var vm = this;
         vm.openModal = openModal;
+        vm.add = add;
+        vm.update = update;
+        vm.confirm = confirm;
 
         function openModal(...arg) {
-            console.log("comes in modal");
             if (arg[0] == 'add') {
                 vm.form = null;
                 vm.modalInfo = arg;
                 $('#addEdit-category-modal').modal('show');
             } else if (arg[0] == 'edit') {
-                vm.form = _.clone(arg[1]);
+               // vm.form = _.clone(arg[1]);
                 vm.modalInfo = arg;
                 $('#addEdit-category-modal').modal('show');
             } else {
                 vm.modalInfo = arg;
                 vm.message = "Do you want to delete this category ?"
-                $('#confirmation-modal').modal('show');
+                $('#confirm-modal').modal('show');
             }
 
         }
 
 
-        // function Controller($state) {
-        //     var vm = this;
-        //     vm.enquiry = enquiry;
+        // add category function
+        function add() {
+            $('#addEdit-category-modal').modal('hide');
+            toastr.success("New category added successfully");
+        }
 
-        //     function enquiry() {
-        //         $state.go('header.categoryList')
-        //     }
+        // update category function
+        function update() {
+            $('#addEdit-category-modal').modal('hide');
+            toastr.success("Category upadated successfully");
+        }
 
-        // }
+        function confirm() {
+            $('#confirm-modal').modal('hide');
+            toastr.success("Category deleted successfully");
+        }
     }
 })();

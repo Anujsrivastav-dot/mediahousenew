@@ -7,7 +7,7 @@
 		  <div class="top-form">
 		    <div class="col-sm-6 col-md-4 col-lg-4">
 				<div class="input-group form-group">
-					<input type="text" class="form-control common-search-bar" placeholder="Search by Company Name" />
+					<input type="text" class="form-control common-search-bar" placeholder="Search by Name & email id" />
 					<span class="input-group-btn">
 						<button class="btn search-icon-btn" type="button">
 							<span class=" glyphicon glyphicon-search custom-search-icon"></span>
@@ -42,10 +42,14 @@
 					<th>EmailId</th>	
 					<th>Phone Number</th>
 					<th>Description</th>
+					<th>Status</th>
+					<th>Action</th>
 					
 				  </tr>
 				</thead>
 				<tbody class="common-table-inner">
+				 
+				  
 				  <tr>
 					<td> 
 						<div class="global-checkbox">
@@ -58,6 +62,106 @@
 					
 					<td>6262626262</td>
 					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
+				
+				  </tr>
+				  <tr>
+					<td> 
+						<div class="global-checkbox">
+							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
+							 <label for="styled-checkbox-2"></label>
+						</div>
+					</td>
+					<td>Satya</td>
+					<td>ss@gmail.com  </td>
+					
+					<td>6262626262</td>
+					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
+				
+				  </tr>
+				  <tr>
+					<td> 
+						<div class="global-checkbox">
+							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
+							 <label for="styled-checkbox-2"></label>
+						</div>
+					</td>
+					<td>Satya</td>
+					<td>ss@gmail.com  </td>
+					
+					<td>6262626262</td>
+					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
+				
+				  </tr>
+				  <tr>
+					<td> 
+						<div class="global-checkbox">
+							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
+							 <label for="styled-checkbox-2"></label>
+						</div>
+					</td>
+					<td>Satya</td>
+					<td>ss@gmail.com  </td>
+					
+					<td>6262626262</td>
+					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
+				
+				  </tr>
+				  <tr>
+					<td> 
+						<div class="global-checkbox">
+							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
+							 <label for="styled-checkbox-2"></label>
+						</div>
+					</td>
+					<td>Satya</td>
+					<td>ss@gmail.com  </td>
+					
+					<td>6262626262</td>
+					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
+				
+				  </tr>
+				  <tr>
+					<td> 
+						<div class="global-checkbox">
+							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
+							 <label for="styled-checkbox-2"></label>
+						</div>
+					</td>
+					<td>Satya</td>
+					<td>ss@gmail.com  </td>
+					
+					<td>6262626262</td>
+					<td>best web</td>
+					<td>Completed</td>
+					<td class="table-anchor">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					</td >
 				
 				  </tr>
 				 
@@ -78,3 +182,4 @@
     
     <!-- /.content -->
   </div>
+  <div ng-include src="'component/common/modal.html'"></div>

@@ -13,6 +13,11 @@
 
     function Controller($state, $scope) {
         var vm = this;
+        vm.logOut = logOut;
+
+        function logOut(){
+            $state.go('login')
+        }
 
     }
 })();
