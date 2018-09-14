@@ -28,7 +28,6 @@
 
         function login() {
             httpService.login(vm.loginForm).then((objS) => {
-                console.log(objS)
                 if (objS.responseCode == 200) {
                     localStorage.setItem('authtoken', objS.result.authtoken);
                     toastr.success(objS.responseMessage);

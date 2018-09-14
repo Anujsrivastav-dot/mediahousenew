@@ -5,7 +5,7 @@
 	  <div class="global-box">
 	    <div class="row">
 		  <div class="top-form">
-		    <div class="col-sm-6 col-md-4 col-lg-4">
+		    <div class="col-sm-3 col-md-3 col-lg-3">
 				<div class="input-group form-group">
 					<input type="text" class="form-control common-search-bar" placeholder="Search by category Name" />
 					<span class="input-group-btn">
@@ -15,13 +15,17 @@
 					</span>
 				</div>
 			 </div>
-		    <div class="col-sm-6 col-md-4 col-lg-2">
-			   <div class="form-group"> 						    
-					<button class="btn common-button mobile-green">Search</button>
-				</div>
-			</div>
+			<div class="col-sm-6 col-md-4 col-lg-2">
+				<div class="form-group">
+			<ul class="pagination">
+                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
+                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
+               <li><a><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
+                </ul>
+            </div>
+           </div>
 
-			 <div class="col-sm-6 col-md-4 col-lg-2">
+			 <div class="col-sm-2 col-md-2 col-lg-2">
 			   <div class="form-group"> 						    
 					<button class="btn common-button mobile-green" ng-click="vm.openModal('add')">Add Category </button>
 				</div>
@@ -39,12 +43,7 @@
 			 <table class="table table-bordered custum-border">
 				<thead>
 				  <tr class="common-table-head">
-					<th>
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-1"></label>
-						</div>
-					 </th>
+					
 					<th>Category Name</th>	
 					<th>Created Date</th>	
 					<th>Action</th>
@@ -53,15 +52,10 @@
 				  </tr>
 				</thead>
 				<tbody class="common-table-inner">
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
+				  <tr ng-repeat="data in vm.paginationObj.list">
+					
+					<td>{{data.name}}</td>
+					<td>{{data.createdAt | date:'MMM dd,yyyy'}}</td>
 					<td class="table-anchor">
 					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
                       <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
@@ -69,101 +63,7 @@
 				
 				
 				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  <tr>
-					<td> 
-						<div class="global-checkbox">
-							<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2" >
-							 <label for="styled-checkbox-2"></label>
-						</div>
-					</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-						
-				  </tr>
+				  
 
 				 
 				   

@@ -16,6 +16,7 @@
         vm.logOut = logOut;
 
         function logOut(){
+            localStorage.removeItem("authtoken");
             $state.go('login')
         }
 

@@ -10,6 +10,8 @@ var mongoose = require('mongoose'),
             type: Number,
             default: 1 // status 1 is Active and 0 is inActive/delete
         }
+    },{
+        timestamps:true
     })
 
 category.plugin(mongoosePaginate);

@@ -5,6 +5,11 @@
     function Service($http, $q) {
         var service = {};
         service.login = login;
+        service.addCategory = addCategory;
+        service.editCategory = editCategory;
+        service.deleteCategory = deleteCategory;
+        service.categoryList = categoryList;
+        service.userList = userList;
 
 
         return service;
@@ -12,6 +17,25 @@
 
         function login(data) {
             return $http.post('/admin/login', data).then(handleSuccess, handleError);
+        }
+
+        function addCategory(data) {
+            return $http.post('/admin/addCategory', data).then(handleSuccess, handleError);
+        }
+
+        function editCategory(categoryId, data) {
+            return $http.put('/admin/updateCategory/' + categoryId, data).then(handleSuccess, handleError);
+        }
+
+        function deleteCategory(categoryId) {
+            return $http.put('/admin/deleteCategory/' + categoryId).then(handleSuccess, handleError);
+        } 
+        
+        function categoryList(data) {
+            return $http.post('/admin/categoryList', data).then(handleSuccess, handleError);
+        }
+        function userList(data) {
+            return $http.post('/admin/userList', data).then(handleSuccess, handleError);
         }
 
 

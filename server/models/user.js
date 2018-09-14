@@ -18,6 +18,8 @@ var mongoose = require('mongoose'),
         address: {
             type:String
         }                   
+},{
+    timestamps:true
 });
 
 user.plugin(mongoosePaginate);

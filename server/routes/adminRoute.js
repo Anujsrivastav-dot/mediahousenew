@@ -14,9 +14,11 @@ router.post('/login', admin.login);
 // add category api route
 router.post('/addCategory', admin.addCategory);
 // update category api route
-router.post('/updateCategory', admin.updateCategory);
+router.put('/updateCategory/:categoryId', admin.updateCategory);
 // delete category api route
-router.post('/deleteCategory', admin.deleteCategory);
+router.put('/deleteCategory/:categoryId', admin.deleteCategory);
+router.post('/categoryList', admin.categoryList);
+
 // get category list api route
 router.get('/productList', admin.productList);
 // add product api route
@@ -31,6 +33,9 @@ router.get('/productList', admin.productList);
 router.post('/enquiry', admin.enquiry);
 // get enquiry list api route
 router.get('/enquiryList', admin.enquiryList);
+
+router.post('/userList', admin.userList);
+
 // 
 router.post('/paginate', admin.paginate);
 

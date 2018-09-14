@@ -16,14 +16,43 @@
         })
     }
 
-    function Controller($state) {
+    function Controller(helperService,httpService) {
         var vm = this;
-        vm.user = user;
+            vm.init = init;
+            vm.prevAndNext = prevAndNext;          
+            vm.pageNumber = 1;
+            vm.search = null;
 
-        function enquiry(){
-            $state.go('header.userList')
+
+        init();
+
+        function init() {
+            vm.sendObj = {
+                pageNumber: vm.pageNumber
+            }
+            if (vm.search) {
+                vm.sendObj['search'] = vm.search;
+            }
+            httpService.userList(vm.sendObj).then((objS) => {
+                console.log(objS)
+                if (objS.responseCode == 200) {
+                    // get pagination object data
+                    vm.paginationObj = helperService.getPaginationObj(objS.result);
+                }
+            })
         }
 
+        //@ pre and next data
+        function prevAndNext(flag, value) {
+            if (!value) {
+                // get page number bases of flag value
+                vm.pageNumber = helperService.getPageNumber(flag, vm.pageNumber);
+                // get assignment list
+                init();
+            }
+        }  
+       
+    
 
     }
 })();
