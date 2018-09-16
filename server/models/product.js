@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     product = new Schema({
-        
+
         categoryId: {
             type: ObjectId,
             default: null,
@@ -23,6 +23,8 @@ var mongoose = require('mongoose'),
             type: Number,
             default: 1 // status 1 is Active and 0 is inActive/delete
         }
+    }, {
+        timestamps: true
     });
 
 product.plugin(mongoosePaginate);

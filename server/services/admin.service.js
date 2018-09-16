@@ -15,7 +15,8 @@ module.exports = {
 	enquiryList,
 	paginate,
 	login,
-	userList
+	userList,
+	allCategoryList
 };
 
 
@@ -69,7 +70,9 @@ async function updateCategory(req, res) {
 	if (success) {
 		sendResponse.withOutData(res, 204, "Category name already taken");
 	} else {
-		var category = await db.category.findOneAndUpdate({_id:req.params.categoryId}, {
+		var category = await db.category.findOneAndUpdate({
+			_id: req.params.categoryId
+		}, {
 			$set: {
 				name: req.body.name
 			}
@@ -80,20 +83,33 @@ async function updateCategory(req, res) {
 
 // delete category service
 async function deleteCategory(req, res) {
-	var success = await db.category.findOneAndUpdate({_id:req.params.categoryId}, {
+	var success = await db.category.findOneAndUpdate({
+		_id: req.params.categoryId
+	}, {
 		$set: {
 			status: 0
 		}
 	});
-	sendResponse.toUser(res, success, false, "Category deleted","Category deleted");
+	sendResponse.toUser(res, success, false, "Category deleted", "Category deleted");
 }
 
 // get category list service
 async function categoryList(req, res) {
 	var success = await db.category.paginate({
 		status: 1
-	},{limit:10,page:req.body.pageNumber||1})
+	}, {
+		limit: 10,
+		page: req.body.pageNumber || 1
+	})
 	sendResponse.toUser(res, success, true, "Category list found", "Category list empty");
+}
+
+async function allCategoryList(req, res) {
+	var success = await db.category.find({
+		status: 1
+	}, 'name');
+	sendResponse.toUser(res, success, true, "Category list found", "Category list empty");
+
 }
 
 // add product service
@@ -106,7 +122,7 @@ async function addProduct(req, res) {
 	} else {
 		var obj = new db.product(req.body);
 		var product = await obj.save();
-		sendResponse.toUser(res, product, false, "Product deleted", "Something went wrong");
+		sendResponse.toUser(res, product, false, "Product added successfully.", "Something went wrong");
 	}
 }
 
@@ -146,9 +162,13 @@ async function deleteProduct(req, res) {
 
 // get product list service
 async function productList(req, res) {
-	var success = await db.product.find({
-		status: 1
-	})
+	var success = await db.product.paginate({
+		"status": 1
+	}, {
+		page: req.body.pageNumber || 1,
+		limit: 10
+	});
+
 	sendResponse.toUser(res, success, true, "Product list found", "Product list empty");
 }
 
@@ -177,7 +197,7 @@ async function paginate(req, res) {
 		page: 1,
 		limit: 2
 	});
-	console.log(success)
+
 	sendResponse.toUser(res, success, true, "product find", "something went wrong");
 }
 
