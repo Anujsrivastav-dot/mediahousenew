@@ -1,155 +1,67 @@
- <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper color">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper color">
     <!-- Content Header (Page header) -->
     <section class="content">
-	  <div class="global-box">
-	    <div class="row">
-		  <div class="top-form">
-		    <div class="col-sm-6 col-md-4 col-lg-4">
-				<div class="input-group form-group">
-					<input type="text" class="form-control common-search-bar" placeholder="Search by product Name" />
-					<span class="input-group-btn">
-						<button class="btn search-icon-btn" type="button">
-							<span class=" glyphicon glyphicon-search custom-search-icon"></span>
-						</button>
-					</span>
-				</div>
-			 </div>
-		    
+        <div class="global-box">
+            <div class="row">
+                <div class="top-form">
+                	<div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group form-group">
+                            <input type="text" class="form-control common-search-bar" placeholder="Search by product Name" ng-enter="vm.init()" ng-model="vm.search" /> <span class="input-group-btn">
+						    <button class="btn search-icon-btn" type="button">
+							<span class=" glyphicon glyphicon-search custom-search-icon"></span> </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+						<!-- <div class="form-group"> -->
+							<ul class="pagination" style="margin-top: 3px;">
+				                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
+				                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
+				               <li><a style="margin-top:-10%;"><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
+		                </ul>
+		           <!--  </div> -->
+         			  </div>
 
-			 <div class="col-sm-6 col-md-4 col-lg-2">
-			   <div class="form-group"> 						    
-					<button class="btn common-button mobile-green" ng-click="vm.openModal('add')">Add Product </button>
-				</div>
-			</div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button class="btn common-button mobile-green" ng-click="vm.openModal('add')">Add Product </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="top-box-border">
+                <div class="table-responsive">
+                    <table class="table table-bordered custum-border">
+                        <thead>
+                            <tr class="common-table-head">
+                                
+                                <th>Product Name</th>
+                                <th>Category Name</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="common-table-inner">
+                            <tr ng-repeat="data in vm.paginationObj.list">
+                           
+                         
+                                <td>{{data.name}}</td>
+                                <td>{{data.categoryId.name}}</td>
+                                <td>{{data.createdAt | date:'MMM dd,yyyy'}}</td>
+                                <td class="table-anchor"> <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a> <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a> </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-			
-			
-		  </div>
-		</div>
-		
-		 <div class="top-box-border">
-			
-		  <div class="table-responsive">
-			 <table class="table table-bordered custum-border">
-				<thead>
-				  <tr class="common-table-head">
-					
-					<th>Product Name</th>
-					<th>Category Name</th>	
-					<th>Created Date</th>	
-					<th>Action</th>
-					
-					
-				  </tr>
-				</thead>
-				<tbody class="common-table-inner">
-				  <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				   <tr>
-					
-					<td>Men Collection</td>
-					<td>Men Collection</td>
-					<td>12 Sep ,2018 </td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;"><i class="fa fa-pencil-square-o" ng-click="vm.openModal('edit',data)"></i></a>
-                      <a style="cursor: pointer;"><i class="fa fa-trash" ng-click="vm.openModal('delete',data._id)"></i></a>
-					</td >
-				
-				
-				  </tr>
-				  
-				 
-				 
-
-				 
-				   
-				</tbody>
-			 </table>
-		  </div> 
-		  
-		  
-		  
-	    </div>
-	   </div> 
-     </section>
-      
-
-    <!-- Main content -->
-    
     <!-- /.content -->
-  </div>
-
-  <div ng-include src="'component/productList/addEditProduct.html'"></div>
-  <div ng-include src="'component/common/modal.html'"></div>
+</div>
+<div ng-include src="'component/productList/addEditProduct.html'"></div>
+<div ng-include src="'component/common/modal.html'"></div>

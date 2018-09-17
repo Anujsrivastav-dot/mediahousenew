@@ -17,10 +17,10 @@
 			 </div>
 			<div class="col-sm-6 col-md-4 col-lg-2">
 				<div class="form-group">
-			<ul class="pagination">
-                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
-                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
-               <li><a><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
+					<ul class="pagination">
+		                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
+		                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
+		               <li><a><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
                 </ul>
             </div>
            </div>

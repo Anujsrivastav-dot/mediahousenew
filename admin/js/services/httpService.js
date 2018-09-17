@@ -10,6 +10,12 @@
         service.deleteCategory = deleteCategory;
         service.categoryList = categoryList;
         service.userList = userList;
+        service.allCategoryList = allCategoryList;
+
+        service.addProduct = addProduct;
+        service.productList = productList;
+        service.editProduct = editProduct;
+        service.deleteProduct = deleteProduct;
 
 
         return service;
@@ -29,16 +35,36 @@
 
         function deleteCategory(categoryId) {
             return $http.put('/admin/deleteCategory/' + categoryId).then(handleSuccess, handleError);
-        } 
-        
+        }
+
         function categoryList(data) {
             return $http.post('/admin/categoryList', data).then(handleSuccess, handleError);
         }
+
         function userList(data) {
             return $http.post('/admin/userList', data).then(handleSuccess, handleError);
         }
 
 
+        function addProduct(data) {
+            return $http.post('/admin/addProduct', data).then(handleSuccess, handleError);
+        }
+
+        function editProduct(productId, data) {
+            return $http.put('/admin/updateProduct/' + productId, data).then(handleSuccess, handleError)
+        }
+
+        function allCategoryList() {
+            return $http.get('/admin/allCategoryList').then(handleSuccess, handleError)
+        }
+
+        function productList(data) {
+            return $http.post('/admin/productList', data).then(handleSuccess, handleError);
+        }
+
+        function deleteProduct(productId) {
+            return $http.put('/admin/deleteProduct/' + productId).then(handleSuccess, handleError);
+        }
 
         //===========================// 
         // private functions

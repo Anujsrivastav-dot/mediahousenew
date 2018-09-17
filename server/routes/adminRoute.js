@@ -18,17 +18,19 @@ router.put('/updateCategory/:categoryId', admin.updateCategory);
 // delete category api route
 router.put('/deleteCategory/:categoryId', admin.deleteCategory);
 router.post('/categoryList', admin.categoryList);
+router.get('/allCategoryList', admin.allCategoryList);
+
 
 // get category list api route
-router.get('/productList', admin.productList);
+router.post('/productList', admin.productList);
 // add product api route
 router.post('/addProduct', admin.addProduct);
 // update product api route
-router.post('/updateProduct', admin.updateProduct);
+router.put('/updateProduct/:productId', admin.updateProduct);
 // delete product api route
-router.post('/deleteProduct', admin.deleteProduct);
+router.put('/deleteProduct/:productId', admin.deleteProduct);
 // get product api route   
-router.get('/productList', admin.productList);
+//router.get('/productList', admin.productList);
 // save enquiry api route
 router.post('/enquiry', admin.enquiry);
 // get enquiry list api route
