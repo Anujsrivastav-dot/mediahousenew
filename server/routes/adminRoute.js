@@ -20,7 +20,6 @@ router.put('/deleteCategory/:categoryId', admin.deleteCategory);
 router.post('/categoryList', admin.categoryList);
 router.get('/allCategoryList', admin.allCategoryList);
 
-
 // get category list api route
 router.post('/productList', admin.productList);
 // add product api route

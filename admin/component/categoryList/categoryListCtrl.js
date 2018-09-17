@@ -26,6 +26,7 @@
         vm.pageNumber = 1;
         vm.confirm = confirm;
         vm.search = null;
+        vm.init = init;
 
 
         init();

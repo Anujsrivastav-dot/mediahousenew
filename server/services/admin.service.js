@@ -95,9 +95,14 @@ async function deleteCategory(req, res) {
 
 // get category list service
 async function categoryList(req, res) {
-	var success = await db.category.paginate({
-		status: 1
-	}, {
+	var condition = { "status" : 1 };
+	if (req.body.search) {
+		condition['name'] = {
+				$regex: ".*" + req.body.search + ".*",
+				$options: "si"
+			}
+	}
+	var success = await db.category.paginate(condition, {
 		limit: 10,
 		page: req.body.pageNumber || 1
 	})
