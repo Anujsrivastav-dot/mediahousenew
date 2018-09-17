@@ -16,12 +16,12 @@
         })
     }
 
-    function Controller(helperService,httpService) {
+    function Controller(helperService, httpService) {
         var vm = this;
-            vm.init = init;
-            vm.prevAndNext = prevAndNext;          
-            vm.pageNumber = 1;
-            vm.search = null;
+        vm.init = init;
+        vm.prevAndNext = prevAndNext;
+        vm.pageNumber = 1;
+        vm.search = null;
 
 
         init();
@@ -38,6 +38,7 @@
                 if (objS.responseCode == 200) {
                     // get pagination object data
                     vm.paginationObj = helperService.getPaginationObj(objS.result);
+                    console.log(vm.paginationObj);
                 }
             })
         }
@@ -50,9 +51,9 @@
                 // get assignment list
                 init();
             }
-        }  
-       
-    
+        }
+
+
 
     }
 })();

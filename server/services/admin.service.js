@@ -95,12 +95,14 @@ async function deleteCategory(req, res) {
 
 // get category list service
 async function categoryList(req, res) {
-	var condition = { "status" : 1 };
+	var condition = {
+		"status": 1
+	};
 	if (req.body.search) {
 		condition['name'] = {
-				$regex: ".*" + req.body.search + ".*",
-				$options: "si"
-			}
+			$regex: ".*" + req.body.search + ".*",
+			$options: "si"
+		}
 	}
 	var success = await db.category.paginate(condition, {
 		limit: 10,
@@ -168,20 +170,22 @@ async function deleteProduct(req, res) {
 // get product list service
 async function productList(req, res) {
 	console.log(req.body);
-	var condition = { "status" : 1 };
+	var condition = {
+		"status": 1
+	};
 	if (req.body.search) {
 		condition['name'] = {
-				$regex: ".*" + req.body.search + ".*",
-				$options: "si"
-			}
+			$regex: ".*" + req.body.search + ".*",
+			$options: "si"
+		}
 	}
 	var success = await db.product.paginate(condition, {
-		select:"name categoryId createdAt",
+		select: "name categoryId createdAt",
 		page: req.body.pageNumber || 1,
 		limit: 10,
-		populate:{
-			path:"categoryId",
-			select:"name"
+		populate: {
+			path: "categoryId",
+			select: "name"
 		}
 	});
 
@@ -199,8 +203,9 @@ async function enquiry(req, res) {
 
 // enquiry list service
 async function enquiryList(req, res) {
-	var enquiry = await db.enquiry.find({
-		status: 1
+	var enquiry = await db.enquiry.paginate({}, {
+		page: req.body.pageNumber || 1,
+		limit: 10
 	})
 	sendResponse.toUser(res, enquiry, true, " E nquirylist found", "Enquiry list empty");
 }
@@ -219,7 +224,7 @@ async function paginate(req, res) {
 
 async function userList(req, res) {
 	var success = await db.user.paginate({
-		"status": 1
+
 	}, {
 		page: req.body.pageNumber,
 		limit: 10

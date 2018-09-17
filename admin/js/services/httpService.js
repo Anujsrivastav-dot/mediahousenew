@@ -16,6 +16,8 @@
         service.productList = productList;
         service.editProduct = editProduct;
         service.deleteProduct = deleteProduct;
+        service.enquiryList = enquiryList;
+        service.enquiry = enquiry;
 
 
         return service;
@@ -65,6 +67,16 @@
         function deleteProduct(productId) {
             return $http.put('/admin/deleteProduct/' + productId).then(handleSuccess, handleError);
         }
+
+
+        function enquiry(data) {
+            return $http.post('/admin/enquiry', data).then(handleSuccess, handleError);
+        }
+
+        function enquiryList(data) {
+            return $http.post('/admin/enquiryList', data).then(handleSuccess, handleError);
+        }
+
 
         //===========================// 
         // private functions

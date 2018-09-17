@@ -3,35 +3,31 @@
     <!-- Content Header (Page header) -->
     <section class="content">
         <div class="global-box">
-            <div class="row">
-                <div class="top-form">
-                   <div class="row">
+           <div class="row">
                     <div class="col-md-3">
                         <div class="input-group form-group">
                             <input type="text" class="form-control common-search-bar" placeholder="Search by product Name" ng-enter="vm.init()" ng-model="vm.search" /> <span class="input-group-btn">
-						    <button class="btn search-icon-btn" type="button">
-							<span class=" glyphicon glyphicon-search custom-search-icon"></span> </button>
+                            <button class="btn search-icon-btn" type="button">
+                            <span class=" glyphicon glyphicon-search custom-search-icon"></span> </button>
                             </span>
                         </div>
                     </div>
                     <div class="col-md-6">
-						<!-- <div class="form-group"> -->
-							<ul class="pagination" style="margin-top: 3px;">
-				                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
-				                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
-				               <li><a style="margin-top:-10%;"><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
-		                </ul>
-		           <!--  </div> -->
-         			  </div>
+                        <!-- <div class="form-group"> -->
+                            <ul class="pagination" style="margin-top: 3px;">
+                                <li ng-class="{'disabled':vm.paginationObj.prev}" ng-click="vm.prevAndNext('prev',vm.paginationObj.prev)" style="cursor: pointer;"><a><i class="fa fa-angle-left" aria-hidden="true"></i> Prev</a></li>
+                                <li ng-class="{'disabled':vm.paginationObj.next}" style="cursor: pointer;"><a ng-click="vm.prevAndNext('next',vm.paginationObj.next)">Next <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>&nbsp;
+                               <li><a style="margin-top:-20px;"><b>{{vm.paginationObj.from}}-{{vm.paginationObj.to}} of {{vm.paginationObj.total}}</b></a></li>
+                        </ul>
+                   <!--  </div> -->
+                      </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <button class="btn common-button mobile-green" ng-click="vm.openModal('add')">Add Product </button>
+                            <button class="btn common-button mobile-green" ng-click="vm.openModal('add')">Add Category </button>
                         </div>
                     </div>
                 </div>
-                </div>
-            </div>
             <div class="top-box-border">
                 <div class="table-responsive">
                     <table class="table table-bordered custum-border">

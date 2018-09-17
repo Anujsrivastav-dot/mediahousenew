@@ -1,4 +1,5 @@
 const db = require("../dbConnection/dao");
+var _ = require("underscore");
 const sendResponse = require("../helpers/responseHandler");
 const generate = require("../helpers/generateAuthToken");
 
@@ -14,16 +15,20 @@ module.exports = {
 async function signup(req, res) {
   // condititon check emailId and phoneNumber already exit in database
   var condition = {
+
     $or: [{
       emailId: req.body.emailId
     }, {
       phoneNumber: req.body.phoneNumber
     }]
+
   }
 
-  if (await db.user.findOne(condition)) {
+  var success = await db.user.findOne(condition);
+  if (success) {
     // send response email id or password already taken
-    sendResponse.withOutData(res, 204, "Email id or phoneNumber alrady taken");
+    var msg = success.emailId == req.body.emailId ? "Email id already taken" : "Phone number already taken";
+    sendResponse.withOutData(res, 204, msg);
   } else {
     // save new user data in database
     var obj = new db.user(req.body),
