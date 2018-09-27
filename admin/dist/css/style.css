@@ -1,6 +1,6 @@
 /* -------------header----------- */
 .main-header .nav.custom-navbar {min-height:80px;}
-.main-sidebar.custom-sidebar{ padding-top: 80px;}
+.main-sidebar.custom-sidebar{ padding-top: 80px;position: fixed;}
 .main-header .logo.logo-color{background:#222d32; height: 80px; line-height: 80px;border-bottom:1px solid #5b5b5b;padding: 18px 0 18px 15px;}
 .website-logo { max-width: 100px;}
 .website-logo img {  height: auto; width: 100%;}
