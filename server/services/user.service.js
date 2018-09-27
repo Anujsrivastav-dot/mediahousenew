@@ -12,6 +12,7 @@ module.exports = {
 
 
 
+
 async function signup(req, res) {
   // condititon check emailId and phoneNumber already exit in database
   var condition = {

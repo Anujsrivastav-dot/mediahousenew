@@ -34,11 +34,9 @@
                 vm.sendObj['search'] = vm.search;
             }
             httpService.userList(vm.sendObj).then((objS) => {
-                console.log(objS)
                 if (objS.responseCode == 200) {
                     // get pagination object data
                     vm.paginationObj = helperService.getPaginationObj(objS.result);
-                    console.log(vm.paginationObj);
                 }
             })
         }

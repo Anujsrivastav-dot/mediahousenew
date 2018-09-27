@@ -43,7 +43,10 @@ async function login(req, res) {
 // add cotegory service 
 async function addCategory(req, res) {
 	var condition = {
-		name: req.body.name,
+		name: {
+			$regex: ".*" + req.body.name + ".*",
+			$options: "si"
+		},
 		status: 1
 	};
 	var success = await db.category.findOne(condition);
@@ -60,7 +63,10 @@ async function addCategory(req, res) {
 async function updateCategory(req, res) {
 
 	var condition = {
-			name: req.body.name,
+			name: {
+			$regex: ".*" + req.body.name + ".*",
+			$options: "si"
+		},
 			status: 1,
 			_id: {
 				$ne: req.params.categoryId
@@ -122,7 +128,10 @@ async function allCategoryList(req, res) {
 // add product service
 async function addProduct(req, res) {
 	var success = await db.product.findOne({
-		"name": req.body.name
+		"name": {
+			$regex: ".*" + req.body.name + ".*",
+			$options: "si"
+		}
 	});
 	if (success) {
 		sendResponse.withOutData(res, 204, "Product name already taken");
@@ -137,7 +146,10 @@ async function addProduct(req, res) {
 async function updateProduct(req, res) {
 	var condition = {
 		status: 1,
-		name: req.body.name,
+		name: {
+			$regex: ".*" + req.body.name + ".*",
+			$options: "si"
+		},
 		_id: {
 			$ne: req.params.productId
 		}
@@ -169,7 +181,7 @@ async function deleteProduct(req, res) {
 
 // get product list service
 async function productList(req, res) {
-	console.log(req.body);
+
 	var condition = {
 		"status": 1
 	};
@@ -223,9 +235,16 @@ async function paginate(req, res) {
 }
 
 async function userList(req, res) {
-	var success = await db.user.paginate({
-
-	}, {
+	var condition = {
+		"status": 1
+	};
+	if (req.body.search) {
+		condition['name'] = {
+			$regex: ".*" + req.body.search + ".*",
+			$options: "si"
+		}
+	}
+	var success = await db.user.paginate(condition, {
 		page: req.body.pageNumber,
 		limit: 10
 	});

@@ -22,7 +22,7 @@
                 if (response.status === 200) {
                     if (response.data.responseCode == 403) {
                         $location.path('/login');
-                    } else if (response.data.responseCode == 404 || response.data.responseCode == 500 || response.data.responseCode == 400 || response.data.responseCode == 422) {
+                    } else if ([500,422,404,400,204].indexOf(response.data.responseCode)>-1) {
                         toastr.error(response.data.responseMessage);
                     }
                 }

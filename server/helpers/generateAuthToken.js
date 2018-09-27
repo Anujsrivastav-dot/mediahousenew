@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken"),
 token = {
 	"authToken": function(data) {
 		console.log(data)
-		var token = jwt.sign(data.toJSON(), config.secretKey);
+		var token = jwt.sign(data, config.secretKey);
 		return token;
 	}
 }

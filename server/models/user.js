@@ -17,10 +17,17 @@ var mongoose = require('mongoose'),
         },
         address: {
             type:String
+        },
+        status: {
+            type: Number,
+            default: 1
         }                   
 },{
     timestamps:true
 });
+
+
+
 
 user.plugin(mongoosePaginate);
 module.exports = mongoose.model('user', user, 'users');
