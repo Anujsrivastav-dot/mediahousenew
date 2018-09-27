@@ -20,7 +20,7 @@
 
     function Controller(toastr, httpService, helperService) {
         var vm = this;
-        vm.enquiry = enquiry;
+        //vm.enquiry = enquiry;
         vm.openModal = openModal;
         vm.confirm = confirm;
         vm.init = init;
@@ -40,11 +40,8 @@
                 vm.sendObj['search'] = vm.search;
             }
             httpService.enquiryList(vm.sendObj).then((objS) => {
-                console.log(objS)
                 if (objS.responseCode == 200) {
-                    // get pagination object data
                     vm.paginationObj = helperService.getPaginationObj(objS.result);
-                    console.log(vm.paginationObj);
                 }
             })
         }
@@ -58,9 +55,9 @@
             }
         }
 
-        function enquiry() {
-            $state.go('header.enquiryList')
-        }
+        // function enquiry() {
+        //     $state.go('header.enquiryList')
+        // }
 
         function openModal(...arg) {
             vm.modalInfo = arg;
@@ -69,8 +66,18 @@
         }
 
         function confirm() {
-            $('#' + vm.modalInfo[0]).modal('hide');
-            toastr.success("Enquiry status updated")
+           
+            vm.sendObj = {
+                enquiryId : vm.modalInfo[3],
+                status : vm.modalInfo[2]
+            }
+            httpService.updateEnquiryStatus(vm.sendObj).then((objS) => {
+                if (objS.responseCode == 200) {
+                     $('#' + vm.modalInfo[0]).modal('hide');
+                    init();
+                    toastr.success(objS.responseMessage);
+                }
+            })
         }
 
 

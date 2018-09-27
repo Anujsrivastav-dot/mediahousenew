@@ -92,7 +92,5 @@ async function myOrders(req, res) {
       status: 1
     },
     orders = await db.order.find(condititon);
-
   sendResponse.toUser(res, orders, true, "Order list", "your order list empty");
-
 }

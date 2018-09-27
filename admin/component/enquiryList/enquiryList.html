@@ -32,7 +32,7 @@
 				<thead>
 				  <tr class="common-table-head">
 					
-					 <th>Name</th>	
+					<th>Name</th>	
 					<th>EmailId</th>	
 					<th>Phone Number</th>
 					<th>Description</th>
@@ -48,25 +48,18 @@
 					
 					<td>{{data.name}}</td>
 					<td>{{data.emailId}}</td>
-					
 					<td>{{data.phoneNumber}}</td>
 					<td>{{data.description}}</td>
-					<td>{{data.status}}</td>
-					<td class="table-anchor">
-					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?')">Cancel</a>
-					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?')">Done</a>
+					<td>{{data.status == 0 ?'Pending' : data.status == 1 ?'Completed':'Cancelled'}}</td>
+					<td class="table-anchor" ng-if="data.status ==0">
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to cancle this enquiry?',2,data._id)">Cancel</a>
+					  <a style="cursor: pointer;" ng-click="vm.openModal('confirm-modal','Do you want to done this enquiry?', 1,data._id)">Done</a>
 					</td >
 				
 				  </tr>
-				 
-				  
-				  
 				</tbody>
 			 </table>
-		  </div> 
-		  
-		  
-		  
+		  </div>   
 	    </div>
 	   </div> 
      </section>

@@ -3,8 +3,7 @@ var jwt = require("jsonwebtoken"),
 	_ = require("underscore");
 token = {
 	"authToken": function(data) {
-		console.log(data)
-		var token = jwt.sign(data, config.secretKey);
+		var token = jwt.sign(data.toJSON(), config.secretKey);
 		return token;
 	}
 }

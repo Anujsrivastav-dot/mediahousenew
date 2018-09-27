@@ -32,6 +32,7 @@ router.put('/deleteProduct/:productId', admin.deleteProduct);
 //router.get('/productList', admin.productList);
 // save enquiry api route
 router.post('/enquiry', admin.enquiry);
+router.post('/updateEnquiryStatus', admin.updateEnquiryStatus);
 // get enquiry list api route
 router.post('/enquiryList', admin.enquiryList);
 

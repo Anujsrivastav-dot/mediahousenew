@@ -18,6 +18,7 @@
         service.deleteProduct = deleteProduct;
         service.enquiryList = enquiryList;
         service.enquiry = enquiry;
+        service.updateEnquiryStatus = updateEnquiryStatus;
 
 
         return service;
@@ -76,6 +77,11 @@
         function enquiryList(data) {
             return $http.post('/admin/enquiryList', data).then(handleSuccess, handleError);
         }
+
+        function updateEnquiryStatus(data) {
+            return $http.post('/admin/updateEnquiryStatus', data).then(handleSuccess, handleError);
+        }
+
 
 
         //===========================// 

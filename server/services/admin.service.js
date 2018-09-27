@@ -16,7 +16,8 @@ module.exports = {
 	paginate,
 	login,
 	userList,
-	allCategoryList
+	allCategoryList,
+	updateEnquiryStatus
 };
 
 
@@ -215,11 +216,28 @@ async function enquiry(req, res) {
 
 // enquiry list service
 async function enquiryList(req, res) {
-	var enquiry = await db.enquiry.paginate({}, {
+	var condition = {};
+	if (req.body.search) {
+		condition['name'] = {
+			$regex: ".*" + req.body.search + ".*",
+			$options: "si"
+		}
+	}
+	var enquiry = await db.enquiry.paginate(condition, {
 		page: req.body.pageNumber || 1,
 		limit: 10
 	})
-	sendResponse.toUser(res, enquiry, true, " E nquirylist found", "Enquiry list empty");
+	sendResponse.toUser(res, enquiry, true, " Enquiry list found", "Enquiry list empty");
+}
+
+
+async function updateEnquiryStatus(req,res){
+	var user = await db.enquiry
+	.findByIdAndUpdate(req.body.enquiryId,{"$set":{
+       status : req.body.status
+	}})
+
+	sendResponse.toUser(res, user, false, " Enquiry status updated", "Something went wrong");
 }
 
 

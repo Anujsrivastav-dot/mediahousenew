@@ -36,7 +36,7 @@ span.logo-mini img{max-width: 50px;}
 /* ------------Dashboard-------------- */
 .content-wrapper.color{background:#fff;}
 .content-wrapper .content {padding:30px;}
-.global-box{padding:30px;}
+.global-box{padding:0px;}
 .form-control.common-search-bar{height:40px;border:1px solid #000;border-right:0px;}
 .top-form .input-group-btn{height:40px;border:1px solid #000;border-left:0px;}
 .btn.search-icon-btn:active,.btn.search-icon-btn:hover,.btn.search-icon-btn:focus{ box-shadow:none; outline:none;}
