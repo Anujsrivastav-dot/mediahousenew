@@ -1,8 +1,8 @@
 const db = require("../dbConnection/dao");
 const sendResponse = require("../helpers/responseHandler");
 const generate = require("../helpers/generateAuthToken");
-module.exports = {
 
+module.exports = {
 	addCategory,
 	updateCategory,
 	deleteCategory,

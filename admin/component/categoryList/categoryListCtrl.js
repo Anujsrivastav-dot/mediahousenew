@@ -106,9 +106,12 @@
         // delete category function
         function confirm() {
             httpService.deleteCategory(vm.modalInfo[1]).then((objS) => {
-                $('#confirm-modal').modal('hide');
-                toastr.success(objS.responseMessage)
-                objS.responseCode == 200 ? init() : '';
+                if (objS.responseCode == 200) {
+                    $('#confirm-modal').modal('hide');
+                    toastr.success(objS.responseMessage);
+                    init();
+                }
+              
             })
         }
     }
