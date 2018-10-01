@@ -14,7 +14,7 @@
         })
     }
 
-    function Controller(toastr, httpService, helperService) {
+    function Controller(toastr, httpService, helperService,uploadImageFile) {
         var vm = this;
         vm.openModal = openModal;
         vm.add = add;
@@ -24,7 +24,9 @@
         vm.pageNumber = 1;
         vm.confirm = confirm;
         vm.search = null;
+        vm.form = {};
         vm.init = init;
+        vm.getTheFiles = getTheFiles;
 
         
         init();
@@ -117,6 +119,23 @@
                 init();
             }
         }
+
+        function getTheFiles($files) {
+            console.log($files)
+            vm.returnData = helperService.appendFileInFormData($files);
+            //Get html data bases of id
+            vm.imageDivHtml = document.getElementById("product-image");
+            // set selected image path in image src
+            vm.imageDivHtml.src = vm.returnData[1]
+            // call upload service
+            uploadImageFile.upload(vm.returnData[0]).then((objS) => {
+                console.log(objS)
+                if (objS.data.responseCode == 200) {
+                    vm.form['image'] = objS.data.result;
+                    vm.imageSelected = true;
+                }
+            })
+        };
      
     }
 })();

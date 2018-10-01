@@ -1,6 +1,7 @@
 const db = require("../dbConnection/dao");
 const sendResponse = require("../helpers/responseHandler");
 const generate = require("../helpers/generateAuthToken");
+var upload = require("../helpers/uploadImage");
 
 module.exports = {
 	addCategory,
@@ -17,7 +18,8 @@ module.exports = {
 	login,
 	userList,
 	allCategoryList,
-	updateEnquiryStatus
+	updateEnquiryStatus,
+	uploadImage
 };
 
 
@@ -267,4 +269,11 @@ async function userList(req, res) {
 		limit: 10
 	});
 	sendResponse.toUser(res, success, true, "User List", "User List empty");
+}
+
+function uploadImage(req,res){
+  upload.Image(req, (err, success) => {
+    if (err) sendResponse.withOutData(res, 400, err);
+    else sendResponse.withObjectData(res, 200, "Image uploaded", success);
+  });
 }

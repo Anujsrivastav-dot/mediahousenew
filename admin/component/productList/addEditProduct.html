@@ -9,6 +9,12 @@
                 <form name="productForm">
                     <div class="row">
                         <div class="col-md-6">
+                           <div>
+                             <img ng-src="{{default_product}}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236" id="product-image">
+                           </div>
+                           <input type="file" class="form-control" ng-files="vm.getTheFiles($files)">
+                        </div>
+                        <div class="col-md-6">
                             <label class="control-label">Product Name</label>
                             <input class="form-control form-white" placeholder="Enter category name" type="text" ng-model="vm.form.name" name="productName" required ng-maxlength="80" maxlength="81" /> <span ng-show="productForm.productName.$dirty && productForm.productName.$invalid" style="color:red">
                             <span  ng-show="productForm.productName.$error.required">Product name is required.</span> <span ng-show=" productForm.productName.$error.maxlength">Please enter product name shorter than 80 characters</span> </span>
@@ -19,6 +25,17 @@
                                 <option value="">Select Category</option>
                                 <option ng-repeat="cat in vm.category track by $index" value="{{cat._id}}">{{cat.name}}</option>
                             </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Price</label>
+                            <input class="form-control form-white" placeholder="Enter product price" type="number" ng-model="vm.form.price" name="productPrice" required  maxlength="10" /> <span ng-show="productForm.productPrice.$dirty && productForm.productPrice.$invalid" style="color:red">
+                            <span  ng-show="productForm.productPrice.$error.required">Product price is required.</span> </span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Description</label>
+                            <textarea class="form-control form-white" placeholder="Enter product description here.." ng-model="vm.form.description" maxlength="200" name="description"></textarea>
+                            <span ng-show="productForm.description.$dirty && productForm.description.$invalid" style="color:red">
+                            <span  ng-show="productForm.description.$error.required">Product description is required.</span> </span>
                         </div>
                     </div>
                 </form>

@@ -41,5 +41,7 @@ router.post('/userList', admin.userList);
 // 
 router.post('/paginate', admin.paginate);
 
+router.post('/uploadImage', admin.uploadImage);
+
 
 module.exports = router;

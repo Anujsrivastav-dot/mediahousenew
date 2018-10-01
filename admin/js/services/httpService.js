@@ -100,7 +100,6 @@
     app.service('uploadImageFile', function($http, $q) {
         this.upload = function(fd) {
             var deferred = $q.defer();
-            console.log(fd)
             $http.post('/admin/uploadImage', fd, {
                 transformRequest: angular.identity,
                 headers: {
