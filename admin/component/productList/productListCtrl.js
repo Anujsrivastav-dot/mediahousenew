@@ -24,6 +24,7 @@
         vm.pageNumber = 1;
         vm.confirm = confirm;
         vm.search = null;
+        vm.imageNotUploded = true;
         vm.form = {};
         vm.init = init;
         vm.getTheFiles = getTheFiles;
@@ -40,7 +41,6 @@
                 vm.sendObj['search'] = vm.search;
             }
             httpService.productList(vm.sendObj).then((objS) => {
-                console.log("objS", objS);
                 if (objS.responseCode == 200) {
                     // get pagination object data
                     vm.paginationObj = helperService.getPaginationObj(objS.result);
@@ -58,9 +58,8 @@
 
 
         function openModal(...arg) {
-            console.log("gfhfghg")
             if (arg[0] == 'add') {
-                vm.form = null;
+                vm.form = {};
                 vm.modalInfo = arg;
                 $('#addEdit-product-modal').modal('show');
             } else if (arg[0] == 'edit') {
@@ -68,6 +67,11 @@
                  vm.form.categoryId = vm.form.categoryId._id;
                  vm.modalInfo = arg;
                 $('#addEdit-product-modal').modal('show');
+            } else if (arg[0] == 'view') {
+                 vm.form = _.clone(arg[1]);
+                 vm.form.categoryId = vm.form.categoryId._id;
+                 vm.modalInfo = arg;
+                $('#view-product-modal').modal('show');
             } else {
                 vm.modalInfo = arg;
                 vm.message = "Do you want to delete this product ?"
@@ -121,7 +125,7 @@
         }
 
         function getTheFiles($files) {
-            console.log($files)
+            vm.imageUploading = true;
             vm.returnData = helperService.appendFileInFormData($files);
             //Get html data bases of id
             vm.imageDivHtml = document.getElementById("product-image");
@@ -129,10 +133,10 @@
             vm.imageDivHtml.src = vm.returnData[1]
             // call upload service
             uploadImageFile.upload(vm.returnData[0]).then((objS) => {
-                console.log(objS)
                 if (objS.data.responseCode == 200) {
                     vm.form['image'] = objS.data.result;
-                    vm.imageSelected = true;
+                    vm.imageUploading = false;
+                    vm.imageNotUploded = false;
                 }
             })
         };

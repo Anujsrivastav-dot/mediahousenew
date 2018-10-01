@@ -195,7 +195,7 @@ async function productList(req, res) {
 		}
 	}
 	var success = await db.product.paginate(condition, {
-		select: "name categoryId createdAt",
+		select: "name categoryId createdAt image price description",
 		page: req.body.pageNumber || 1,
 		limit: 10,
 		populate: {
