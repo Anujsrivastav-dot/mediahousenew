@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-6">
                            <div>
-                             <img ng-src="{{ vm.form.image[0] || default_product}}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236" id="product-image">
+                             <img ng-src="{{ vm.form.image[0] || default_product}}" class="img-thumbnail" alt="Cinque Terre"  id="product-image" style="width:100%">
                            </div>
                            <input type="file" class="form-control" ng-files="vm.getTheFiles($files)">
                            <p ng-if="vm.imageUploading" class="text-center">Image Uploading...</p>
