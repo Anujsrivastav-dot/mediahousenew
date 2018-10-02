@@ -4,6 +4,8 @@ let bodyParser = require("body-parser");
 let morgan = require("morgan");
 let helmet = require("helmet");
 let config = require("./server/helpers/config")();
+var cors = require('cors')
+app.use(cors())
 
 // connect with database
 require("./server/dbConnection/dao")

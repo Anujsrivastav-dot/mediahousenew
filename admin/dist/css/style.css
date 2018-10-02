@@ -116,7 +116,7 @@ border:1px solid#dddddd;height: 40px;padding-left: 10px;width: 100px;}
 
 @media(max-width:767px){
 .main-header.modify-header{ max-height: 160px;}
-.main-sidebar.custom-sidebar{padding-top: 161px;}
+.main-sidebar.custom-sidebar{/* padding-top: 161px;*/}
 .global-box{padding:0px;}
 .content-wrapper .content {padding:15px;}
 .top-datepicker-row{padding:10px;}
@@ -213,5 +213,9 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
     .main-div {
 
   max-width: 100% !important;
+}
+.main-header .logo.logo-color{
+  display:none;
+}
 }
 }

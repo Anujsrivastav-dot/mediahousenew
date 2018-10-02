@@ -32,7 +32,7 @@ async function login(req, res) {
 	var success = await db.admin.findOne(condition, 'name');
 
 	if (success) {
-		authToken = generate.authToken(success);
+		authToken = generate.authToken({_id:success._id});
 		// send success response
 		sendResponse.withObjectData(res, 200, "Login successfully", {
 			"result": success,
