@@ -94,7 +94,10 @@
           function update() {
             vm.sendObj = {
                 name: vm.form.name,
-                categoryId : vm.form.categoryId
+                categoryId : vm.form.categoryId,
+                image : vm.form.image,
+                price : vm.form.price,
+                description : vm.form.description
             }
             httpService.editProduct(vm.form._id, vm.sendObj).then((objS) => {
                 if (objS.responseCode == 200) {
