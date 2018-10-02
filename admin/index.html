@@ -67,6 +67,9 @@
     <link href="lib/toastr/toastr.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="lib/toastr/toastr.js"></script>
 
+    <link href="lib/please-wait/please_wait.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="lib/please-wait/please_wait.min.js"></script>
+
 
     <script type="text/javascript" src="lib/underscore.min.js"></script>
 
@@ -79,7 +82,20 @@
   <![endif]-->
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini" ng-app="preFix">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pricefix">
+    <script type="text/javascript">
+     // Please wait    
+     var loading_screen = window.pleaseWait({
+            logo: "dist/img/price_fix_logo.png",
+            backgroundColor: '#fff',
+            loadingHtml:"<div class='spinner'><div class='bounce1'></div><div class='bounce2'></div><div class='bounce3'></div></div>"
+             });
+
+     // if all files loaded stop the loading
+     if(loading_screen){
+        loading_screen.finish();
+     }
+      </script>
     <ui-view></ui-view>
 </body>
 <!-- ./wrapper -->
