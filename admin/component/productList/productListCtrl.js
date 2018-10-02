@@ -44,7 +44,6 @@
                 if (objS.responseCode == 200) {
                     // get pagination object data
                     vm.paginationObj = helperService.getPaginationObj(objS.result);
-                    console.log(vm.paginationObj);
                 }
             })
         }
@@ -59,7 +58,7 @@
 
         function openModal(...arg) {
             if (arg[0] == 'add') {
-                vm.form = {};
+                vm.form = { image:[]};
                 vm.modalInfo = arg;
                 $('#addEdit-product-modal').modal('show');
             } else if (arg[0] == 'edit') {
