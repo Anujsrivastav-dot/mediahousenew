@@ -1,8 +1,21 @@
 module.exports = {
     withOutData,
     withObjectData,
-    toUser
+    toUser,
+    to_user
 };
+
+function to_user(res, code, error, resMsg, data) {
+    var res_data = {
+        responseCode: code,
+        responseMessage: resMsg,
+        error: error
+    }
+    if (data) {
+        res_data.result = data;
+    }
+    res.send(res_data);
+}
 
 function withOutData(res, responseCode, responseMessage) {
     res.send({

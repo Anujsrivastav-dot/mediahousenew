@@ -43,5 +43,15 @@ router.post('/paginate', admin.paginate);
 
 router.post('/uploadImage', admin.uploadImage);
 
+router
+    .route('/admin/cart')
+    .post(admin.addToCart)
+    .get(admin.getCartList)
+    .put(admin.updateCart)
+router
+    .route('/admin/deleteCart')
+    .get(admin.deleteCart)
+
+
 
 module.exports = router;
