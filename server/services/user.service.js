@@ -56,7 +56,7 @@ async function login(req, res) {
     // generate auth token with _id & name
     authToken = generate.authToken(success);
     // send success response
-    sendResponse.withObjectData(res, 200, "Your account successfully created", {
+    sendResponse.withObjectData(res, 200, "Login successful.", {
       "result": success,
       "authToken": authToken
     });

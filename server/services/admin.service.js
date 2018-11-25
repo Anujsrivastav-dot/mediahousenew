@@ -227,7 +227,8 @@ async function enquiryList(req, res) {
 	}
 	var enquiry = await db.enquiry.paginate(condition, {
 		page: req.body.pageNumber || 1,
-		limit: 10
+		limit: 10,
+		sort:'-createdAt'
 	})
 	sendResponse.toUser(res, enquiry, true, " Enquiry list found", "Enquiry list empty");
 }
@@ -266,7 +267,8 @@ async function userList(req, res) {
 	}
 	var success = await db.user.paginate(condition, {
 		page: req.body.pageNumber,
-		limit: 10
+		limit: 10,
+		sort:'-createdAt'
 	});
 	sendResponse.toUser(res, success, true, "User List", "User List empty");
 }
