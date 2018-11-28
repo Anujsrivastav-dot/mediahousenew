@@ -1,96 +1,188 @@
-const db = require("../dbConnection/dao");
-var _ = require("underscore");
-const sendResponse = require("../helpers/responseHandler");
-const generate = require("../helpers/generateAuthToken");
+var db = require('../../dbConnection/dao'),
+    sendResponse = require("../../helpers/responseHandler"),
+    generate = require("../../helpers/generateAuthToken"),
+    randomstring = require('randomstring'),
+    sendMail = require("../../helpers/sendMail");
+
+
 
 module.exports = {
-  signup,
-  login,
-  bookOrder,
-  cancelOrder
-}
+    'categoryList': async(req, res) => {
+        try {
+            var success = await db.category.find({
+                status: 1
+            }, 'name');
 
-
-
-
-async function signup(req, res) {
-  // condititon check emailId and phoneNumber already exit in database
-  var condition = {
-
-    $or: [{
-      emailId: req.body.emailId
-    }, {
-      phoneNumber: req.body.phoneNumber
-    }]
-
-  }
-
-  var success = await db.user.findOne(condition);
-  if (success) {
-    // send response email id or password already taken
-    var msg = success.emailId == req.body.emailId ? "Email id already taken" : "Phone number already taken";
-    sendResponse.withOutData(res, 204, msg);
-  } else {
-    // save new user data in database
-    var obj = new db.user(req.body),
-      success = await obj.save(),
-      // generate auth token with _id & name
-      authToken = generate.authToken(_.pick(success, '_id', 'name'));
-    // send success response
-    sendResponse.withObjectData(res, 200, "Your account successfully created", {
-      "result": success,
-      "authToken": authToken
-    });
-  }
-}
-
-
-async function login(req, res) {
-  var condition = {
-    emailId: req.body.emailId,
-    password: req.body.password
-
-  }
-  var success = await db.user.findOne(condition, 'name');
-  if (success) {
-    // generate auth token with _id & name
-    authToken = generate.authToken(success);
-    // send success response
-    sendResponse.withObjectData(res, 200, "Login successful.", {
-      "result": success,
-      "authToken": authToken
-    });
-  } else {
-    // send response email id or password is incorrect
-    sendResponse.withOutData(res, 204, "Please enter correct emailId and password");
-  }
-
-}
-
-
-async function bookOrder(req, res) {
-  var obj = new db.order(req.body),
-    order = await obj.save();
-  sendResponse.toUser(res, order, false, "Order booked successfully");
-}
-
-
-async function cancelOrder(req, res) {
-  var order = await db.order.findByIdAndUpdate(req.body._id, {
-    $set: {
-      status: 0
-    }
-  });
-  sendResponse.toUser(res, order, false, "Order deleted successfully");
-}
-
-
-// get order list of bases of userId
-async function myOrders(req, res) {
-  var condititon = {
-      userId: req.decoded._id,
-      status: 1
+            sendResponse.to_user(res, 200, null, 'Success', success);
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
     },
-    orders = await db.order.find(condititon);
-  sendResponse.toUser(res, orders, true, "Order list", "your order list empty");
-}
+    'productList': async(req, res) => {
+        try {
+            var condition = data.value == 'all' ? {
+                    status: 1
+                } : {
+                    categoryId: data.value,
+                    status: 1
+                },
+                success = await db.product.find(condition, 'image name price description');
+            sendResponse.to_user(res, 200, null, 'Success', success);
+
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'addEnquiry': async(req, res) => {
+        try {
+            var data = new db.enquiry(data),
+                success = await data.save();
+
+            sendResponse.to_user(res, 200, null, 'Your request successfully sent to admin');
+
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'register': async(req, res) => {
+        try {
+            var condition = {
+                    emailId: data.emailId,
+                    phoneNumber: data.phoneNumber
+                },
+                success = await db.user.findOne(condition, 'emailId phoneNumber');
+            if (success) {
+                return {
+                    reponseCode: 204,
+                    responseMessage: data.emailId == success.emailId ? "Email id already exist" : 'Phone number already exist'
+                }
+            } else {
+                var modalData = new db.user(data);
+                var user = await modalData.save();
+                var authToken = generate.authToken({
+                    _id: user._id,
+                    name: user.name
+                });
+
+                sendResponse.to_user(res, 200, null, 'Your account created successfully', {
+                    name: user.name,
+                    authToken: authToken
+                });
+
+            }
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'login': async(req, res) => {
+        try {
+            var condition = {
+                phoneNumber: data.phoneNumber,
+                password: data.password
+            };
+            var success = await db.user.findOne(condition, 'name');
+            if (!success) {
+
+                sendResponse.to_user(res, 204, null, 'Please enter valid emailId and password', {
+                    name: success.name,
+                    authToken: authToken
+                });
+            } else {
+                var authToken = generate.authToken({
+                    _id: success._id,
+                    name: success.name
+                });
+
+                sendResponse.to_user(res, 200, null, 'Your account created successfully', {
+                    name: success.name,
+                    authToken: authToken
+                });
+            }
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'forgotPassword': async(req, res) => {
+        try {
+            var success = await db.user.findOne({
+                emailId: data.emailId
+            }, 'password name emailId');
+            if (success) {
+
+                var newPassword = randomstring.generate({
+                    length: 10,
+                    charset: 'alphabetic'
+                });
+
+                success.password = newPassword;
+
+                sendMail.createMail({
+                    name: success.name,
+                    email: success.emailId,
+                    subject: 'Forgot Password',
+                    msg: 'Your new password is :' + newPassword
+                }, 'forgotPassword');
+
+                await success.save();
+
+                sendResponse.to_user(res, 200, null, "New password successfully sent your email address");
+            } else {
+                sendResponse.to_user(res, 204, null, "Email id does not exit");
+            }
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'changePassword': async(req, res) => {
+        try {
+            var user = await db.user.findById(userId);
+            if (user) {
+                if (user.password == req.body.password) {
+                    user.password = req.body.newPassword;
+                    await user.save();
+                    sendResponse.to_user(res, 200, null, 'password change successfully');
+                } else {
+                    sendResponse.to_user(res, 204, null, 'Please enter correct old password');
+                }
+            } else {
+                sendResponse.to_user(res, 400, null, "Something went wrong");
+            }
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'myOrder': async(req, res) => {
+        try {
+            var condititon = {
+                    userId: req.decoded._id,
+                    status: 1
+                },
+                orders = await db.order.find(condititon);
+            sendResponse.toUser(res, 200, null, "Order list", "your order list empty", orders);
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    'cancelOrder': async(req, res) => {
+        try {
+            var order = await db.order.findByIdAndUpdate(req.body._id, {
+                $set: {
+                    status: 0
+                }
+            });
+            sendResponse.toUser(res, 200, null, "Order deleted successfully");
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+
+    },
+    'bookOrder': async(req, res) => {
+        try {
+            var obj = new db.order(req.body),
+                order = await obj.save();
+            sendResponse.toUser(res, 200, null, "Order booked successfully");
+        } catch (e) {
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    }
+};
