@@ -5,17 +5,21 @@
     function Service($http, $q) {
         var service = {};
         service.login = login;
+
         service.addCategory = addCategory;
         service.editCategory = editCategory;
         service.deleteCategory = deleteCategory;
         service.categoryList = categoryList;
-        service.userList = userList;
         service.allCategoryList = allCategoryList;
+
+
+        service.userList = userList;
 
         service.addProduct = addProduct;
         service.productList = productList;
         service.editProduct = editProduct;
         service.deleteProduct = deleteProduct;
+
         service.enquiryList = enquiryList;
         service.enquiry = enquiry;
         service.updateEnquiryStatus = updateEnquiryStatus;
