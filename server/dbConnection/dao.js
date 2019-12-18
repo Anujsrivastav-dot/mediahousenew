@@ -31,10 +31,6 @@ process.on('SIGINT', () => {
 
 module.exports = {
     category: require("../models/category"),
-    product: require("../models/product"),
-    order: require("../models/order"),
     user: require("../models/user"),
     admin: require("../models/admin"),
-    enquiry: require("../models/enquiry"),
-    cart: require("../models/cart")
 }

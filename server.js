@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({
 
 // use morgan to log requests to the console
 app.use(morgan("dev"));
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,7 +42,7 @@ app.use(fileUpload())
 // Allow to access image in storage directory
 app.use("/storage", express.static(__dirname + '/storage'));
 
-//apply the routes to our application with the prefix /api
+//apply the routes to our application with the mediaBazar /api
 app.use("/admin", require("./server/routes/adminRoute"));
 app.use("/user", require("./server/routes/userRoute"));
 
@@ -52,7 +51,6 @@ app.use("/user", require("./server/routes/userRoute"));
 // client side static folder
 
 app.use(express.static("admin"));
-
 
 
 app.get('/', function(req, res) {
@@ -65,5 +63,5 @@ app.get('*', function(req, res) {
 
 // start the server =========
 let listener = app.listen(config.PORT, function(err, success) {
-    console.log("Listening on port-->> " + listener.address().port);
+    console.log("Api started on port-->> " + listener.address().port);
 });

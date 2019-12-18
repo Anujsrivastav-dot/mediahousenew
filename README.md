@@ -1,5 +1,6 @@
 # README #
 
+
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
@@ -7,6 +8,9 @@ This README would normally document whatever steps are necessary to get your app
 * Quick summary
 * Version
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+
+###Project Title###
+Media Bazar
 
 ### How do I get set up? ###
 
@@ -19,7 +23,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Contribution guidelines ###
 
-* Writing tests
+* Writing tests 
 * Code review
 * Other guidelines
 
