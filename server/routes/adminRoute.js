@@ -20,7 +20,7 @@ let admin = require("../services/admin.service");
 //     .route('/admin/cart')
 //     .post(admin.addToCart)
 //     .get(admin.getCartList)
-//     .put(admin.updateCart)
+
 
 
 
