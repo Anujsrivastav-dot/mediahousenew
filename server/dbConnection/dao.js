@@ -31,6 +31,7 @@ process.on('SIGINT', () => {
 
 module.exports = {
     category: require("../models/category"),
-    user: require("../models/user"),
+    journalist: require("../models/journalist"),
+    story: require("../models/story"),
     admin: require("../models/admin"),
 }
