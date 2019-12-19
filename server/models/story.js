@@ -73,7 +73,8 @@ var mongoose = require('mongoose'),
             type:String
         },
         collaboration:{
-            Boolean:false
+            type:Boolean,
+            default:false
         },
         purchasingLimit:{
             type:String

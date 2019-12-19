@@ -21,7 +21,7 @@ var mongoose = require('mongoose'),
         lastName:{
             type:String
         },
-        email: {
+        emailId: {
             type: String
         },
         mobileNumber:{
@@ -45,13 +45,13 @@ var mongoose = require('mongoose'),
         password: {
             type: String 
         },
-        phoneNumber: {
+        mobileNumber: {
             type: Number
         },
         areaOfInterests: [{
             areaOfInterestId:String
           }],
-          targerAudiences: [{
+          targetAudiences: [{
             audienceCountryId:String
           }],
           resumeDetails:{
