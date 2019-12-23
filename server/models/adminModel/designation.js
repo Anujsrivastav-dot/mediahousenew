@@ -7,12 +7,12 @@ var mongoose = require('mongoose'),
         },
         status: {
             type: Number,
-            default: ''   // 0 for inactive 1 for pending 2 for active
+            default: 1   // 0 for inactive 1 for pending 2 for active
         }                   
-},{
+    },{
     timestamps:true
-});
+    });
 
 
-module.exports = mongoose.model('designation', designation, 'designations');
+module.exports = mongoose.model('designation', designation, 'designation');
 //module.exports  = mongoose.model('session', session, 'session');

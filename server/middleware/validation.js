@@ -14,6 +14,7 @@ var checkEmail = [
     mobileNumber = [check('mobileNumber', 'MobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty")],
     country = [check('country', 'country is required').exists()],
     state = [check('state', 'state is required').exists()],
+    designationName = [check('designationName', 'designationName is required').exists()],
     city = [check('city', 'city is required').exists()],
     pinCode = [check('pinCode', 'pinCode is required').exists()],
     shortBio = [check('shortBio', 'shortBio is required').exists()],
@@ -29,12 +30,11 @@ var checkEmail = [
         check('lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
         check('mobileNumber', 'mobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty"),
 
-    ],
+    ];
 
-
-var validateObj = {};
-validateObj.signUpReq = [...checkEmail, ...password];
-validateObj.adminLoginReq = [...checkEmail, ...password];
+ var validateObj = {};
+validateObj.designationReq = [...designationName];
+// validateObj.adminLoginReq = [...checkEmail, ...password];
 
 
 module.exports = validateObj;

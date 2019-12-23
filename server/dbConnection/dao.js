@@ -30,8 +30,10 @@ process.on('SIGINT', () => {
 });
 
 module.exports = {
-    category: require("../models/category"),
-    journalist: require("../models/journalist"),
-    story: require("../models/story"),
-    admin: require("../models/admin"),
+    category: require("../models/adminModel/category"),
+    journalist: require("../models/journalistModel/journalist"),
+    story: require("../models/journalistModel/story"),
+    admin: require("../models/adminModel/admin"),
+    designation: require("../models/adminModel/designation"),
+
 }

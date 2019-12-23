@@ -11,11 +11,11 @@ app.use(cors())
 require("./server/dbConnection/dao")
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    limit: "50mb",
-    extended: true,
-    parameterLimit: 50000
-}));
+// app.use(bodyParser.urlencoded({
+//     limit: "50mb",
+//     extended: true,
+//     parameterLimit: 50000
+// }));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -43,7 +43,7 @@ app.use(fileUpload())
 app.use("/storage", express.static(__dirname + '/storage'));
 
 //apply the routes to our application with the mediaBazar /api
-app.use("/admin", require("./server/routes/adminRoute"));
+app.use("/admin", require("./server/routes/admin/adminRoute"));
 app.use("/user", require("./server/routes/userRoute"));
 
 
@@ -53,13 +53,13 @@ app.use("/user", require("./server/routes/userRoute"));
 app.use(express.static("admin"));
 
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/admin/index.html');
-});
+// app.get('/', function(req, res) {
+//     res.sendFile(__dirname + '/admin/index.html');
+// });
 
-app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/admin/index.html')
-})
+// app.get('*', function(req, res) {
+//     res.sendFile(__dirname + '/admin/index.html')
+// })
 
 // start the server =========
 let listener = app.listen(config.PORT, function(err, success) {

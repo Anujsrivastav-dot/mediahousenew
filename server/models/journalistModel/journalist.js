@@ -6,10 +6,23 @@ var mongoose = require('mongoose'),
         langCOde:{
             type:String
         },
-        designationId:{
+        langName:{
             type:String
         },
+        designationId:{
+            type:ObjectId,
+            default:'',
+            ref:'designation'
+        },
+        categoryId:{
+            type:ObjectId,
+            default:'',
+            ref:'category'
+        },
         profilePic:{
+            type:String
+        },
+        shortVideo:{
             type:String
         },
         firstName:{
@@ -27,13 +40,13 @@ var mongoose = require('mongoose'),
         mobileNumber:{
             type: String
         },
-        countryId:{
+        country:{
             type: String
         },
-        stateId:{
+        state:{
             type: String
         },
-        pincodeId:{
+        pincode:{
             type:String
         },
         currency:{
@@ -48,35 +61,33 @@ var mongoose = require('mongoose'),
         mobileNumber: {
             type: Number
         },
-        otp: {
-            type: Number
+        // professionalDetails: [{
+        //     areaOfInterest:{
+        //         type:String
+        //     }
+        //   }],
+         areaOfInterest:{
+                type:String
         },
-        verifyOtp: {
-            type: Boolean,
-            default: false
+          targetAudience: {
+            type:String
         },
-        areaOfInterests: [{
-            areaOfInterestId:String
-          }],
-          targetAudiences: [{
-            audienceCountryId:String
-          }],
           resumeDetails:{
               type:String
-          },
+        },
           uploadResume:{
               type:String
-          },
+        },
           refrences: [{
             firstName:{
                 type:String,
-                 },
+                },
               middleName:{
                   type:String
-                 },
+                },
               lastName:{
                   type:String
-                 },
+                },
               email:{
                  type:String 
                 },
@@ -90,10 +101,10 @@ var mongoose = require('mongoose'),
           previousWorks: [{
             title:{
                 type:String,
-                 },
+                },
               link:{
                   type:String
-                 },
+                },
           }],
           socialAccountLinks: [{
             facebookLink:{
@@ -115,12 +126,11 @@ var mongoose = require('mongoose'),
                     type:String
                    },
           }],
-          platformBenefits: [{
-            platformBenefitId:{
-                type:String,
-                 },
-            
-          }],
+            platformBenefitIds:[{
+                type:ObjectId,
+                default:'',
+                ref:'benefit'
+            }],
           platformSuggestion:{
               type:String
           },

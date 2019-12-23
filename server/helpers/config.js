@@ -1,25 +1,16 @@
 module.exports = function() {
-    var env = "localEnv";
+    var env = "devEnv";
     var devEnv = {
-        PORT: 8091,
-        DB_URL: 'mongodb://localhost/mediaBazar',
-        secretKey: '<@mediaBazar@>',
-        
-
+        "PORT": 8094,
+        "DB_URL": 'mongodb://localhost/media_bazar',
+        "secretKey": '<@media_bazar@>',
     }
     var prodEnv = {
-        PORT: 8091,
-        DB_URL: 'mongodb://localhost/mediaBazar',
-        secretKey: '<@mediaBazar@>',
-        
-
+        "PORT": 8094,
+        "DB_URL": 'mongodb://localhost/media_bazar',
+        "secretKey": '<@media_bazar@>',
     }
-    var localEnv = {
-        PORT: 8091,
-        DB_URL: 'mongodb://localhost/mediaBazar',
-        secretKey: '<@mediaBazar@>',
-        
+    return env == "devEnv" ? devEnv : prodEnv;
 
-    }
-    return env == "devEnv" ? devEnv : env == "prodEnv" ? prodEnv : localEnv;
+
 }
