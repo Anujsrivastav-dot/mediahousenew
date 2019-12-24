@@ -15,6 +15,8 @@ var checkEmail = [
     country = [check('country', 'country is required').exists()],
     state = [check('state', 'state is required').exists()],
     designationName = [check('designationName', 'designationName is required').exists()],
+    benefitName = [check('benefitName', 'benefitName is required').exists()],
+    categoryName = [check('categoryName', 'categoryName is required').exists()],
     city = [check('city', 'city is required').exists()],
     pinCode = [check('pinCode', 'pinCode is required').exists()],
     shortBio = [check('shortBio', 'shortBio is required').exists()],
@@ -34,6 +36,8 @@ var checkEmail = [
 
  var validateObj = {};
 validateObj.designationReq = [...designationName];
+validateObj.benefitReq = [...benefitName];
+validateObj.categoryReq = [...categoryName];
 // validateObj.adminLoginReq = [...checkEmail, ...password];
 
 

@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     category = new Schema({
-        name: {
+        categoryName: {
             type: String
         },
         status: {

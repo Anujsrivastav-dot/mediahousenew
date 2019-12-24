@@ -30,7 +30,7 @@ let admin = require("../../services/admin/admin.service");
 // router.post('/addCategory', admin.addCategory);
 // // update category api route
 
-
+//router for designation
 router
     .route('/designation')
     .post(validate.designationReq, (req, res, next) => {
@@ -45,7 +45,50 @@ router
 
     .delete(admin.deleteDesignation)
 
+//router for benifit    
+    router
+    .route('/benefit')
+    .post(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addBenefit)
 
+    .get( admin.getBenefit)
+
+    .put(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateBenefit)
+
+    .delete(admin.deleteBenefit)
+
+//router for benifit    
+    router
+    .route('/benefit')
+    .post(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addBenefit)
+
+    .get( admin.getBenefit)
+
+    .put(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateBenefit)
+
+    .delete(admin.deleteBenefit)    
+
+//router for category    
+    router
+    .route('/category')
+    .post(validate.categoryReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addCategory)
+
+    .get( admin.getCategory)
+
+    .put(validate.categoryReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateCategory)
+
+    .delete(admin.deleteCategory)
 
 
 module.exports = router;
