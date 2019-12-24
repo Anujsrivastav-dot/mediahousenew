@@ -37,5 +37,7 @@ module.exports = {
     designation: require("../models/adminModel/designation"),
     benefit: require("../models/adminModel/platformBenefits"),
     category: require("../models/adminModel/category"),
-
+    storyCategory: require("../models/adminModel/storyCategory"),
+    storyType: require("../models/adminModel/storyType"),
+    storyKeyword: require("../models/adminModel/storyKeyword"),
 }

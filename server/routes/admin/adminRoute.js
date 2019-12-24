@@ -45,20 +45,7 @@ router
 
     .delete(admin.deleteDesignation)
 
-//router for benifit    
-    router
-    .route('/benefit')
-    .post(validate.benefitReq, (req, res, next) => {
-        checkValidationResult(req, res, next)
-    }, admin.addBenefit)
 
-    .get( admin.getBenefit)
-
-    .put(validate.benefitReq, (req, res, next) => {
-        checkValidationResult(req, res, next)
-    }, admin.updateBenefit)
-
-    .delete(admin.deleteBenefit)
 
 //router for benifit  of platform  
     router
@@ -90,5 +77,49 @@ router
 
     .delete(admin.deleteCategory)
 
+//router for story category    
+    router
+    .route('/storyCategory')
+    .post(validate.storyCategoryReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addStoryCategory)
+
+    .get( admin.getStoryCategory)
+
+    .put(validate.storyCategoryReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateStoryCategory)
+
+    .delete(admin.deleteStoryCategory)
+
+ //router for story type    
+    router
+    .route('/storyType')
+    .post(validate.storyTypeReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addStoryType)
+
+    .get( admin.getStoryType)
+
+    .put(validate.storyTypeReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateStoryType)
+
+    .delete(admin.deleteStoryType)
+
+    //router for story Keyword    
+    router
+    .route('/storyKeyword')
+    .post(validate.storyKeywordReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addStoryKeyword)
+
+    .get( admin.getStoryKeyword)
+
+    .put(validate.storyKeywordReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateStoryKeyword)
+
+    .delete(admin.deleteStoryKeyword)
 
 module.exports = router;
