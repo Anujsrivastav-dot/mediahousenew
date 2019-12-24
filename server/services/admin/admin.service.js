@@ -38,7 +38,7 @@ module.exports = {
                 sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
             }
         } catch (e) {
-            // console.log(e)
+            console.log(e)
             sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
         }
     },
@@ -75,7 +75,6 @@ module.exports = {
                 sendResponse.to_user(res, 200, null, "Designation Deleted Successfully",success);
             } 
         } catch (e) {
-           
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
     },
@@ -216,7 +215,6 @@ module.exports = {
     "deleteCategory": async(req, res) => {
         try {
             const filter = { _id: req.body.id };
-           
             var success = await db.category.findByIdAndRemove(filter)
             if (!success) {
                 sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Category Not Found With Id",null);
