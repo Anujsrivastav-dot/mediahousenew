@@ -47,7 +47,18 @@ module.exports = {
         try {
             const filter = { _id: req.body.id };
             const update = { designationName: req.body.designationName };
-            
+            var condition = {
+                designationName: {
+                    $regex: ".*" + req.body.designationName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var check = await db.designation.findOne(condition);
+            if (check) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Designation already taken",null);
+            }
+            else{
             var success = await db.designation.findByIdAndUpdate(filter, update, {
                 new: true
               })
@@ -57,7 +68,7 @@ module.exports = {
             else {
                 sendResponse.to_user(res, 200, null, "Designation Updated Successfully",success);
             } 
-        } catch (e) {
+        } }catch (e) {
            
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
@@ -121,7 +132,18 @@ module.exports = {
         try {
             const filter = { _id: req.body.id };
             const update = { benefitName: req.body.benefitName };
-            
+            var condition = {
+                benefitName: {
+                    $regex: ".*" + req.body.benefitName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var check = await db.benefit.findOne(condition);
+            if (check) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Benefit already taken",null);
+            }
+            else{
             var success = await db.benefit.findByIdAndUpdate(filter, update, {
                 new: true
               })
@@ -131,7 +153,7 @@ module.exports = {
             else {
                 sendResponse.to_user(res, 200, null, "Benefit Updated Successfully",success);
             } 
-        } catch (e) {
+        }} catch (e) {
            
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
@@ -196,7 +218,18 @@ module.exports = {
         try {
             const filter = { _id: req.body.id };
             const update = { categoryName: req.body.categoryName };
-            
+            var condition = {
+                categoryName: {
+                    $regex: ".*" + req.body.categoryName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var check = await db.category.findOne(condition);
+            if (check) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Category already taken", null);
+            }
+            else{
             var success = await db.category.findByIdAndUpdate(filter, update, {
                 new: true
               })
@@ -206,7 +239,7 @@ module.exports = {
             else {
                 sendResponse.to_user(res, 200, null, "Category Updated Successfully",success);
             } 
-        } catch (e) {
+        } }catch (e) {
            
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
