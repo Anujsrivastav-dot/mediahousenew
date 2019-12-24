@@ -22,9 +22,9 @@ module.exports = {
                 var obj = new db.designation(req.body);
                 await obj.save();
                 sendResponse.to_user(res, 200, null, "Designation added successfully",obj);
-            }
+            } 
         } catch (e) {
-           
+            console.log(e)
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
     },
