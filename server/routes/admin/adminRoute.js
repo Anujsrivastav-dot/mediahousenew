@@ -60,7 +60,7 @@ router
 
     .delete(admin.deleteBenefit)
 
-//router for benifit  of platform  
+//router for benifit  
     router
     .route('/benefit')
     .post(validate.benefitReq, (req, res, next) => {
