@@ -13,6 +13,5 @@ var mongoose = require('mongoose'),
     timestamps:true
 });
 
-
 module.exports = mongoose.model('storyCategory', storyCategory, 'storyCategories');
 //module.exports  = mongoose.model('session', session, 'session');
