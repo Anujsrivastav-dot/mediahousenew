@@ -14,7 +14,7 @@ function to_user(res, code, error, resMsg, data) {
     if (data) {
         res_data.result = data;
     }
-    res.send(res_data);
+    res.status(code).send(res_data);
 }
 
 function withOutData(res, responseCode, responseMessage) {

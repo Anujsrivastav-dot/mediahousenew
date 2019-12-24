@@ -36,7 +36,14 @@ router
     .post(validate.designationReq, (req, res, next) => {
         checkValidationResult(req, res, next)
     }, admin.addDesignation)
-   
+
+    .get( admin.getDesignation)
+
+    .put(validate.designationReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateDesignation)
+
+    .delete(admin.deleteDesignation)
 
 
 
