@@ -38,6 +38,7 @@ var checkEmail = [
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.categoryReq = [...categoryName];
+// validateObj.journalistReq=[...firstName,]
 // validateObj.adminLoginReq = [...checkEmail, ...password];
 
 
