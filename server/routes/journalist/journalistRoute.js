@@ -1,23 +1,26 @@
 let express = require('express');
 let router = express.Router();
-let validate = require('../middleware/validation')
+let validate = require('../../middleware/validation')
+
+//express validation function to throw validation
 const {
     check,
     validationResult
 } = require('express-validator/check');
 // authentication function 
-let auth = require('../middleware/auth');
-let config = require('../helpers/config')();
-const sendRes = require("../helpers/responseHandler");
+let auth = require('../../middleware/auth');
+let config = require('../../helpers/config')();
+const sendRes = require("../../helpers/responseHandler");
 
 
 // check validation result
 function checkValidationResult(req, res, next) {
     var result = validationResult(req).array();
-    result.length ? sendRes.toUser(req, res, 403, result[0].msg) : next()
+    console.log(result)
+    result.length ? sendRes.to_user(res, 403, result[0].msg) : next()
 }
 
-let service = require("../services/journalist/journalist");
+let journalistService = require("../../services/journalist/journalist.service");
 
 // let service = require("../services/service");
 // let content = require("../services/staticContent");
@@ -27,23 +30,11 @@ let service = require("../services/journalist/journalist");
 // let vendor = require("../services/vendor");
 
 
-//* admin Routing goes here *//
-router
-    .post('/login', validate.adminLoginReq, (req, res, next) => {
-        checkValidationResult(req, res, next)
-    }, admin.adminLogin)
-    
-router
-    .post('/customerDetails', auth.authenticateAdmin, admin.customerDetails)
-    .put('/updateCustomerProfile', validate.customerUpdateReq, (req, res, next) => {
-        checkValidationResult(req, res, next)
-    }, auth.authenticateAdmin, admin.updateCustomerProfile)
+//* Service Routing goes here *//
 
 router
-    .route('/faq')
-    .post(auth.authenticateAdmin, content.addFaq)
-    .put(auth.authenticateAdmin, content.updateFaq)
-    .get(auth.authenticateAdmin, content.faqList)
+.route('/signup')
+    .post(journalistService.signupJournalist)
 
 //* offer Routing goes here *//
 

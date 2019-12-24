@@ -7,6 +7,8 @@ let config = require("./server/helpers/config")();
 var cors = require('cors')
 app.use(cors())
 
+
+
 // connect with database
 require("./server/dbConnection/dao")
 app.use(helmet());
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+//Global 
+global.imagePath = __dirname + '/images';
 
 // use morgan to log requests to the console
 app.use(morgan("dev"));
@@ -44,13 +48,15 @@ app.use("/storage", express.static(__dirname + '/storage'));
 
 //apply the routes to our application with the mediaBazar /api
 app.use("/admin", require("./server/routes/admin/adminRoute"));
-app.use("/user", require("./server/routes/userRoute"));
+app.use("/user", require("./server/routes/journalist/journalistRoute"));
 
 
 
 // client side static folder
 
 app.use(express.static("admin"));
+app.use(express.static("user"));
+
 
 
 // app.get('/', function(req, res) {

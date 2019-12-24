@@ -11,17 +11,18 @@ var mongoose = require('mongoose'),
         },
         designationId:{
             type:ObjectId,
-            default:'',
+            default:null,
             ref:'designation'
         },
         categoryId:{
             type:ObjectId,
-            default:'',
+            default:null,
             ref:'category'
         },
         profilePic:{
             type:String
         },
+        
         shortVideo:{
             type:String
         },
