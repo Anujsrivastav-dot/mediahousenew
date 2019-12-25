@@ -31,7 +31,9 @@
     "nodemon": "^1.18.4",
     "path": "^0.12.7",
     "randomstring": "^1.1.5",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "util": "^0.12.1",
+    "util.promisify": "^1.0.0"
   },
   "devDependencies": {
     "debug": "^4.1.1"
