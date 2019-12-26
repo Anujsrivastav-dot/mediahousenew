@@ -24,28 +24,44 @@ var checkEmail = [
     pinCode = [check('pinCode', 'pinCode is required').exists()],
     shortBio = [check('shortBio', 'shortBio is required').exists()],
     password = [check('password', 'Password is required').exists().not().isEmpty().withMessage("password cannot be empty")],
-    areaOfInterests = [check('areaOfInterests', 'areaOfInterest is required').exists().not().isEmpty().withMessage("areaOfInterest cannot be empty")],
+    areaOfInterests = [check('areaOfInterest', 'areaOfInterest is required').exists().not().isEmpty().withMessage("areaOfInterest cannot be empty")],
     targetAudiences = [check('targetAudiences', 'targetAudiences is required').exists().not().isEmpty().withMessage("targetAudiences cannot be empty")],
     resumeDetail = [check('resumeDetail', 'resumeDetail is required').exists()],
-    refrences = [
-        check('firstName', 'firstName is required').exists().not().isEmpty().withMessage("firstName cannot be empty"),
-        check('middleName', 'middleName is required').exists().not().isEmpty().withMessage("middleName cannot be empty"),
-        check('lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
-        check('designation', 'designation is required').exists().not().isEmpty().withMessage("designation cannot be empty"),
-        check('lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
-        check('mobileNumber', 'mobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty"),
+    facebookLink = [check('facebookLink', 'facebookLink is required').exists()],
+    twitterLink = [check('twitterLink', 'twitterLink is required').exists()],
+    linkedinLink = [check('linkedinLink', 'linkedinLink is required').exists()],
+    snapChatLink = [check('snapChatLink', 'snapChatLink is required').exists()],
+    instagramLink = [check('instagramLink', 'instagramLink is required').exists()],
+    youtubeLink = [check('youtubeLink', 'youtubeLink is required').exists()],
 
-    ];
+    prevWork = [
+        check('previousWorks[0].title', 'title is required').exists().not().isEmpty().withMessage("title cannot be empty"),
+        check('previousWorks[0].link', 'link is required').exists().not().isEmpty().withMessage("link cannot be empty"),
+    ]
+    
+    refrences = [
+        check('refrences[0].firstName', 'firstName is required').exists().not().isEmpty().withMessage("firstName cannot be empty"),
+        check('refrences[0].middleName', 'middleName is required').exists().not().isEmpty().withMessage("middleName cannot be empty"),
+        check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
+        check('refrences[0].designation', 'designation is required').exists().not().isEmpty().withMessage("designation cannot be empty"),
+        check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
+        check('refrences[0].mobileNumber', 'mobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty"),
+
+    ]
+
+    headLine = [check('headLine', 'headLine is required').exists()];
+    price = [check('price', 'price is required').exists()];
+    briefDescription =[check('briefDescription', 'briefDescription is required').exists()];
 
  var validateObj = {};
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.categoryReq = [...categoryName];
-// validateObj.journalistReq=[...firstName,]
-
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];
 validateObj.storyKeywordReq = [...storyKeywordName];
+validateObj.journalistReq=[...firstName,...lastName,...middleName,...mobileNumber,...checkEmail,...shortBio,...password,...resumeDetail,...facebookLink,...twitterLink,...youtubeLink,...snapChatLink,...linkedinLink,...instagramLink,...refrences,...prevWork,...areaOfInterests]
+validateObj.postStoryReq=[]
 // validateObj.adminLoginReq = [...checkEmail, ...password];
 
 

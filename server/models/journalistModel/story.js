@@ -6,10 +6,20 @@ var mongoose = require('mongoose'),
         headLine:{
             type:String
         },
-        category:{
+        categoryId:{
+            type:ObjectId,
+            default:null,
+            ref:'category'
+        },
+        keywordId:{
+            type:ObjectId,
+            default:null,
+            ref:'storyKeyword'
+        },
+        langName:{
             type:String
         },
-        langId:{
+        langCode:{
             type:String
         },
         date:{
@@ -18,22 +28,19 @@ var mongoose = require('mongoose'),
         keywords:[{
             keywordsId:String
         }],
-        countryId:{
+        country:{
             type:String
         },
-        stateId: {
+        state: {
             type: String
         },
-        cityId:{
+        city:{
             type: String
         },
         briefDescription:{
             type: String
         },
-        stateId:{
-            type: String
-        },
-        pincodeId:{
+        pincode:{
             type:String
         },
         currency:{
