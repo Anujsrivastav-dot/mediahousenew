@@ -37,7 +37,15 @@ let journalistService = require("../../services/journalist/journalist.service");
 
 router
 .route('/signup')
-    .post(uploadImg.single('profilePic'),journalistService.signupJournalist)
+    .post(uploadImg.single('profilePic'),validate.journalistReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    },journalistService.signupJournalist)
+
+// router
+//     .route('/postStory')
+//     .post(validate.postStoryReq, (req, res, next) => {
+//         checkValidationResult(req, res, next)
+//     },journalistService.postStory)
 
 // offer Routing goes here //
 
