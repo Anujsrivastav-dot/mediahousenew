@@ -1,7 +1,19 @@
 let express = require('express');
 let router = express.Router();
 let validate = require('../../middleware/validation')
-
+var multer  = require('multer');
+    var storage = multer.diskStorage({
+        destination: function(req, file, callback) {
+          console.log(req.body)
+            callback(null, 'images')
+        },
+        filename: function(req, file, callback) {
+             callback(null, `imageupload_${file.originalname}`)
+        }
+      });
+      var upload = multer({ storage : storage});
+ 
+      console.log(storage)
 //express validation function to throw validation
 const {
     check,
@@ -25,10 +37,13 @@ function checkValidationResult(req, res, next) {
 let admin = require("../../services/admin/admin.service");
 
 
-// router.post('/login', admin.login);
-// // add category api route
-// router.post('/addCategory', admin.addCategory);
-// // update category api route
+//router for Admin
+router
+    .route('/admin')
+    .post(upload.single("adminImage"),admin.add)
+    .get( admin.get)
+   
+
 
 //router for designation
 router

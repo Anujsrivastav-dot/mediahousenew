@@ -5,6 +5,42 @@ const upload = require("../../helpers/uploadImage");
 
 module.exports = {
 
+  // api for desigantion(add,delete,update,get)    
+  "add": async(req, res) => {
+    try {
+        
+            //console.log(req.file.adminImage)
+            //var obj = new db.admin(req.file);
+            var obj = new db.admin({
+               
+                adminImage: req.file.filename
+            });
+            //console.log(req.files.adminImage.name)
+            await obj.save();
+            sendResponse.to_user(res, 200, null, "admin added successfully",obj);
+        
+    } catch (e) {
+        console.log(e)
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
+
+"get": async(req, res) => {
+    try {
+        var obj = await db.admin.find({status: 1});
+
+        if (obj!='') {
+            sendResponse.to_user(res, 200, null, "Designation get successfully",obj);
+        } else {
+            sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+        }
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+
+
 // api for desigantion(add,delete,update,get)    
     "addDesignation": async(req, res) => {
         try {
@@ -31,7 +67,8 @@ module.exports = {
 
     "getDesignation": async(req, res) => {
         try {
-            var obj = await db.designation.find({status: 1});
+            var obj = await db.designation.find({status: 1}, { designationName: 1, status: 1, _id: 1 });
+
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Designation get successfully",obj);
             } else {
@@ -116,7 +153,7 @@ module.exports = {
 
     "getBenefit": async(req, res) => {
         try {
-            var obj = await db.benefit.find({status: 1});
+            var obj = await db.benefit.find({status: 1}, { benefitName: 1, status: 1, _id: 1 });
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Benefit get successfully",obj);
             } else {
@@ -202,7 +239,7 @@ module.exports = {
 
     "getCategory": async(req, res) => {
         try {
-            var obj = await db.category.find({status: 1});
+            var obj = await db.category.find({status: 1}, { categoryName: 1, status: 1, _id: 1 });
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Category get successfully",obj);
             } else {
@@ -287,7 +324,7 @@ module.exports = {
 
     "getStoryCategory": async(req, res) => {
         try {
-            var obj = await db.storyCategory.find({status: 1});
+            var obj = await db.storyCategory.find({status: 1}, { storyCategoryName: 1, status: 1, _id: 1 });
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Story Category get successfully",obj);
             } else {
@@ -372,7 +409,7 @@ module.exports = {
 
     "getStoryType": async(req, res) => {
         try {
-            var obj = await db.storyType.find({status: 1});
+            var obj = await db.storyType.find({status: 1}, { storyTypeName: 1, status: 1, _id: 1 });
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Story Type get successfully",obj);
             } else {
@@ -457,7 +494,7 @@ module.exports = {
 
     "getStoryKeyword": async(req, res) => {
         try {
-            var obj = await db.storyKeyword.find({status: 1});
+            var obj = await db.storyKeyword.find({status: 1}, { storyKeywordName: 1, status: 1, _id: 1 });
             if (obj!='') {
                 sendResponse.to_user(res, 200, null, "Story Keyword get successfully",obj);
             } else {

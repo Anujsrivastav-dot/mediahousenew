@@ -4,6 +4,7 @@ let mongoose = require('mongoose')
 let bodyParser = require("body-parser");
 let morgan = require("morgan");
 let helmet = require("helmet");
+
 let config = require("./server/helpers/config")();
 var cors = require('cors')
 app.use(cors())
@@ -23,9 +24,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-//Global 
-mongoose.Promise = global.Promise
-global.imagePath = __dirname + '/images/';
+mongoose.Promise = global.Promise;
+// global.imagePath = __dirname + '/images/';
+
 // use morgan to log requests to the console
 app.use(morgan("dev"));
 app.use(function(req, res, next) {
@@ -41,11 +42,11 @@ app.use(function(req, res, next) {
 
 
 //======= Dependency for upload file =======
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
-app.use(fileUpload())
+// app.use(fileUpload())
 // Allow to access image in storage directory
-app.use("/images", express.static( '/images'));
+// app.use("/images", express.static( '/images'));
 
 //apply the routes to our application with the mediaBazar /api
 app.use("/admin", require("./server/routes/admin/adminRoute"));
