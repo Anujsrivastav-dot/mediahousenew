@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let validate = require('../../middleware/validation')
-
+var multer = require("multer");
 //express validation function to throw validation
 const {
     check,
@@ -22,21 +22,24 @@ function checkValidationResult(req, res, next) {
 
 let journalistService = require("../../services/journalist/journalist.service");
 
-// let service = require("../services/service");
-// let content = require("../services/staticContent");
-// let admin = require("../services/admin");
-// let offer = require("../services/offer");
-// let inventory = require("../services/inventory");
-// let vendor = require("../services/vendor");
+    var storage = multer.diskStorage({
+        destination: function(req, file, callback) {
+          console.log(req.file)
+            callback(null, 'images')
+        },
+        filename: function(req, file, callback) {
+          var fileName = Date.now() + '_' + file.originalname;
+             callback(null, fileName)
+        }
+      });
+      var uploadImg = multer({ storage : storage});
 
-
-//* Service Routing goes here *//
 
 router
 .route('/signup')
-    .post(journalistService.signupJournalist)
+    .post(uploadImg.single('profilePic'),journalistService.signupJournalist)
 
-//* offer Routing goes here *//
+// offer Routing goes here //
 
 
 module.exports = router;
