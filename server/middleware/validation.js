@@ -20,6 +20,7 @@ var checkEmail = [
     storyCategoryName = [check('storyCategoryName', 'storyCategoryName is required').exists()],
     storyTypeName = [check('storyTypeName', 'storyTypeName is required').exists()],
     storyKeywordName = [check('storyKeywordName', 'storyKeywordName is required').exists()],
+    journalistId = [check('journalistId', 'journalistId is required').exists()],
     city = [check('city', 'city is required').exists()],
     pinCode = [check('pinCode', 'pinCode is required').exists()],
     shortBio = [check('shortBio', 'shortBio is required').exists()],
@@ -41,7 +42,7 @@ var checkEmail = [
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.categoryReq = [...categoryName];
-// validateObj.journalistReq=[...firstName,]
+validateObj.journalistReq=[...journalistId,]
 
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];

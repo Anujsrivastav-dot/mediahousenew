@@ -16,6 +16,7 @@ module.exports ={
         var newFileName = req.file.filename
         
              req.body.profilePic =newFileName
+             req.body.status =1;
             var journalists = new db.journalist(req.body);
             await journalists.save();
             sendResponse.to_user(res, 200, null, "Journalist registered successfully",journalists);
