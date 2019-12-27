@@ -559,6 +559,46 @@ module.exports = {
         }
     },
 
+ /// api for list of journalist  
+ "getJournalist": async(req, res) => {
+    try {
+        var obj = await db.journalist.find({status: 1});
+        if (obj!='') {
+            sendResponse.to_user(res, 200, null, "Journalist Keyword get successfully",obj);
+        } else {
+            sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+        }
+    } catch (e) {
+        
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+
+"updateJournalist": async(req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };
+        var check = await db.journalist.findOne(filter);
+        if(check.status==1){
+            var update = { status: 0 }; 
+        }
+        else{
+            var update = { status: 1 };
+        }
+        var success = await db.journalist.findByIdAndUpdate(filter, update, {
+            new: true
+          })
+        
+        if (!success) {
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id",null);
+        } 
+        else {
+            sendResponse.to_user(res, 200, null, "Journalist Updated Successfully",success);
+        } 
+    } catch (e) {
+       
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
 
 
 };

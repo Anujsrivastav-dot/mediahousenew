@@ -138,4 +138,11 @@ router
 
     .delete(admin.deleteStoryKeyword)
 
+     //router for list of journalist 
+     router
+    .route('/journalist') 
+     .get( admin.getJournalist)
+     .put(validate.journalistReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateJournalist)
 module.exports = router;
