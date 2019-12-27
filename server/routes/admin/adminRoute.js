@@ -8,12 +8,13 @@ var multer  = require('multer');
             callback(null, 'images')
         },
         filename: function(req, file, callback) {
-             callback(null, `imageupload_${file.originalname}`)
+            var fileName = Date.now() + '_' + file.originalname;
+             callback(null, fileName)
         }
       });
       var upload = multer({ storage : storage});
  
-      console.log(storage)
+    //  console.log(storage)
 //express validation function to throw validation
 const {
     check,
@@ -35,12 +36,12 @@ function checkValidationResult(req, res, next) {
 
 // admin services
 let admin = require("../../services/admin/admin.service");
-
+var cpUpload = upload.fields([{ name: 'video', maxCount: 8 }, { name: 'file', maxCount: 8 }])
 
 //router for Admin
 router
     .route('/admin')
-    .post(upload.single("adminImage"),admin.add)
+    .post(cpUpload,admin.add)
     .get( admin.get)
    
 

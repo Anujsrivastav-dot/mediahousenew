@@ -8,14 +8,20 @@ module.exports = {
   // api for desigantion(add,delete,update,get)    
   "add": async(req, res) => {
     try {
-        
-            //console.log(req.file.adminImage)
-            //var obj = new db.admin(req.file);
-            var obj = new db.admin({
-               
-                adminImage: req.file.filename
+             var imageArray=req.files;
+             var image=[];
+             var video=[];
+             imageArray['video'].forEach(vid => {
+                video.push(vid['filename']); 
             });
-            //console.log(req.files.adminImage.name)
+            imageArray['file'].forEach(vid => {
+                image.push(vid['filename']); 
+            });
+            var obj = new db.admin({
+                 file:image,
+                 video:video
+            });
+
             await obj.save();
             sendResponse.to_user(res, 200, null, "admin added successfully",obj);
         
