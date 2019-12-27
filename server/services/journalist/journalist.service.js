@@ -1,7 +1,9 @@
 const db = require("../../dbConnection/dao");
 const sendResponse = require("../../helpers/responseHandler");
 const encryptDecrypt = require("../../helpers/cryptoPassword");
-
+// const COUNTRIES =require("../../helpers/country");
+const STATES =require("../../helpers/state");
+const CITY = require("../../helpers/city");
 module.exports ={
 
   "signupJournalist": async(req, res) => {
@@ -26,6 +28,36 @@ module.exports ={
             sendResponse.to_user(res, 400, e, 'Something went wrong');
     }
 },
+
+"state": async(req, res) => {
+  try {
+    var countryId = req.query.id;
+     const filteredStates = STATES.filter((state)=>{
+       return state.country_id === countryId
+     })
+     sendResponse.to_user(res, 200, null, "State list found",filteredStates);
+ } catch (e) {
+          console.log('err====', e);
+          sendResponse.to_user(res, 400, e, 'Something went wrong');
+  }
+},
+
+"city": async(req, res) => {
+  try {
+    var stateId = req.query.id;
+     const filteredCity = CITY.filter((city)=>{
+       return city.state_id === stateId
+     })
+     sendResponse.to_user(res, 200, null, "City list found",filteredCity);
+ } catch (e) {
+          console.log('err====', e);
+          sendResponse.to_user(res, 400, e, 'Something went wrong');
+  }
+},
+
+
+
+
 
 
 }

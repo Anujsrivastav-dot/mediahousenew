@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let validate = require('../../middleware/validation')
 var multer = require("multer");
+const sendResponse = require("../../helpers/responseHandler");
 //express validation function to throw validation
 const {
     check,
@@ -36,10 +37,27 @@ let journalistService = require("../../services/journalist/journalist.service");
 
 
 router
-.route('/signup')
+.route('/journalistSignup')
     .post(uploadImg.single('profilePic'),validate.journalistReq, (req, res, next) => {
         checkValidationResult(req, res, next)
     },journalistService.signupJournalist)
+
+ 
+    router
+        .route('/country')
+        .get(function(req, res) {
+            var data = require('../../helpers/country');
+            // response.userMessage = "list of cities";
+            sendResponse.to_user(res, 200, null, "country list fetch successfully",data);
+        })
+
+        router
+        .route('/states')
+        .get(journalistService.state)
+
+        router
+        .route('/city')
+        .get(journalistService.city)
 
 // router
 //     .route('/postStory')

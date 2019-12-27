@@ -39,15 +39,15 @@ var checkEmail = [
         check('previousWorks[0].link', 'link is required').exists().not().isEmpty().withMessage("link cannot be empty"),
     ]
     
-    refrences = [
-        check('refrences[0].firstName', 'firstName is required').exists().not().isEmpty().withMessage("firstName cannot be empty"),
-        check('refrences[0].middleName', 'middleName is required').exists().not().isEmpty().withMessage("middleName cannot be empty"),
-        check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
-        check('refrences[0].designation', 'designation is required').exists().not().isEmpty().withMessage("designation cannot be empty"),
-        check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
-        check('refrences[0].mobileNumber', 'mobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty"),
+    // refrences = [
+    //     check('refrences[0].firstName', 'firstName is required').exists().not().isEmpty().withMessage("firstName cannot be empty"),
+    //     check('refrences[0].middleName', 'middleName is required').exists().not().isEmpty().withMessage("middleName cannot be empty"),
+    //     check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
+    //     check('refrences[0].designation', 'designation is required').exists().not().isEmpty().withMessage("designation cannot be empty"),
+    //     check('refrences[0].lastName', 'lastName is required').exists().not().isEmpty().withMessage("lastName cannot be empty"),
+    //     check('refrences[0].mobileNumber', 'mobileNumber is required').exists().not().isEmpty().withMessage("mobileNumber cannot be empty"),
 
-    ]
+    // ]
 
     headLine = [check('headLine', 'headLine is required').exists()];
     price = [check('price', 'price is required').exists()];
@@ -60,7 +60,7 @@ validateObj.categoryReq = [...categoryName];
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];
 validateObj.storyKeywordReq = [...storyKeywordName];
-validateObj.journalistReq=[...firstName,...lastName,...middleName,...mobileNumber,...checkEmail,...shortBio,...password,...resumeDetail,...facebookLink,...twitterLink,...youtubeLink,...snapChatLink,...linkedinLink,...instagramLink,...refrences,...prevWork,...areaOfInterests]
+validateObj.journalistReq=[...firstName,...lastName,...middleName,...mobileNumber,...checkEmail,...shortBio,...password,...resumeDetail,...facebookLink,...twitterLink,...youtubeLink,...snapChatLink,...linkedinLink,...instagramLink,...prevWork,...areaOfInterests]
 validateObj.postStoryReq=[]
 // validateObj.adminLoginReq = [...checkEmail, ...password];
 

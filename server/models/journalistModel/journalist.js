@@ -81,7 +81,7 @@ var mongoose = require('mongoose'),
           uploadResume:{
               type:String
         },
-          refrences: [{
+         refrences: [{
             firstName:{
                 type:String,
                 },
@@ -94,12 +94,12 @@ var mongoose = require('mongoose'),
               email:{
                  type:String 
                 },
-              designation:{
+              designation:[{
                   type:String
-                },
-              phoneNumber:{
+                }],
+              phoneNumber:[{
                   type:String
-                }
+                }]
           }],
           previousWorks: [{
             title:{
