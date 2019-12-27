@@ -22,7 +22,9 @@ var mongoose = require('mongoose'),
         profilePic:{
             type:String
         },
-        
+        mailingAddress:{
+            type:String
+        },
         shortVideo:{
             type:String
         },
@@ -68,7 +70,7 @@ var mongoose = require('mongoose'),
         //     }
         //   }],
          areaOfInterest:{
-                type:String
+                type:ObjectId
         },
           targetAudience: {
             type:String
@@ -107,7 +109,7 @@ var mongoose = require('mongoose'),
                   type:String
                 },
           }],
-          socialAccountLinks: [{
+        //   socialAccountLinks: [{
             facebookLink:{
                 type:String,
                  },
@@ -117,16 +119,16 @@ var mongoose = require('mongoose'),
                  linkedinLink:{
                     type:String
                    },
-                   snapChat:{
+                   snapChatLink:{
                     type:String
                    },
-                   instagram:{
+                   instagramLink:{
                     type:String
                    },
-                   instagram:{
+                   youtubeLink:{
                     type:String
                    },
-          }],
+        //   }],
             platformBenefitIds:[{
                 type:ObjectId,
                 default:'',
