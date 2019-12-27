@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    // mongoosePaginate = require('mongoose-paginate'),
+    mongoosePaginate = require('mongoose-paginate'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     journalist = new Schema({
@@ -129,7 +129,7 @@ var mongoose = require('mongoose'),
           },
         status: {
             type: Number,
-            default: ''   // 0 for inactive 1 for pending 2 for active
+            default: 1   // 0 for inactive 1 for pending 2 for active
         }                   
 },{
     timestamps:true
@@ -138,6 +138,6 @@ var mongoose = require('mongoose'),
 
 
 
-// journalist.plugin(mongoosePaginate);
+ journalist.plugin(mongoosePaginate);
 module.exports = mongoose.model('journalist', journalist, 'journalists');
 //module.exports  = mongoose.model('session', session, 'session');

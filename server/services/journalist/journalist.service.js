@@ -7,6 +7,9 @@ module.exports ={
   "signupJournalist": async(req, res) => {
     try {
         var newFileName = req.file.filename
+        
+             req.body.profilePic =newFileName
+             req.body.status =1;
         var condition ={
           emailId:req.body.emailId
         }
