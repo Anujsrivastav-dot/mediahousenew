@@ -30,12 +30,16 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "mv": "^2.1.1",
+    "nodemailer": "^6.4.2",
     "nodemon": "^1.18.4",
     "path": "^0.12.7",
+    "random-number": "0.0.9",
+    "random-number-generator": "^1.0.2",
     "randomstring": "^1.1.5",
     "underscore": "^1.9.1",
     "util": "^0.12.1",
-    "util.promisify": "^1.0.0"
+    "util.promisify": "^1.0.0",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "debug": "^4.1.1",

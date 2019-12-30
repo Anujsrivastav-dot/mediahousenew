@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     admin = new Schema({
-       
+
         file: [{
             type: String
         }],
@@ -14,8 +14,8 @@ var mongoose = require('mongoose'),
             type: Number,
             default: 1 // status 1 is Active and 0 is inActive/delete
         }
-    },{
-        timestamps:true
+    }, {
+        timestamps: true
     })
 
 admin.plugin(mongoosePaginate);
