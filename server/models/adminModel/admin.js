@@ -18,5 +18,5 @@ var mongoose = require('mongoose'),
         timestamps:true
     })
 
-admin.plugin(mongoosePaginate);
+ admin.plugin(mongoosePaginate);
 module.exports = mongoose.model('admin', admin, 'admin');
