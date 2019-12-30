@@ -123,7 +123,7 @@ router
 
     .delete(admin.deleteStoryType)
 
-    //router for story Keyword    
+    //router for story  Keyword    
     router
     .route('/storyKeyword')
     .post(validate.storyKeywordReq, (req, res, next) => {
