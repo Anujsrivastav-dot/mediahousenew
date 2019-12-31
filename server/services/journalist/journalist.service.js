@@ -2,6 +2,12 @@ const db = require("../../dbConnection/dao");
 const sendResponse = require("../../helpers/responseHandler");
 const encryptDecrypt = require("../../helpers/cryptoPassword");
 const generateToken = require("../../helpers/generateAuthToken");
+// var mailFunction = require("../../lib/mailer");
+var randomOtp = require('random-number');
+var nodemailer = require('nodemailer');
+var random = require('random-number-generator')
+
+randomOtp();
 
 // const COUNTRIES =require("../../helpers/country");
 const STATES = require("../../helpers/state");
@@ -104,5 +110,61 @@ module.exports = {
       console.log(e);
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
-  }
+  },
+
+  "forgotPassword": async (req, res) => {
+    try {
+      var condition = {
+        emailId: req.body.emailId,
+        // status: 1,
+      }
+      var journalistData = await db.journalist.findOne(condition);
+      if (!journalistData) {
+        sendResponse.to_user(res, 400, null, ' Email does not exist.', null);
+      } else {
+
+        var otpGen = random(9999, 1111) // random integer between 10 and 50
+        console.log("==>>", otpGen);
+        journalistData.password = otpGen;
+        await journalistData.save();
+
+        console.log("==>>2", otpGen);
+
+        var smtpTransport = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: "satyendra.designoweb@gmail.com",
+            pass: "satyadesignoweb@123"
+          }
+        });
+
+        var mail = {
+          from: "satyendra.designoweb@gmail.com",
+          to: "satyendra05cs@gmail.com",
+          subject: "Recover your account",
+          text: "Hey Please use the code",
+          html: "<b>your Recover code is:</b>" + otpGen,
+        }
+
+        smtpTransport.sendMail(mail, function (error, response) {
+          if (error) {
+            console.log("err", error)
+            //sendResponse.to_user(res, 400, error, "Something went wrong");
+          } else {
+            console.log("success", response)
+            sendResponse.to_user(res, 200, null, 'New password sent on your registered email.', null);
+          }
+          smtpTransport.close();
+        });
+
+      }
+    } catch (e) {
+      // console.log(e)
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+
+  },
+
+
+
 };

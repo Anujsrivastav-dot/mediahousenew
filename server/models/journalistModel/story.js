@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose');
     // mongoosePaginate = require('mongoose-paginate'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId,
+    Schema = mongoose.Schema;
+    ObjectId = Schema.ObjectId;
     story = new Schema({
         journalistId: {
             type: ObjectId,
@@ -19,7 +19,7 @@ var mongoose = require('mongoose'),
         storyCategoryId:{
             type:ObjectId,
             default:null,
-            ref:'category'
+            ref:'storyCategories'
         },
         keywordId:[
             {

@@ -29,6 +29,7 @@ process.on('SIGINT', () => {
     });
 });
 
+
 module.exports = {
     category: require("../models/adminModel/category"),
     journalist: require("../models/journalistModel/journalist"),
@@ -40,6 +41,6 @@ module.exports = {
     storyCategory: require("../models/adminModel/storyCategory"),
     storyType: require("../models/adminModel/storyType"),
     storyKeyword: require("../models/adminModel/storyKeyword"),
-    
-    
+
+
 }
