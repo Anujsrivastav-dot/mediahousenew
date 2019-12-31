@@ -2,26 +2,29 @@ const db = require("../../dbConnection/dao");
 const sendResponse = require("../../helpers/responseHandler");
 const generate = require("../../helpers/generateAuthToken");
 const upload = require("../../helpers/uploadImage");
+const encryptDecrypt = require("../../helpers/cryptoPassword");
+const generateToken = require("../../helpers/generateAuthToken");
 
 module.exports = {
 
   // api for desigantion(add,delete,update,get)    
   "add": async(req, res) => {
     try {
-             var imageArray=req.files;
-             var image=[];
-             var video=[];
-             imageArray['video'].forEach(vid => {
-                video.push(vid['filename']); 
-            });
-            imageArray['file'].forEach(vid => {
-                image.push(vid['filename']); 
-            });
-            var obj = new db.admin({
-                 file:image,
-                 video:video
-            });
-
+            //  var imageArray=req.files;
+            //  var image=[];
+            //  var video=[];
+            //  imageArray['video'].forEach(vid => {
+            //     video.push(vid['filename']); 
+            // });
+            // imageArray['file'].forEach(vid => {
+            //     image.push(vid['filename']); 
+            // });
+            // var obj = new db.admin({
+            //      file:image,
+            //      video:video
+            // });
+            req.body.password = encryptDecrypt.encrypt(req.body.password);
+            var obj = new db.admin(req.body);
             await obj.save();
             sendResponse.to_user(res, 200, null, "admin added successfully",obj);
         
@@ -45,6 +48,34 @@ module.exports = {
         sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
     }
 },
+adminLogin: async (req, res) => {
+    try {
+      var condition = {
+        adminEmail: req.body.adminEmail,
+        password: encryptDecrypt.encrypt(req.body.password)
+      };
+      var adminData = await db.admin.findOne(condition);
+      if (!adminData) {
+        sendResponse.to_user(
+          res,
+          400,
+          null,
+          "Email id or password is incorrect.",
+          null
+        );
+      } else {
+        authToken = generateToken.authToken({
+          _id: adminData._id
+        });
+        sendResponse.to_user(res, 200, null, "Login successfully", {
+          journalistToken: authToken
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+  },
 
 
 // api for desigantion(add,delete,update,get)    
@@ -488,7 +519,8 @@ module.exports = {
             if (success) {
                 sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Story Keyword already taken", null);
             } else {
-                var obj = new db.storyType(req.body);
+                var obj = new db.storyKeyword(req.body);
+                //console.log(obj)
                 await obj.save();
                 sendResponse.to_user(res, 200, null, "Story Keyword added successfully",obj);
             }
