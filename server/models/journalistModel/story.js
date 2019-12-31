@@ -3,10 +3,20 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     story = new Schema({
+        journalistId: {
+            type: ObjectId,
+            default: null,
+            ref: 'journalists'
+        },
         headLine:{
             type:String
         },
         categoryId:{
+            type:ObjectId,
+            default:null,
+            ref:'category'
+        },
+        storyCategoryId:{
             type:ObjectId,
             default:null,
             ref:'category'
@@ -18,9 +28,6 @@ var mongoose = require('mongoose'),
             ref:'storyKeyword'
          }
        ],
-        langName:{
-            type:String
-        },
         langCode:{
             type:String
         },
@@ -72,9 +79,9 @@ var mongoose = require('mongoose'),
         uploadAudios:[{
             type:String
         }],
-        currency:[{
+        currency:{
             type:String
-        }],
+        },
         price:{
             type:String
         },
