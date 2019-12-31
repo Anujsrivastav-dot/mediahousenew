@@ -51,6 +51,7 @@ app.use(function(req, res, next) {
 //apply the routes to our application with the mediaBazar /api
 app.use("/admin", require("./server/routes/admin/adminRoute"));
 app.use("/user", require("./server/routes/journalist/journalistRoute"));
+app.use("/story", require("./server/routes/journalist/storyRoute"));
 
 
 

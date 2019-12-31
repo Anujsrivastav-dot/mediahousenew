@@ -11,11 +11,13 @@ var mongoose = require('mongoose'),
             default:null,
             ref:'category'
         },
-        keywordId:{
+        keywordId:[
+            {
             type:ObjectId,
             default:null,
             ref:'storyKeyword'
-        },
+         }
+       ],
         langName:{
             type:String
         },
@@ -25,9 +27,6 @@ var mongoose = require('mongoose'),
         date:{
             type:Date
         },
-        keywords:[{
-            keywordsId:String
-        }],
         country:{
             type:String
         },
