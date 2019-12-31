@@ -8,6 +8,6 @@ var verify = require('../middleware/verifyToken');
 
 
 router
-   
+
 
 module.exports = router;

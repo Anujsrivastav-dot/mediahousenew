@@ -29,7 +29,7 @@ mongoose.Promise = global.Promise;
 
 // use morgan to log requests to the console
 app.use(morgan("dev"));
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     if ("OPTIONS" === req.method) {
@@ -54,7 +54,6 @@ app.use("/user", require("./server/routes/journalist/journalistRoute"));
 app.use("/story", require("./server/routes/journalist/storyRoute"));
 
 
-
 // client side static folder
 
 app.use(express.static("admin"));
@@ -71,6 +70,6 @@ app.use(express.static("user"));
 // })
 
 // start the server =========
-let listener = app.listen(config.PORT, function(err, success) {
+let listener = app.listen(config.PORT, function (err, success) {
     console.log("Api started on port-->> " + listener.address().port);
 });
