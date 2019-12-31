@@ -3,13 +3,13 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     story = new Schema({
-        headLine:{
-            type:String
+        headLine: {
+            type: String
         },
-        categoryId:{
-            type:ObjectId,
-            default:null,
-            ref:'category'
+        categoryId: {
+            type: ObjectId,
+            default: null,
+            ref: 'category'
         },
         keywordId:[
             {
@@ -21,11 +21,11 @@ var mongoose = require('mongoose'),
         langName:{
             type:String
         },
-        langCode:{
-            type:String
+        langCode: {
+            type: String
         },
-        date:{
-            type:Date
+        date: {
+            type: Date
         },
         country:{
             type:String
@@ -33,65 +33,65 @@ var mongoose = require('mongoose'),
         state: {
             type: String
         },
-        city:{
+        city: {
             type: String
         },
-        briefDescription:{
+        briefDescription: {
             type: String
         },
-        pincode:{
-            type:String
+        pincode: {
+            type: String
         },
-        currency:{
-            type:String
+        currency: {
+            type: String
         },
-        shortBio:{
-            type:String
+        shortBio: {
+            type: String
         },
         password: {
-            type: String 
+            type: String
         },
         phoneNumber: {
             type: Number
         },
-        uploadTexts:[{
-            type:String
+        uploadTexts: [{
+            type: String
         }],
-        uploadImages:[{
-            type:String
+        uploadImages: [{
+            type: String
         }],
-        uploadVideos:[{
-            type:String
+        uploadVideos: [{
+            type: String
         }],
-        uploadThumbnails:[{
-            type:String
+        uploadThumbnails: [{
+            type: String
         }],
-        supportingDocs:[{
-            type:String
+        supportingDocs: [{
+            type: String
         }],
-        uploadAudios:[{
-            type:String
+        uploadAudios: [{
+            type: String
         }],
-        currency:[{
-            type:String
+        currency: [{
+            type: String
         }],
-        price:{
-            type:String
+        price: {
+            type: String
         },
-        collaboration:{
-            type:Boolean,
-            default:false
+        collaboration: {
+            type: Boolean,
+            default: false
         },
-        purchasingLimit:{
-            type:String
+        purchasingLimit: {
+            type: String
         },
         status: {
             type: Number,
             default: ''   // 0 for inactive 1 for pending 2 for active
-        }                   
-},{
-    timestamps:true
-});
+        }
+    }, {
+        timestamps: true
+    });
 
 
 

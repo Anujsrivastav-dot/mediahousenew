@@ -20,11 +20,11 @@ function checkValidationResult(req, res, next) {
 let journalistService = require("../../services/journalist/journalist.service");
 
 var storage = multer.diskStorage({
-  destination: function(req, file, callback) {
+  destination: function (req, file, callback) {
     //   console.log(req.file)
     callback(null, "images");
   },
-  filename: function(req, file, callback) {
+  filename: function (req, file, callback) {
     var fileName = Date.now() + "_" + file.originalname;
     callback(null, fileName);
   }
@@ -40,7 +40,7 @@ router.route("/journalistSignup").post(
   journalistService.signupJournalist
 );
 
-router.route("/country").get(function(req, res) {
+router.route("/country").get(function (req, res) {
   var data = require("../../helpers/country");
   // response.userMessage = "list of cities";
   sendResponse.to_user(res, 200, null, "country list fetch successfully", data);
@@ -57,6 +57,8 @@ router.route("/login").post(
   },
   journalistService.journalistLogin
 );
+
+router.route("/forgotPassword").post(journalistService.forgotPassword);
 
 // router
 //     .route('/postStory')

@@ -5,14 +5,14 @@ let config = require("../helpers/config")();
 var sendRes = require("../helpers/responseHandler");
 const db = require("../dbConnection/dao");
 
-module.exports.authenticateJournalist = function(req, res, next) {
+module.exports.authenticateJournalist = function (req, res, next) {
   // Get authorication token in header
   let token = req.headers.authtoken;
 
   // if token exist then verify the token
   if (token) {
-    jwt.verify(token, config.secretKey, function(err, journalist) {
-      // if error occured that means token in not valid
+    jwt.verify(token, config.secretKey, function (err, journalist) {
+      // if error occured that means token in not valid.
       if (err) {
         sendRes.toUser(req, res, 403, "Failed to authenticate token.");
       }
