@@ -42,6 +42,9 @@ var cpUpload = uploadImg.fields([{ name: 'uploadTexts', maxCount: 8 }, { name: '
 router.route("/postStory").post(cpUpload,
     storyService.postStory
 );
+router.route("/sellStory").post(cpUpload,
+  storyService.sellStory
+);
 
 
 // router
