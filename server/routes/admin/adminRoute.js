@@ -22,6 +22,7 @@ const {
 } = require('express-validator/check');
 // authentication function 
 let auth = require('../../middleware/auth');
+let varify = require('../../middleware/verifyToken');
 let config = require('../../helpers/config')();
 const sendRes = require("../../helpers/responseHandler");
 
@@ -36,14 +37,20 @@ function checkValidationResult(req, res, next) {
 
 // admin services
 let admin = require("../../services/admin/admin.service");
-var cpUpload = upload.fields([{ name: 'video', maxCount: 8 }, { name: 'file', maxCount: 8 }])
+//var cpUpload = upload.fields([{ name: 'video', maxCount: 8 }, { name: 'file', maxCount: 8 }])
 
 //router for Admin
 router
     .route('/admin')
-    .post(cpUpload,admin.add)
-    .get( admin.get)
-   
+    .post(admin.add)
+    .get( admin.get,varify.verifyUserToken);
+    router.route("/login").post(
+        validate.adminLoginReq,
+        (req, res, next) => {
+          checkValidationResult(req, res, next);
+        },
+        admin.adminLogin
+      );
 
 
 //router for designation
@@ -123,7 +130,7 @@ router
 
     .delete(admin.deleteStoryType)
 
-    //router for story Keyword    
+    //router for story  Keyword     
     router
     .route('/storyKeyword')
     .post(validate.storyKeywordReq, (req, res, next) => {

@@ -13,16 +13,53 @@ const sendResponse = require("../../helpers/responseHandler");
 module.exports ={
   "postStory": async(req, res) => {
     try {
-        var newFileName = req.file.filename
-        if(r)
-             req.body.profilePic =newFileName
-            var journalists = new db.journalist(req.body);
-            await journalists.save();
-            sendResponse.to_user(res, 200, null, "Journalist registered successfully",journalists);
-        
+         var imageArray=req.files;
+             var uploadTexts=[];
+             var uploadImages=[];
+             var uploadVideos=[];
+             var uploadThumbnails=[];
+             var supportingDocs=[];
+             var uploadAudios=[];
+             imageArray['uploadTexts'].forEach(txt => {
+              uploadTexts.push(txt['filename']); 
+            });
+            imageArray['uploadImages'].forEach(img => {
+              uploadImages.push(img['filename']); 
+            });
+            imageArray['uploadVideos'].forEach(vid => {
+              uploadVideos.push(vid['filename']); 
+            });
+            imageArray['uploadThumbnails'].forEach(thumb => {
+            uploadThumbnails.push(thumb['filename']); 
+            });
+            imageArray['supportingDocs'].forEach(docs => {
+            supportingDocs.push(docs['filename']); 
+            });
+            imageArray['uploadAudios'].forEach(audio => {
+              uploadAudios.push(audio['filename']); 
+            });
+            req.body.uploadTexts=uploadTexts;
+            req.body.uploadImages=uploadImages;
+            req.body.uploadVideos=uploadVideos;
+            req.body.uploadThumbnails=uploadThumbnails;
+            req.body.supportingDocs=supportingDocs;
+            req.body.uploadAudios=uploadAudios;
+            req.body.status=1;
+            req.body.keywordId = req.body.keywordId.split(",");
+            req.body.currency = req.body.currency.split(",");
+        var story = new db.story(req.body);
+        await story.save();
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Story post successfully",
+          story
+        );
+      
     } catch (e) {
-        console.log('err====', e);
-            sendResponse.to_user(res, 400, e, 'Something went wrong');
+      console.log("err====", e);
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
 },
 

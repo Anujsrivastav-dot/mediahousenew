@@ -4,6 +4,7 @@ var checkEmail = [
   check("emailId", "EmailId is required").exists(),
   check("emailId", "Invalid email address").isEmail()
 ],
+
   //=========================================//
   firstName = [
     check("firstName", "firstName is required")
@@ -127,7 +128,10 @@ price = [check("price", "price is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
-
+var checkAdminEmail = [
+  check("adminEmail", "EmailId is required").exists(),
+  check("adminEmail", "Invalid email address").isEmail()
+]
 
 
 
@@ -161,5 +165,6 @@ validateObj.journalistReq = [
 ];
 validateObj.postStoryReq = [];
 validateObj.jLoginReq = [...checkEmail, ...password];
+validateObj.adminLoginReq = [...checkAdminEmail, ...password];
 
 module.exports = validateObj;

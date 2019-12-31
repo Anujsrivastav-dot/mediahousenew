@@ -4,12 +4,15 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId,
     admin = new Schema({
        
-        file: [{
+        adminName: {
             type: String
-        }],
-        video: [{
+        },
+        adminEmail: {
             type: String
-        }],
+        },
+        password: {
+            type: String
+        },
         status: {
             type: Number,
             default: 1 // status 1 is Active and 0 is inActive/delete
@@ -18,5 +21,5 @@ var mongoose = require('mongoose'),
         timestamps:true
     })
 
-admin.plugin(mongoosePaginate);
+ admin.plugin(mongoosePaginate);
 module.exports = mongoose.model('admin', admin, 'admin');
