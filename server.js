@@ -40,7 +40,6 @@ app.use(function (req, res, next) {
 });
 
 
-
 //======= Dependency for upload file =======
 // const fileUpload = require('express-fileupload');
 
@@ -58,8 +57,6 @@ app.use("/story", require("./server/routes/journalist/storyRoute"));
 
 app.use(express.static("admin"));
 app.use(express.static("user"));
-
-
 
 // app.get('/', function(req, res) {
 //     res.sendFile(__dirname + '/admin/index.html');

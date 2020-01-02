@@ -60,11 +60,13 @@ router.route("/login").post(
 
 router.route("/forgotPassword").post(journalistService.forgotPassword);
 
-// router
-//     .route('/postStory')
-//     .post(validate.postStoryReq, (req, res, next) => {
-//         checkValidationResult(req, res, next)
-//     },journalistService.postStory)
+router
+  .route('/verifyOtp')
+  .post(journalistService.verifyOtp)
+
+router
+  .route('/resetPassword')
+  .post(journalistService.resetPassword)
 
 // offer Routing goes here //
 
