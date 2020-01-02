@@ -56,7 +56,7 @@ module.exports ={
               uploadAudios.push({audio:audio['filename'],audioNote:audioNote[n]},);
               n++; 
             });
-            req.body.uploadTexts=uploadTexts;
+            req.body.uploadTexts=uploadTexts; 
             req.body.uploadImages=uploadImages;
             req.body.uploadVideos=uploadVideos;
             req.body.uploadThumbnails=uploadThumbnails;
