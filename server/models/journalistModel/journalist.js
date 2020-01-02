@@ -65,11 +65,13 @@ var mongoose = require("mongoose"),
       mobileNumber: {
         type: Number
       },
-      // professionalDetails: [{
-      //     areaOfInterest:{
-      //         type:String
-      //     }
-      //   }],
+      otp: {
+        type: Number
+      },
+      verifyOtp: {
+        type: Boolean,
+        default: false
+      },
       areaOfInterest: {
         type: ObjectId
       },
@@ -153,7 +155,7 @@ var mongoose = require("mongoose"),
       },
       status: {
         type: Number,
-        default: "" // 0 for inactive 1 for pending 2 for active
+        default: 0 // 0 for inactive 1 for pending 2 for active
       }
     },
     {

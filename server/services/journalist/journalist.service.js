@@ -13,22 +13,30 @@ randomOtp();
 const STATES = require("../../helpers/state");
 const CITY = require("../../helpers/city");
 module.exports = {
+
+  // ==============================
+  //   Journalist Signup API
+  // ==============================
+
   signupJournalist: async (req, res) => {
+
     //console.log(req.body.platformBenefits.split());
     try {
       var newFileName = req.file.filename;
       var condition = {
-        emailId: req.body.emailId,
-        mobileNumber: req.body.mobileNumber
+        $or: [{
+          emailId: req.body.emailId,
+        }, {
+          mobileNumber: req.body.mobileNumber
+        }]
       };
       var success = await db.journalist.findOne(condition);
       if (success) {
-        console.log("success", success);
         sendResponse.to_user(
           res,
           409,
           "DATA_ALREADY_EXIST",
-          "Email id already taken",
+          "Email id or mobile number already taken",
           null
         );
       } else {
@@ -57,6 +65,9 @@ module.exports = {
     }
   },
 
+  // ==============================
+  //   All State list API
+  // ==============================
   state: async (req, res) => {
     try {
       var countryId = req.query.id;
@@ -70,6 +81,10 @@ module.exports = {
     }
   },
 
+
+  // ==============================
+  //   All City list API
+  // ==============================
   city: async (req, res) => {
     try {
       var stateId = req.query.id;
@@ -83,6 +98,10 @@ module.exports = {
     }
   },
 
+
+  // ==============================
+  //   Journalist Login API
+  // ==============================
   journalistLogin: async (req, res) => {
     try {
       var condition = {
@@ -112,6 +131,9 @@ module.exports = {
     }
   },
 
+  // ==============================
+  //  Forgot password API
+  // ==============================
   "forgotPassword": async (req, res) => {
     try {
       var condition = {
@@ -120,16 +142,11 @@ module.exports = {
       }
       var journalistData = await db.journalist.findOne(condition);
       if (!journalistData) {
-        sendResponse.to_user(res, 400, null, ' Email does not exist.', null);
+        sendResponse.to_user(res, 400, null, ' Email id does not exist.', null);
       } else {
-
         var otpGen = random(9999, 1111) // random integer between 10 and 50
-        console.log("==>>", otpGen);
-        journalistData.password = otpGen;
+        journalistData.otp = otpGen;
         await journalistData.save();
-
-        console.log("==>>2", otpGen);
-
         var smtpTransport = nodemailer.createTransport({
           service: "Gmail",
           auth: {
@@ -152,7 +169,7 @@ module.exports = {
             //sendResponse.to_user(res, 400, error, "Something went wrong");
           } else {
             console.log("success", response)
-            sendResponse.to_user(res, 200, null, 'New password sent on your registered email.', null);
+            sendResponse.to_user(res, 200, null, 'OTP has been sent on your registered email.', null);
           }
           smtpTransport.close();
         });
@@ -164,6 +181,78 @@ module.exports = {
     }
 
   },
+
+
+  // ==============================
+  //  Verify OTP API
+  // ==============================
+
+  "verifyOtp": async (req, res) => {
+    try {
+      var condition = {
+        emailId: req.body.emailId
+      }
+      var journalistData = await db.journalist.findOne(condition);
+      // console.log("==>>journalistData", journalistData.otp)
+      if (!journalistData) {
+        sendResponse.to_user(res, 400, null, ' Email id does not exist', null);
+      }
+      else if (journalistData.otp != req.body.otp) {
+        sendResponse.to_user(res, 202, null, ' Invalid OTP', null);
+      }
+      else {
+        console.log("==>>data", journalistData);
+        journalistData.verifyOtp = true;
+        await journalistData.save();
+        authToken = generateToken.authToken({
+          _id: journalistData._id
+        });
+        sendResponse.to_user(res, 200, null, 'OTP verified successfully, Please contact to admin', {
+          journalistToken: authToken,
+          _id: journalistData._id,
+          otp: journalistData.otp
+        });
+      }
+    } catch (e) {
+      console.log(e)
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+  },
+
+  // ==============================
+  //  Reset password API
+  // ==============================
+
+  "resetPassword": async (req, res) => {
+    try {
+      if (req.body.newPassword == req.body.confirmPassword) {
+        var success = await db.journalist.findOne({
+          emailId: req.body.emailId,
+
+        });
+        if (!success) {
+          sendResponse.to_user(res, 400, null, 'Email id does not exist', null);
+        } else {
+          await db.journalist.findOneAndUpdate({
+            emailId: req.body.emailId,
+
+          }, {
+            $set: {
+              "password": encryptDecrypt.encrypt(req.body.newPassword)
+            }
+          });
+          sendResponse.to_user(res, 200, null, 'Password reset successfully', null);
+        }
+      } else {
+        sendResponse.to_user(res, 400, null, "New password and confirm password doesn't match", null);
+      }
+    } catch (e) {
+      // console.log(e)
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+  }
+
+
 
 
 
