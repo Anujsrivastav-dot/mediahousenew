@@ -62,22 +62,53 @@ var mongoose = require('mongoose');
             type: Number
         },
         uploadTexts:[{
-            type:String
+            text:{
+                type:String
+            },
+            textNote:{
+                type:String
+            },
         }],
         uploadImages:[{
-            type:String
+            Image:{
+                type:String
+            },
+            imageNote:{
+                type:String
+            },
         }],
         uploadVideos:[{
-            type:String
+            video:{
+                type:String
+            },
+            videoNote:{
+                type:String
+            },
         }],
         uploadThumbnails:[{
-            type:String
-        }],
+            thumbnale:{
+                type:String
+            },
+            thumbnaleNote:{
+                type:String
+            },
+        }
+        ],
         supportingDocs:[{
-            type:String
+            doc:{
+                type:String
+            },
+            docNote:{
+                type:String
+            },
         }],
         uploadAudios:[{
-            type:String
+            audio:{
+                type:String
+            },
+            audioNote:{
+                type:String
+            },
         }],
         currency:{
             type:String
@@ -85,16 +116,19 @@ var mongoose = require('mongoose');
         price:{
             type:String
         },
-        collaboration:{
-            type:Boolean,
-            default:false
+        collaborationGroupId:{
+            type:String
         },
         purchasingLimit:{
             type:String
         },
         status: {
             type: Number,
-            default: ''   // 0 for inactive 1 for pending 2 for active
+            default: 0   // 0 for inactive 1 for pending 2 for active
+        }, 
+        collaboratedStatus: {
+            type: Number,
+            default: 0   // 0 for inactive 1 for pending 2 for active
         }                   
 },{
     timestamps:true
