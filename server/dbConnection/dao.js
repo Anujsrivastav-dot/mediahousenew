@@ -41,6 +41,6 @@ module.exports = {
     storyCategory: require("../models/adminModel/storyCategory"),
     storyType: require("../models/adminModel/storyType"),
     storyKeyword: require("../models/adminModel/storyKeyword"),
-
+    staticContent: require("../models/adminModel/staticContent")
 
 }

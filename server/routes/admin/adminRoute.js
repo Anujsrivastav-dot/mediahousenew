@@ -157,10 +157,10 @@ router
 
 //router for static content 
 
-// router
-//     .route('/staticContent')
-//     .get(content.getContent)
-//     .put(content.updateContent)
+router
+    .route('/staticContent')
+    .get(content.getContent)
+    .put(content.updateContent)
 
 
 module.exports = router;
