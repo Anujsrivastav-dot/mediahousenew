@@ -162,5 +162,19 @@ router
     .get(content.getContent)
     .put(content.updateContent)
 
+//router for story  Keyword     
+router
+    .route('/socioLinks')
+    .post(validate.socioLinkReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addSocioLinks)
+
+    .get(admin.getSocioLinks)
+
+    .put(validate.socioLinkReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateSocioLinks)
+
+    .delete(admin.deleteSocioLinks)
 
 module.exports = router;

@@ -18,6 +18,7 @@ function checkValidationResult(req, res, next) {
 }
 
 let journalistService = require("../../services/journalist/journalist.service");
+let myContentService = require("../../services/journalist/myContent.service");
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -68,6 +69,12 @@ router
   .route('/resetPassword')
   .post(journalistService.resetPassword)
 
+// offer Routing goes here //
+
+  router.route("/uploadMyContent").post(
+    uploadImg.array('myContent', 12),
+    myContentService.myContentService
+  );
 // offer Routing goes here //
 
 module.exports = router;
