@@ -632,5 +632,67 @@ adminLogin: async (req, res) => {
     }
 },
 
+/// api for SocioLinks(add,delete,update,get)  
+"addSocioLinks": async(req, res) => {
+    try {
+       
+            var obj = new db.socioLinks(req.body);
+            await obj.save();
+            sendResponse.to_user(res, 200, null, "SocioLinks added successfully",obj);
+        
+    } catch (e) {
+       
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
+
+"getSocioLinks": async(req, res) => {
+    try {
+        var obj = await db.socioLinks.find();
+        if (obj!='') {
+            sendResponse.to_user(res, 200, null, "SocioLinks get successfully",obj);
+        } else {
+            sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+        }
+    } catch (e) {
+        
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+
+"updateSocioLinks": async(req, res) => {
+    try {
+        const filter = { _id: req.body.id };
+        const update = req.body;
+        var success = await db.socioLinks.findByIdAndUpdate(filter, update, {
+            new: true
+          })
+        if (!success) {
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Story Keyword Not Found With Id",null);
+        } 
+        else {
+            sendResponse.to_user(res, 200, null, "Story Keyword Updated Successfully",success);
+        } 
+     }catch (e) {
+       
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
+
+"deleteSocioLinks": async(req, res) => {
+    try {
+        const filter = { _id: req.body.id };
+        var success = await db.socioLinks.findByIdAndRemove(filter)
+        if (!success) {
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "SocioLinks Not Found With Id",null);
+        } 
+        else {
+            sendResponse.to_user(res, 200, null, "SocioLinks Deleted Successfully",success);
+        } 
+    } catch (e) {
+       
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
 
 };

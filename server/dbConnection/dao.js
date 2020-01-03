@@ -34,6 +34,7 @@ module.exports = {
     category: require("../models/adminModel/category"),
     journalist: require("../models/journalistModel/journalist"),
     story: require("../models/journalistModel/story"),
+    myContents: require("../models/journalistModel/myContent"),
     admin: require("../models/adminModel/admin"),
     designation: require("../models/adminModel/designation"),
     benefit: require("../models/adminModel/platformBenefits"),
@@ -41,6 +42,7 @@ module.exports = {
     storyCategory: require("../models/adminModel/storyCategory"),
     storyType: require("../models/adminModel/storyType"),
     storyKeyword: require("../models/adminModel/storyKeyword"),
-    staticContent: require("../models/adminModel/staticContent")
-
+    staticContent: require("../models/adminModel/staticContent"),
+    socioLinks: require("../models/adminModel/socioLinks")
+   
 }

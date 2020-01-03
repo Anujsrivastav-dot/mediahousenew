@@ -166,5 +166,6 @@ validateObj.journalistReq = [
 validateObj.postStoryReq = [];
 validateObj.jLoginReq = [...checkEmail, ...password];
 validateObj.adminLoginReq = [...checkAdminEmail, ...password];
+validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
 
 module.exports = validateObj;
