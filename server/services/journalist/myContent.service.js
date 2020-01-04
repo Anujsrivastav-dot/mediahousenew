@@ -16,7 +16,7 @@ module.exports ={
           res,
           200,
           null,
-          "Content Upload successfully",
+          "Content Upload successfully", 
           story
         );
       
