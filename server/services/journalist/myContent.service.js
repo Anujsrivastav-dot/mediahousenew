@@ -5,18 +5,18 @@ module.exports ={
   "myContentService": async(req, res) => {
     try {
          var file=req.files;
-         var uploadTexts=[];
+         var uploadFiles=[];
              file.forEach(file => {
-              uploadTexts.push(file['filename']);
+              uploadFiles.push({contentOriginalName:file['originalname'],contentDuplicateName:file['filename']});
               });
-        req.body.myContent=uploadTexts;
+        req.body.myContent=uploadFiles;
         var story = new db.myContents(req.body);
         await story.save();
         sendResponse.to_user(
           res,
           200,
           null,
-          "Content Upload successfully",
+          "Content Upload successfully", 
           story
         );
       
@@ -26,7 +26,7 @@ module.exports ={
     }
   },
 
-
+ 
 
  
 }

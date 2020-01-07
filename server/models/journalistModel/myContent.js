@@ -4,7 +4,12 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId,
     myContents = new Schema({
         myContent: [{
-            type: String
+            contentOriginalName:{
+                type:String
+            },
+            contentDuplicateName:{
+                type:String
+            },
         }],
        
     },{
