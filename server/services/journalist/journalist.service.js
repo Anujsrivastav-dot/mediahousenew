@@ -70,11 +70,16 @@ module.exports = {
   // ==============================
   state: async (req, res) => {
     try {
-      var countryId = req.query.id;
+      var countryId = req.query.countryId;
+      finalArray = [];
       const filteredStates = STATES.filter(state => {
         return state.country_id === countryId;
       });
-      sendResponse.to_user(res, 200, null, "State list found", filteredStates);
+      for (var i = 0; i < filteredStates.length; i++) {
+        console.log(filteredStates.length);
+        finalArray.push({ id: filteredStates[i].country_id, text: filteredStates[i].name, currencyName: filteredStates[i].currencyName })
+      }
+      sendResponse.to_user(res, 200, null, "State list found", finalArray);
     } catch (e) {
       console.log("err====", e);
       sendResponse.to_user(res, 400, e, "Something went wrong");
@@ -87,10 +92,14 @@ module.exports = {
   // ==============================
   city: async (req, res) => {
     try {
-      var stateId = req.query.id;
+      var stateId = req.query.stateId;
+      finalArray = [];
       const filteredCity = CITY.filter(city => {
         return city.state_id === stateId;
       });
+      for (var i = 0; i < filteredCity.length; i++) {
+        finalArray.push({ id: filteredCity[i].state_id, text: filteredCity[i].name })
+      }
       sendResponse.to_user(res, 200, null, "City list found", filteredCity);
     } catch (e) {
       console.log("err====", e);
