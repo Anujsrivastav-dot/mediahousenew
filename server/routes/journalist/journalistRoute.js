@@ -71,10 +71,14 @@ router
 
 // offer Routing goes here //
 
-  router.route("/uploadMyContent").post(
+  router
+  .route("/uploadMyContent")
+  .post(
     uploadImg.array('myContent', 12),
-    myContentService.myContentService
-  );
+    myContentService.myContent
+  )
+  .get(myContentService.getMyContent)
+  .put(myContentService.updatemyContent)
 // offer Routing goes here //
 
 module.exports = router;

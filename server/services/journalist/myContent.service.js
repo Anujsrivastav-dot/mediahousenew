@@ -2,7 +2,7 @@ const db = require("../../dbConnection/dao");
 const sendResponse = require("../../helpers/responseHandler");
 
 module.exports ={
-  "myContentService": async(req, res) => {
+  "myContent": async(req, res) => {
     try {
          var file=req.files;
          var uploadFiles=[];
@@ -25,6 +25,40 @@ module.exports ={
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
+  "updatemyContent": async(req, res) => {
+    try {
+          var success = await db.myContents.updateOne(
+            {"myContent._id": req.body.contentId },
+            { $set: { "myContent.$.contentOriginalName" : req.body.fileName } }
+         )
+          var result = ({
+            "contentOriginalName":  req.body.fileName
+          })
+      
+        if (success.nModified==0) {
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Content Not Found With Id",null);
+        } 
+        else {
+            sendResponse.to_user(res, 200, null, "Content Updated Successfully",result);
+        } 
+    } catch (e) {
+       
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
+"getMyContent": async(req, res) => {
+  try {
+      var obj = await db.myContents.find({},{createdAt: 0,updatedAt:0,__v:0 }).sort({a:1, b:1}).limit(1);
+      if (obj!='') {
+          sendResponse.to_user(res, 200, null, "Story Keyword get successfully",obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+      }
+  } catch (e) {
+      
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
 
  
 
