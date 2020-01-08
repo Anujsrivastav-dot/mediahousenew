@@ -35,6 +35,9 @@ var checkEmail = [
   ],
   benefitName = [check("benefitName", "benefitName is required").exists()],
   categoryName = [check("categoryName", "categoryName is required").exists()],
+  uploadVideos = [check("uploadVideos", "uploadVideos is required").exists()],
+  enquiryTitle = [check("enquiryTitle", "enquiryTitle is required").exists()],
+  enquiryDescription = [check("enquiryDescription", "enquiryDescription is required").exists()],
   storyCategoryName = [
     check("storyCategoryName", "storyCategoryName is required").exists()
   ],
@@ -163,9 +166,10 @@ validateObj.journalistReq = [
   ...areaOfInterests,
   ...refrences,
 ];
-validateObj.postStoryReq = [];
+validateObj.postStoryReq = [...uploadVideos];
 validateObj.jLoginReq = [...checkEmail, ...password];
 validateObj.adminLoginReq = [...checkAdminEmail, ...password];
+validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
 validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
 
 module.exports = validateObj;

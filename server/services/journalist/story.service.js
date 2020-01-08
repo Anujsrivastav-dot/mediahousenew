@@ -28,6 +28,7 @@ module.exports ={
              var uploadAudios=[];
              var l=0;
              imageArray['uploadTexts'].forEach(txt => {
+
               uploadTexts.push({text:txt['filename'],textNote:textNote[l]},);
               l++;
             });
@@ -38,8 +39,13 @@ module.exports ={
             });
             var  j=0;
             imageArray['uploadVideos'].forEach(vid => {
-              uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
-            j++; 
+              if(vid['filename']=="video/mp4"){
+                uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
+                j++;
+              }
+              else{
+                sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+              }
             });
             var i=0;
             imageArray['uploadThumbnails'].forEach(thumb => {
@@ -56,6 +62,7 @@ module.exports ={
               uploadAudios.push({audio:audio['filename'],audioNote:audioNote[n]},);
               n++; 
             });
+            console.log(imageArray)
             req.body.uploadTexts=uploadTexts; 
             req.body.uploadImages=uploadImages;
             req.body.uploadVideos=uploadVideos;
