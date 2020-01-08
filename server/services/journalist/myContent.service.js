@@ -48,9 +48,17 @@ module.exports ={
 },
 "getMyContent": async(req, res) => {
   try {
-      var obj = await db.myContents.find({},{createdAt: 0,updatedAt:0,__v:0 }).sort({a:1, b:1}).limit(1);
+    var options = {
+      select:   'myContent.$.contentOriginalName myContent.$.contentDuplicateName ',
+      sort:     { createdAt: -1 },
+      limit:    10,
+      page: req.query.pageNumber||1
+  }
+      var obj = await db.myContents.find({},options)
+      console.log(obj)
       if (obj!='') {
-          sendResponse.to_user(res, 200, null, "Story Keyword get successfully",obj);
+
+          sendResponse.to_user(res, 200, null, "Content get successfully",obj);
       } else {
           sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
       }

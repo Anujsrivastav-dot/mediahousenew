@@ -35,6 +35,7 @@ module.exports = {
     journalist: require("../models/journalistModel/journalist"),
     story: require("../models/journalistModel/story"),
     myContents: require("../models/journalistModel/myContent"),
+    enquiry: require("../models/journalistModel/enquiry"),
     admin: require("../models/adminModel/admin"),
     designation: require("../models/adminModel/designation"),
     benefit: require("../models/adminModel/platformBenefits"),
@@ -44,5 +45,6 @@ module.exports = {
     storyKeyword: require("../models/adminModel/storyKeyword"),
     staticContent: require("../models/adminModel/staticContent"),
     socioLinks: require("../models/adminModel/socioLinks")
+   
    
 }
