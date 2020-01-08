@@ -83,10 +83,6 @@ router
   )
   .get(myContentService.getMyContent)
   .put(myContentService.updatemyContent)
-router.route("/uploadMyContent").post(
-  uploadImg.array('myContent', 12),
-  myContentService.myContentService
-);
-// offer Routing goes here //
+// offer Routing goes here // 
 
 module.exports = router;
