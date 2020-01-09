@@ -44,7 +44,7 @@ module.exports = {
                 sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
         }
     },
