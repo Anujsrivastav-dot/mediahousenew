@@ -14,9 +14,54 @@ const STATES = require("../../helpers/state");
 const CITY = require("../../helpers/city");
 module.exports = {
 
+// ==============================
+  //   Journalist Save Data API
+  // ==============================
+  
+  "saveProfileData": async (req, res) => {
+   try {
+     console.log("file in req",req.file);
+      var newFileName = req.file.filename;
+      console.log("new=====",newFileName)
+     var condition = {
+       $or: [{
+         emailId: req.body.emailId,
+       }, {
+         mobileNumber: req.body.mobileNumber
+       }]
+     };
+     var success = await db.journalist.findOne(condition);
+     if (success) {
+       sendResponse.to_user(
+         res,
+         409,
+         "DATA_ALREADY_EXIST",
+         "Email id or mobile number already taken",
+         null
+       );
+     } else {
+        req.body.profilePic = newFileName;
+       req.body.password = encryptDecrypt.encrypt(req.body.password);
+       var journalists = new db.journalist(req.body);
+       await journalists.save();
+       sendResponse.to_user(
+         res,
+         200,
+         null,
+         "Data saved successfully",
+         journalists
+       );
+     }
+   } catch (e) {
+     console.log("err====", e);
+     sendResponse.to_user(res, 400, e, "Something went wrong");
+   }
+ },
+
   // ==============================
   //   Journalist Signup API
   // ==============================
+  
 
   signupJournalist: async (req, res) => {
      console.log("yuuiyty",req.body.previousWorks);
@@ -45,7 +90,7 @@ module.exports = {
         req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.platformBenefits = req.body.platformBenefits.split(',');
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
-         req.body.previousWorks =JSON.parse(req.body.previousWorks);
+        req.body.previousWorks =JSON.parse(req.body.previousWorks);
         req.body.refrences =JSON.parse( req.body.refrences);
         var journalists = new db.journalist(req.body);
         await journalists.save();
