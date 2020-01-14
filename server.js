@@ -53,7 +53,7 @@ app.use("/story", require("./server/routes/journalist/storyRoute"));
 //Route for mobile Api
 app.use("/api/user", require("./server/routes/mobileRoutes/journalist_route"));
 
-// client side static folder
+// client side static folder  
 
 app.use(express.static("admin"));
 app.use(express.static("user"));
