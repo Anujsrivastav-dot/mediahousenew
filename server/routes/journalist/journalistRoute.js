@@ -33,7 +33,9 @@ var storage = multer.diskStorage({
 });
 var uploadImg = multer({ storage: storage });
 
-router.route("/journalistSignup").post( uploadImg.single("profilePic"),
+router.
+route("/journalistSignup")
+.post(
   journalistService.signupJournalist
 );
 
@@ -90,5 +92,13 @@ router
     enquiryService.addEnquiry
   )
   .get(enquiryService.getEnquiry)
+
+  router
+  .route("/saveData")
+  .post(( uploadImg.single("profilePic")),validate.saveDataReq,(req, res, next) => {
+      checkValidationResult(req, res, next);
+    },
+    journalistService.saveProfileData
+  )
 
 module.exports = router;

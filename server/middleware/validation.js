@@ -139,6 +139,7 @@ var checkAdminEmail = [
 
 
 var validateObj = {};
+validateObj.saveDataReq=[...firstName,...lastName,...middleName,...mobileNumber,...password,...checkEmail,...shortBio]
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.categoryReq = [...categoryName];
