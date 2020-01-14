@@ -9,8 +9,6 @@ let config = require("./server/helpers/config")();
 var cors = require('cors')
 app.use(cors())
 
-
-
 // connect with database
 require("./server/dbConnection/dao")
 app.use(helmet());

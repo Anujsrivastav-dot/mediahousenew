@@ -48,14 +48,9 @@ module.exports ={
 },
 "getMyContent": async(req, res) => {
   try {
-    var options = {
-      select:   'myContent.$.contentOriginalName myContent.$.contentDuplicateName ',
-      sort:     { createdAt: -1 },
-      limit:    10,
-      page: req.query.pageNumber||1
-  }
-      var obj = await db.myContents.find({},options)
-      console.log(obj)
+    
+      var obj = await db.myContents.find({})
+     
       if (obj!='') {
 
           sendResponse.to_user(res, 200, null, "Content get successfully",obj);
