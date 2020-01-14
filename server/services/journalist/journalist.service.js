@@ -302,7 +302,7 @@ module.exports = {
       // console.log(e)
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
-  }
+  },
 
 
 

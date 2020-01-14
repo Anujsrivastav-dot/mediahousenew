@@ -9,8 +9,6 @@ let config = require("./server/helpers/config")();
 var cors = require('cors')
 app.use(cors())
 
-
-
 // connect with database
 require("./server/dbConnection/dao")
 app.use(helmet());
@@ -55,7 +53,7 @@ app.use("/story", require("./server/routes/journalist/storyRoute"));
 //Route for mobile Api
 app.use("/api/user", require("./server/routes/mobileRoutes/journalist_route"));
 
-// client side static folder
+// client side static folder  
 
 app.use(express.static("admin"));
 app.use(express.static("user"));

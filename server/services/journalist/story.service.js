@@ -37,16 +37,16 @@ module.exports ={
               uploadImages.push({Image:img['filename'],imageNote:imageNote[k]},);
             k++;
             });
-            var  j=0;
-            imageArray['uploadVideos'].forEach(vid => {
-              if(vid['filename']=="video/mp4"){
-                uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
-                j++;
-              }
-              else{
-                sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
-              }
-            });
+              var  j=0;
+              imageArray['uploadVideos'].forEach(vid => {
+                if(vid['mimetype']=="video/mp4"){
+                  uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
+                  j++;
+                }
+                 else{
+                  sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+                 }
+              });
             var i=0;
             imageArray['uploadThumbnails'].forEach(thumb => {
               uploadThumbnails.push({thumbnale:thumb['filename'],thumbnaleNote:thumbnaleNote[i]},);
@@ -62,7 +62,7 @@ module.exports ={
               uploadAudios.push({audio:audio['filename'],audioNote:audioNote[n]},);
               n++; 
             });
-            console.log(imageArray)
+           
             req.body.uploadTexts=uploadTexts; 
             req.body.uploadImages=uploadImages;
             req.body.uploadVideos=uploadVideos;
@@ -131,6 +131,7 @@ module.exports ={
             uploadAudios.push({audio:audio['filename'],audioNote:audioNote[n]},);
             n++; 
           });
+          req.body.typeStatus="1";
           req.body.uploadTexts=uploadTexts;
           req.body.uploadImages=uploadImages;
           req.body.uploadVideos=uploadVideos;
@@ -153,6 +154,64 @@ module.exports ={
     sendResponse.to_user(res, 400, e, "Something went wrong");
   }
 },
+
+"getStory": async (req, res) => {
+  try {
+      var obj = await db.story.find({typeStatus:1,country:req.query.countryId});
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
+
+"getSaveStory": async (req, res) => {
+  try {
+      var obj = await db.story.find({typeStatus:0,journalistId:req.query.journalistId});
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
+"getMyStory": async (req, res) => {
+  try {
+    
+      var obj = await db.story.find({typeStatus:1,journalistId:req.query.journalistId});
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
+
+"getFavouriteStory": async (req, res) => {
+  try {
+    
+      var obj = await db.story.find({_id:req.query.storyId,journalistId:req.query.journalistId});
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
+
 
  
 }

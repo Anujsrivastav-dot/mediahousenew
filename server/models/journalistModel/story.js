@@ -124,7 +124,11 @@ var mongoose = require('mongoose');
         },
         status: {
             type: Number,
-            default: 0   // 0 for inactive 1 for pending 2 for active
+            default: 1   // 0 for inactive 1 for active 
+        }, 
+        typeStatus: {
+            type: Number,
+            default: 0   // 0 for save story 1 for post story 
         }, 
         collaboratedStatus: {
             type: Number,
