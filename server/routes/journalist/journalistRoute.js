@@ -33,12 +33,7 @@ var storage = multer.diskStorage({
 });
 var uploadImg = multer({ storage: storage });
 
-router.route("/journalistSignup").post(
-  uploadImg.single("profilePic"),
-  validate.journalistReq,
-  (req, res, next) => {
-    checkValidationResult(req, res, next);
-  },
+router.route("/journalistSignup").post( uploadImg.single("profilePic"),
   journalistService.signupJournalist
 );
 
