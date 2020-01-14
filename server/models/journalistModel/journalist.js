@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
   ObjectId = Schema.ObjectId,
   journalist = new Schema(
     {
-      langCOde: {
+      langCode: {
         type: String
       },
       langName: {
