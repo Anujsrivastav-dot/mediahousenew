@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
     parameterLimit: 50000
 }));
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 
 mongoose.Promise = global.Promise;

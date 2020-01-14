@@ -19,10 +19,11 @@ module.exports = {
   // ==============================
 
   signupJournalist: async (req, res) => {
+     console.log("yuuiyty",req.body.previousWorks);
 
     //console.log(req.body.platformBenefits.split());
     try {
-      var newFileName = req.file.filename;
+      // var newFileName = req.file.filename;
       var condition = {
         $or: [{
           emailId: req.body.emailId,
@@ -40,15 +41,12 @@ module.exports = {
           null
         );
       } else {
-        req.body.profilePic = newFileName;
+        // req.body.profilePic = newFileName;
         req.body.password = encryptDecrypt.encrypt(req.body.password);
-        req.body.platformBenefits = req.body.platformBenefits.split(",");
-        //console.log({a});
-        // return;
-        //  var platformBenefits = JSON.stringify(platformBenefits);
-        // delete req.body.platformBenefits;
-        console.log(req.body);
-
+        req.body.platformBenefits = req.body.platformBenefits.split(',');
+        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+         req.body.previousWorks =JSON.parse(req.body.previousWorks);
+        req.body.refrences =JSON.parse( req.body.refrences);
         var journalists = new db.journalist(req.body);
         await journalists.save();
         sendResponse.to_user(
