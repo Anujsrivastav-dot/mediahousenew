@@ -51,7 +51,7 @@ app.use("/user", require("./server/routes/journalist/journalistRoute"));
 app.use("/story", require("./server/routes/journalist/storyRoute"));
 
 
-// client side static folder
+// client side static folder  
 
 app.use(express.static("admin"));
 app.use(express.static("user"));
