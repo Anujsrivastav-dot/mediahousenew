@@ -7,7 +7,7 @@ var randomOtp = require('random-number');
 var nodemailer = require('nodemailer');
 var random = require('random-number-generator')
 
-randomOtp();
+randomOtp(); 
 
 // const COUNTRIES =require("../../helpers/country");
 const STATES = require("../../helpers/state");
