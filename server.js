@@ -52,6 +52,8 @@ app.use("/admin", require("./server/routes/admin/adminRoute"));
 app.use("/user", require("./server/routes/journalist/journalistRoute"));
 app.use("/story", require("./server/routes/journalist/storyRoute"));
 
+//Route for mobile Api
+app.use("/api/user", require("./server/routes/mobileRoutes/journalist_route"));
 
 // client side static folder
 
