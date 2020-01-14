@@ -72,9 +72,12 @@ var mongoose = require("mongoose"),
         type: Boolean,
         default: false
       },
-      areaOfInterest: {
-        type: ObjectId
-      },
+      areaOfInterest: [{
+        type: ObjectId,
+        default:null,
+        ref:"category"
+
+      }],
       targetAudience: {
         type: String
       },
@@ -84,42 +87,8 @@ var mongoose = require("mongoose"),
       uploadResume: {
         type: String
       },
-      refrences: [
-        {
-          firstName: {
-            type: String
-          },
-          middleName: {
-            type: String
-          },
-          lastName: {
-            type: String
-          },
-          email: {
-            type: String
-          },
-          designation: [
-            {
-              type: String
-            }
-          ],
-          phoneNumber: [
-            {
-              type: String
-            }
-          ]
-        }
-      ],
-      previousWorks: [
-        {
-          title: {
-            type: String
-          },
-          link: {
-            type: String
-          }
-        }
-      ],
+      refrences: [],
+      previousWorks: [],
       //   socialAccountLinks: [{
       facebookLink: {
         type: String
