@@ -47,6 +47,11 @@ router.route("/postStory")
 router.route("/sellStory").post(cpUpload,
   storyService.sellStory
 );
+router.route("/updateStory").put(cpUpload,
+  storyService.updateStory
+);
+//// story listing api ///////////////////////////
+
 router.route("/getSaveStory").get(
   storyService.getSaveStory
 );
@@ -60,13 +65,21 @@ router.route("/getFavouriteStory").get(
   storyService.getFavouriteStory
 );
 
+//// story listing api ///////////category////////////////
 
-// router
-//     .route('/postStory')
-//     .post(validate.postStoryReq, (req, res, next) => {
-//         checkValidationResult(req, res, next)
-//     },journalistService.postStory)
+//// story filter api ///////////////////////////
 
-// offer Routing goes here //
+router.route("/storyFilterByStoryCategory").get(
+  storyService.storyFilterByStoryCategory
+);
+router.route("/storyFilterByCategory").get(
+  storyService.storyFilterByCategory
+);
+router.route("/myStoryFilter").get(
+  storyService.storyFilter
+);
+//// story filter api ///////////////////////////
+
+//// story update api ///////////////////////////
 
 module.exports = router;
