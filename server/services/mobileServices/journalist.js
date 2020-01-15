@@ -54,6 +54,7 @@ module.exports = {
         req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.profilePic=profilePic; 
         req.body.shortVideo=shortVideo; 
+        console.log("====",req.body.shortVideo);
         var journalists = new db.journalist(req.body);
         await journalists.save();
         sendResponse.to_user(
