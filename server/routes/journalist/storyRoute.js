@@ -64,6 +64,12 @@ router.route("/getMyStory").get(
 router.route("/getFavouriteStory").get(
   storyService.getFavouriteStory
 );
+router.route("/collaboratedStrories").get(
+  storyService.collaboratedStrories
+);
+router.route("/countStory").get(
+  storyService.countStory
+);
 
 //// story listing api ///////////category////////////////
 

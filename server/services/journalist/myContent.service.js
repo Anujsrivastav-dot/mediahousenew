@@ -48,8 +48,13 @@ module.exports ={
 },
 "getMyContent": async(req, res) => {
   try {
-    
-      var obj = await db.myContents.find({})
+      var options = {
+      select:   'myContent',
+      sort:     { createdAt: -1 },
+      limit:    10,
+      page: req.query.pageNumber||1
+      }
+      var obj = await db.myContents.paginate({},options)
      
       if (obj!='') {
 
