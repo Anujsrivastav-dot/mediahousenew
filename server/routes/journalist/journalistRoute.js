@@ -32,7 +32,7 @@ var storage = multer.diskStorage({
   }
 });
 var uploadImg = multer({ storage: storage });
-
+var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'shortVideo', maxCount: 8 }])
 router.
 route("/journalistSignup")
 .post(
@@ -95,10 +95,11 @@ router
 
   router
   .route("/saveData")
-  .post(( uploadImg.single("profilePic")),validate.saveDataReq,(req, res, next) => {
+  .post(cpUpload,validate.saveDataReq,(req, res, next) => {
       checkValidationResult(req, res, next);
     },
     journalistService.saveProfileData
   )
+  .put(journalistService.saveProfessionalDetails)
 
 module.exports = router;

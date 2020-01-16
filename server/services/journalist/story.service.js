@@ -139,7 +139,7 @@ module.exports ={
           req.body.supportingDocs=supportingDocs;
           req.body.uploadAudios=uploadAudios;
           req.body.keywordId = req.body.keywordId.split(",");
-      var story = new db.story(req.body);
+      var story = new db.story(req.body); 
       await story.save();
       sendResponse.to_user(
         res,
@@ -160,6 +160,20 @@ module.exports ={
       var obj = await db.story.find({typeStatus:1,country:req.query.countryId});
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
+
+"countStory": async (req, res) => {
+  try {
+      var obj = await db.story.find({journalistId:req.query.journalistId}).count();
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  count successfully", obj);
       } else {
           sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
       }
@@ -196,6 +210,7 @@ module.exports ={
       sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
   }
 },
+
 
 "getFavouriteStory": async (req, res) => {
   try {
@@ -345,6 +360,19 @@ module.exports ={
   } catch (e) {
     console.log("err====", e);
     sendResponse.to_user(res, 400, e, "Something went wrong");
+  }
+},
+"collaboratedStrories": async (req, res) => {
+  try {
+      var obj = await db.story.find({collaboratedStatus:1,country:req.query.countryId,journalistId:req.query.journalistId});
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
   }
 },
  
