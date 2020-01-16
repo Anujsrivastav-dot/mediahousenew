@@ -139,7 +139,7 @@ module.exports ={
           req.body.supportingDocs=supportingDocs;
           req.body.uploadAudios=uploadAudios;
           req.body.keywordId = req.body.keywordId.split(",");
-      var story = new db.story(req.body);
+      var story = new db.story(req.body); 
       await story.save();
       sendResponse.to_user(
         res,
