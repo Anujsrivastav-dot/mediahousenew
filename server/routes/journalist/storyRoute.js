@@ -84,6 +84,9 @@ router.route("/storyFilterByCategory").get(
 router.route("/myStoryFilter").get(
   storyService.storyFilter
 );
+router.route("/collaboratedStroriesFilter").get(
+  storyService.collaboratedStroriesFilter
+);
 //// story filter api ///////////////////////////
 
 //// story update api ///////////////////////////

@@ -50,6 +50,9 @@ var mongoose = require("mongoose"),
       state: {
         type: String
       },
+      city: {
+        type: String
+      },
       pincode: {
         type: String
       },
@@ -78,9 +81,9 @@ var mongoose = require("mongoose"),
         ref:"category"
 
       }],
-      targetAudience: {
+      targetAudience: [{
         type: String
-      },
+      }],
       resumeDetails: {
         type: String
       },

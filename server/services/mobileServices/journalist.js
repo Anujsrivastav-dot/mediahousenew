@@ -71,6 +71,52 @@ module.exports = {
     }
   },
 
+  savePersonalInfo: async (req, res) => {
+
+    try {
+          const filter = { _id: req.body.journalistId };     
+          var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+              new: true
+          })
+          if (!success) {
+              sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+          }
+          else {
+              sendResponse.to_user(res, 200, null, "Personal details saved Successfully", success);
+          }
+      // }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, e, 'Something went wrong');
+  }
+  },
+
+  "saveProfessionalDetails": async (req, res) => {
+    try {
+     
+        const filter = { _id: req.body.journalistId };     
+      
+        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
+            }
+        // }
+    } catch (e) {
+  
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+
+  // ==============================
+  //   Journalist Signup API END
+  // ==============================
   
   // ==============================
   //   All State list API

@@ -375,5 +375,26 @@ module.exports ={
       sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
   }
 },
+"collaboratedStroriesFilter": async (req, res) => {
+  try {
+    var obj = await db.story.find({langCode:req.query.langCode,
+                                  collaboratedStatus:1,
+                                  categoryId:req.query.categoryId,
+                                  country:req.query.countryId,
+                                  state:req.query.state,
+                                  city:req.query.city,
+                                  journalistId:req.query.journalistId
+     });
+     
+      if (obj != '') {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+      }
+  } catch (e) {
+
+      sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+  }
+},
  
 }
