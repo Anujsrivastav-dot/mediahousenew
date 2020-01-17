@@ -216,7 +216,7 @@ module.exports = {
             pass: "satyadesignoweb@123"
           }
         });
-
+ 
         var mail = {
           from: "satyendra.designoweb@gmail.com",
           to: "satyendra05cs@gmail.com",
