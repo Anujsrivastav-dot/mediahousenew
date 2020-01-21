@@ -71,33 +71,40 @@ module.exports = {
     }
   },
 
-  savePersonalInfo: async (req, res) => {
+  
 
-    try {
-          const filter = { _id: req.body.journalistId };     
-          var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-              new: true
-          })
-          if (!success) {
-              sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-          }
-          else {
-              sendResponse.to_user(res, 200, null, "Personal details saved Successfully", success);
-          }
-      // }
-  } catch (e) {
-
-      sendResponse.to_user(res, 400, e, 'Something went wrong');
-  }
-  },
-
-  "saveProfessionalDetails": async (req, res) => {
+  "professionalDetails": async (req, res) => {
     try {
      
         const filter = { _id: req.body.journalistId };     
       
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
-        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+        req.body.targetAudience = req.body.targetAudience.split(",");
+        req.body.uploadResume = req.file.filename;
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
+            }
+        // }
+    } catch (e) {
+  
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+
+  "refrences": async (req, res) => {
+   
+    try {
+     
+        const filter = { _id: req.body.journalistId };     
+        console.log(JSON.parse( req.body.refrences))
+        req.body.refrences =JSON.parse( req.body.refrences);
+        
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
@@ -216,7 +223,7 @@ module.exports = {
             pass: "satyadesignoweb@123"
           }
         });
-
+ 
         var mail = {
           from: "satyendra.designoweb@gmail.com",
           to: "satyendra05cs@gmail.com",
