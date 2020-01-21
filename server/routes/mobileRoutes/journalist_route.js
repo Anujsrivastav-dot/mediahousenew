@@ -33,19 +33,20 @@ var storage = multer.diskStorage({
 });
 var uploadImg = multer({ storage: storage });
 var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'shortVideo', maxCount: 8 }])
-
+var Upload = uploadImg.single('uploadResume')
 ////journalist signup api///////////////////////////////
 
-router.route("/personalInfo").post(cpUpload,
+router.route("/personalInfo").post(cpUpload,validate.personalReq, (req, res, next) => {
+  checkValidationResult(req, res, next)
+},
   journalistService.personalInfo
 );
 
-router.route("/savePersonalInfo").post(
-  journalistService.savePersonalInfo
+router.route("/professionalDetails").post(Upload,
+  journalistService.professionalDetails
 );
-
-router.route("/saveProfessionalDetails").post(
-  journalistService.saveProfessionalDetails
+router.route("/refrences").post(
+  journalistService.refrences
 );
 
 router.route("/country").get(function (req, res) {
