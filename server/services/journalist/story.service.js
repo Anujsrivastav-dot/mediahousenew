@@ -161,7 +161,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -175,7 +175,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  count successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -189,7 +189,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -203,7 +203,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -219,7 +219,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -233,7 +233,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -247,7 +247,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -269,7 +269,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -368,7 +368,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 
@@ -389,7 +389,7 @@ module.exports ={
       if (obj != '') {
           sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
   } catch (e) {
 

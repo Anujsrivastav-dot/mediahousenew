@@ -10,19 +10,6 @@ module.exports = {
     // api for desigantion(add,delete,update,get)    
     "add": async (req, res) => {
         try {
-            //  var imageArray=req.files;
-            //  var image=[];
-            //  var video=[];
-            //  imageArray['video'].forEach(vid => {
-            //     video.push(vid['filename']); 
-            // });
-            // imageArray['file'].forEach(vid => {
-            //     image.push(vid['filename']); 
-            // });
-            // var obj = new db.admin({
-            //      file:image,
-            //      video:video
-            // });
             req.body.password = encryptDecrypt.encrypt(req.body.password);
             var obj = new db.admin(req.body);
             await obj.save();
@@ -39,9 +26,9 @@ module.exports = {
             var obj = await db.admin.find({ status: 1 });
 
             if (obj != '') {
-                sendResponse.to_user(res, 200, null, "Designation get successfully", obj);
+                sendResponse.to_user(res, 200, null, "admin get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
             // console.log(e)
@@ -112,7 +99,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Designation get successfully", finalArray);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
             console.log(e)
@@ -289,7 +276,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Category get successfully", finalArray);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
             sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
@@ -374,7 +361,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Story Category get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
 
@@ -460,7 +447,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Story Type get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
 
@@ -547,7 +534,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Story Keyword get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
 
@@ -610,7 +597,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "Journalist Keyword get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
 
@@ -664,7 +651,7 @@ module.exports = {
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "SocioLinks get successfully", obj);
             } else {
-                sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable", null);
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
         } catch (e) {
 

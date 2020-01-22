@@ -60,7 +60,7 @@ module.exports ={
 
           sendResponse.to_user(res, 200, null, "Content get successfully",obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable",null);
       }
   } catch (e) {
       

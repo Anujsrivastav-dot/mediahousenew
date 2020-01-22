@@ -30,7 +30,7 @@ module.exports ={
       if (obj!='') {
           sendResponse.to_user(res, 200, null, "Enquiry  get successfully",obj);
       } else {
-          sendResponse.to_user(res, 204, "NO_CONTENT", "No Data Avilable",null);
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable",null);
       }
   } catch (e) {   
       console.log(e) 
