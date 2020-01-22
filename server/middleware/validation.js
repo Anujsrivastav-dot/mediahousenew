@@ -40,6 +40,7 @@ var checkEmail = [
   categoryName = [check("categoryName", "categoryName is required").exists()],
   uploadVideos = [check("uploadVideos", "uploadVideos is required").exists()],
   enquiryTitle = [check("enquiryTitle", "enquiryTitle is required").exists()],
+  resumeDetails = [check("resumeDetails", "Resume Details is required").exists()],
   enquiryDescription = [check("enquiryDescription", "enquiryDescription is required").exists()],
   storyCategoryName = [
     check("storyCategoryName", "storyCategoryName is required").exists()
@@ -68,12 +69,12 @@ var checkEmail = [
       .isEmpty()
       .withMessage("areaOfInterest cannot be empty")
   ],
-  targetAudiences = [
-    check("targetAudiences", "targetAudiences is required")
+  targetAudience = [
+    check("targetAudience", "targetAudience is required")
       .exists()
       .not()
       .isEmpty()
-      .withMessage("targetAudiences cannot be empty")
+      .withMessage("targetAudience cannot be empty")
   ],
   resumeDetail = [check("resumeDetail", "resumeDetail is required").exists()],
   facebookLink = [check("facebookLink", "facebookLink is required").exists()],
@@ -84,53 +85,55 @@ var checkEmail = [
     check("instagramLink", "instagramLink is required").exists()
   ],
   youtubeLink = [check("youtubeLink", "youtubeLink is required").exists()],
-  prevWork = [
-    check("previousWorks[0].title", "title is required")
-      .exists()
-      .not()
-      .isEmpty()
-      .withMessage("title cannot be empty"),
-    check("previousWorks[0].link", "link is required")
-      .exists()
-      .not()
-      .isEmpty()
-      .withMessage("link cannot be empty")
-  ];
+  // prevWork = [
+  //   check("previousWorks[0].title", "title is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("title cannot be empty"),
+  //   check("previousWorks[0].link", "link is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("link cannot be empty")
+  // ];
 
-refrences = [
-  check("refrences[0].firstName", "firstName is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("firstName cannot be empty"),
-  check("refrences[0].middleName", "middleName is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("middleName cannot be empty"),
-  check("refrences[0].lastName", "lastName is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("lastName cannot be empty"),
-  check("refrences[0].designation", "designation is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("designation cannot be empty"),
-  check("refrences[0].lastName", "lastName is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("lastName cannot be empty"),
-  check("refrences[0].mobileNumber", "mobileNumber is required")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("mobileNumber cannot be empty")
-];
-
+// refrences = [
+//   check("refrences[0].firstName", "firstName is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("firstName cannot be empty"),
+//   check("refrences[0].middleName", "middleName is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("middleName cannot be empty"),
+//   check("refrences[0].lastName", "lastName is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("lastName cannot be empty"),
+//   check("refrences[0].designation", "designation is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("designation cannot be empty"),
+//   check("refrences[0].lastName", "lastName is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("lastName cannot be empty"),
+//   check("refrences[0].mobileNumber", "mobileNumber is required")
+//     .exists()
+//     .not()
+//     .isEmpty()
+//     .withMessage("mobileNumber cannot be empty")
+// ];
+refrences =[check("refrences", "refrences is required").exists()];
+prevWork =[check("previousWorks", "Previous Works is required").exists()];
 headLine = [check("headLine", "headLine is required").exists()];
+journalistId = [check("journalistId", "journalistId is required").exists()];
 price = [check("price", "price is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
@@ -167,7 +170,14 @@ validateObj.personalReq = [
   ...state,
   ...city
 ];
-validateObj.professionalDetails = [...targetAudiences];
+validateObj.professionalDetails = [
+              ...areaOfInterests,
+              ...targetAudience,
+              ...resumeDetails,
+              ...journalistId
+            ];
+validateObj.refrences = [...refrences,...journalistId];
+validateObj.previousWorks = [...prevWork,...journalistId];
 validateObj.journalistReq = [
   ...firstName,
   ...lastName,

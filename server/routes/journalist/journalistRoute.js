@@ -35,7 +35,10 @@ var uploadImg = multer({ storage: storage });
 var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'shortVideo', maxCount: 8 }])
 router.
 route("/journalistSignup")
-.post(
+.post(validate.journalistReq,
+  (req, res, next) => {
+    checkValidationResult(req, res, next);
+  },
   journalistService.signupJournalist
 );
 

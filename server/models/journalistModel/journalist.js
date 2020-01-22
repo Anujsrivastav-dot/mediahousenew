@@ -123,7 +123,8 @@ var mongoose = require("mongoose"),
         type: String
       },
       paymentStatus: {
-        type: Number //0 for inactive 1 for active
+        type: Number, //0 for inactive 1 for active
+        default: 0
       },
       status: {
         type: Number,

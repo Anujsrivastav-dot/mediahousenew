@@ -42,11 +42,28 @@ router.route("/personalInfo").post(cpUpload,validate.personalReq, (req, res, nex
   journalistService.personalInfo
 );
 
-router.route("/professionalDetails").post(Upload,
+router.route("/professionalDetails").post(Upload,validate.professionalDetails, (req, res, next) => {
+  checkValidationResult(req, res, next)
+},
   journalistService.professionalDetails
 );
-router.route("/refrences").post(
+router.route("/refrences").post(validate.refrences, (req, res, next) => {
+  checkValidationResult(req, res, next)
+},
   journalistService.refrences
+);
+router.route("/previousWorks").post(validate.previousWorks, (req, res, next) => {
+  checkValidationResult(req, res, next)
+},
+  journalistService.previousWorks
+);
+
+router.route("/socialAccountLinks").post(
+  journalistService.socialAccountLinks
+);
+
+router.route("/platformBenefits").post(
+  journalistService.platformBenefits
 );
 
 router.route("/country").get(function (req, res) {

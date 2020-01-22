@@ -98,11 +98,8 @@ module.exports = {
   },
 
   "refrences": async (req, res) => {
-   
     try {
-     
         const filter = { _id: req.body.journalistId };     
-        console.log(JSON.parse( req.body.refrences))
         req.body.refrences =JSON.parse( req.body.refrences);
         
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
@@ -112,7 +109,61 @@ module.exports = {
                 sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
             }
             else {
-                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
+                sendResponse.to_user(res, 200, null, "Refrences saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+  "previousWorks": async (req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };     
+        req.body.previousWorks =JSON.parse( req.body.previousWorks);
+        
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Previous Works saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+  "socialAccountLinks": async (req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };     
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Social Account Links saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+
+  "platformBenefits": async (req, res) => {
+    try {
+     
+        const filter = { _id: req.body.journalistId };     
+      
+        req.body.platformBenefits = req.body.platformBenefits.split(",");
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Platform Benefits  saved Successfully", success);
             }
         // }
     } catch (e) {
