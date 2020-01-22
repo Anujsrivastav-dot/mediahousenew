@@ -87,7 +87,7 @@ router.route("/login").post(
   },
   journalistService.journalistLogin
 );
-
+ 
 router.route("/forgotPassword").post(journalistService.forgotPassword);
 
 router
