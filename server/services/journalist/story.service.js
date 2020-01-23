@@ -304,16 +304,16 @@ module.exports ={
             uploadImages.push({Image:img['filename'],imageNote:imageNote[k]},);
           k++;
           });
-            var  j=0;
-            imageArray['uploadVideos'].forEach(vid => {
-              if(vid['mimetype']=="video/mp4"){
-                uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
-                j++;
+          var  j=0;
+          imageArray['uploadVideos'].forEach(vid => {
+            if(vid['mimetype']=="video/mp4"){
+              uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
+              j++;
+            }
+              else{
+              sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
               }
-               else{
-                sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
-               }
-            });
+          });
           var i=0;
           imageArray['uploadThumbnails'].forEach(thumb => {
             uploadThumbnails.push({thumbnale:thumb['filename'],thumbnaleNote:thumbnaleNote[i]},);

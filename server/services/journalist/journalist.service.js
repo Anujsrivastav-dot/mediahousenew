@@ -128,21 +128,31 @@ module.exports = {
         var fileArray=req.files;
         console.log(fileArray)
         var profilePic,shortVideo,uploadResume;
-        var l=0;
         fileArray['profilePic'].forEach(img => {
+          if(img['mimetype']=="image/jpeg" ||img['mimetype']=="image/png"){
             profilePic=img['filename'];
-         l++;
-       });
-       var k=0;
-       fileArray['shortVideo'].forEach(vid => {
-        shortVideo=vid['filename'];
-       k++;
-       });
-       var i=0;
-       fileArray['uploadResume'].forEach(txt => {
-        uploadResume=txt['filename'];
-       i++;
-       });
+          }
+          else{
+            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            }
+         });
+        fileArray['shortVideo'].forEach(vid => {
+          if(vid['mimetype']=="video/mp4"||vid['mimetype']=="video/3gpp" ||vid['mimetype']=="video/x-flv"||vid['mimetype']=="application/x-mpegURL"||vid['mimetype']=="video/x-msvideo"){
+          shortVideo=vid['filename'];
+          }
+          else{
+            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            
+            }
+        });
+        fileArray['uploadResume'].forEach(txt => {
+          if(txt['mimetype']=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"|| txt['mimetype']=="application/msword" ||txt['mimetype']=="application/pdf"){
+          uploadResume=txt['filename'];
+          }
+          else{
+            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            }
+        });
         req.body.profilePic=profilePic; 
         req.body.shortVideo=shortVideo; 
         req.body.uploadResume=uploadResume; 
