@@ -87,6 +87,9 @@ var mongoose = require("mongoose"),
       resumeDetails: {
         type: String
       },
+      stepCount: {
+        type: Number
+      },
       uploadResume: {
         type: String
       },

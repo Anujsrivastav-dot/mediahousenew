@@ -71,13 +71,8 @@ router.route("/platformBenefits").post(validate.platformBenefit, (req, res, next
 );
 
 router.route("/country").get(function (req, res) {
-  finalArray = [];
   var data = require("../../helpers/country");
-  for (var i = 0; i < data.length; i++) {
-    this.finalArray.push({ id: data[i].id, text: data[i].name, currencyName: data[i].currencyName, currencySymbol: data[i].symbol })
-  }
-  // response.userMessage = "list of cities";
-  sendResponse.to_user(res, 200, null, "country list fetch successfully", finalArray);
+  sendResponse.to_user(res, 200, null, "country list fetch successfully", data);
 });
 
 router.route("/states").get(journalistService.state);

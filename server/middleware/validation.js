@@ -131,10 +131,11 @@ var checkEmail = [
 //     .withMessage("mobileNumber cannot be empty")
 // ];
 refrences =[check("refrences", "refrences is required").exists()];
-prevWork =[check("previousWorks", "Previous works is required").exists()];
-platformBenefitId =[check("platformBenefits", "Platform benefits id is required").exists()];
-platformSuggestion =[check("platformSuggestion", "platform Suggestion is required").exists()];
-headLine = [check("headLine", "HeadLine is required").exists()];
+stepCount =[check("stepCount", "stepCount is required").exists()];
+prevWork =[check("previousWorks", "previousWorks is required").exists()];
+platformBenefitId =[check("platformBenefits", "platformBenefits id is required").exists()];
+platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
+headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
 price = [check("price", "price is required").exists()];
 briefDescription = [
@@ -170,18 +171,20 @@ validateObj.personalReq = [
   ...pinCode,
   ...country,
   ...state,
-  ...city
+  ...city,
+  ...stepCount
 ];
 validateObj.professionalDetails = [
               ...areaOfInterests,
               ...targetAudience,
               ...resumeDetails,
-              ...journalistId
+              ...journalistId,
+              ...stepCount
             ];
-validateObj.refrences = [...refrences,...journalistId];
-validateObj.previousWorks = [...prevWork,...journalistId];
-validateObj.socialAccountLinks = [...facebookLink,...journalistId];
-validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion];
+validateObj.refrences = [...refrences,...journalistId,...stepCount];
+validateObj.previousWorks = [...prevWork,...journalistId,...stepCount];
+validateObj.socialAccountLinks = [...facebookLink,...journalistId,...stepCount];
+validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion,...stepCount];
 validateObj.journalistReq = [
   ...firstName,
   ...lastName,
