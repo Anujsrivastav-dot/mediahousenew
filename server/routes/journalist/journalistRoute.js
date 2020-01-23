@@ -41,7 +41,7 @@ route("/journalistSignup")
   },
   journalistService.signupJournalist
 );
-
+ 
 router.route("/country").get(function (req, res) {
   finalArray = [];
   var data = require("../../helpers/country");
