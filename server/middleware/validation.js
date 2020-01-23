@@ -131,8 +131,10 @@ var checkEmail = [
 //     .withMessage("mobileNumber cannot be empty")
 // ];
 refrences =[check("refrences", "refrences is required").exists()];
-prevWork =[check("previousWorks", "Previous Works is required").exists()];
-headLine = [check("headLine", "headLine is required").exists()];
+prevWork =[check("previousWorks", "Previous works is required").exists()];
+platformBenefitId =[check("platformBenefits", "Platform benefits id is required").exists()];
+platformSuggestion =[check("platformSuggestion", "platform Suggestion is required").exists()];
+headLine = [check("headLine", "HeadLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
 price = [check("price", "price is required").exists()];
 briefDescription = [
@@ -178,6 +180,8 @@ validateObj.professionalDetails = [
             ];
 validateObj.refrences = [...refrences,...journalistId];
 validateObj.previousWorks = [...prevWork,...journalistId];
+validateObj.socialAccountLinks = [...facebookLink,...journalistId];
+validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion];
 validateObj.journalistReq = [
   ...firstName,
   ...lastName,

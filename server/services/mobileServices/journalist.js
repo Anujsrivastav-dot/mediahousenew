@@ -41,46 +41,63 @@ module.exports = {
         var fileArray=req.files;
         var profilePic;
         var shortVideo;
-        var l=0;
         fileArray['profilePic'].forEach(img => {
+          if(img['mimetype']=="image/jpeg" ||img['mimetype']=="image/png"){
             profilePic=img['filename'];
-         l++;
-       });
-       var k=0;
-       fileArray['shortVideo'].forEach(vid => {
-        shortVideo=vid['filename'];
-       k++;
-       });
+          }
+          else{
+            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            return;
+            }
+         });
+        fileArray['shortVideo'].forEach(vid => {
+          if(vid['mimetype']=="video/mp4"||vid['mimetype']=="video/3gpp" ||vid['mimetype']=="video/x-flv"||vid['mimetype']=="application/x-mpegURL"||vid['mimetype']=="video/x-msvideo"){
+          shortVideo=vid['filename'];
+          }
+          else{
+            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            return;
+            }
+            
+        });
         req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.profilePic=profilePic; 
         req.body.shortVideo=shortVideo; 
-        console.log("====",req.body.shortVideo);
         var journalists = new db.journalist(req.body);
-        await journalists.save();
+        if(shortVideo&&profilePic){
+          await journalists.save();
+        }
+        
         sendResponse.to_user(
           res,
           200,
           null,
-          "Journalist registered successfully",
+          "Personal Information Saved successfully",
           journalists
         );
       }
-    } catch (e) {
-      console.log("err====", e);
+    } 
+    catch (e) {
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
 
   
-
   "professionalDetails": async (req, res) => {
     try {
      
         const filter = { _id: req.body.journalistId };     
-      
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
         req.body.targetAudience = req.body.targetAudience.split(",");
-        req.body.uploadResume = req.file.filename;
+        var resume;
+        if(req.file.mimetype=="image/jpeg" ||req.file.mimetype=="image/png"){
+          resume=req.file.filename;
+        }
+        else{
+          sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+          }
+            req.body.uploadResume = resume
+            if(resume){
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
@@ -90,7 +107,7 @@ module.exports = {
             else {
                 sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
             }
-        // }
+         }
     } catch (e) {
   
         sendResponse.to_user(res, 400, e, 'Something went wrong');
