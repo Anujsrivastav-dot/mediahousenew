@@ -32,10 +32,10 @@ var storage = multer.diskStorage({
   }
 });
 var uploadImg = multer({ storage: storage });
-var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'shortVideo', maxCount: 8 }])
+var cpUpload = uploadImg.fields([{ name: 'shortVideo', maxCount: 8 }, { name: 'profilePic', maxCount: 8 }, { name: 'uploadResume', maxCount: 8 }])
 router.
 route("/journalistSignup")
-.post(validate.journalistReq,
+.post(cpUpload,validate.journalistReq,
   (req, res, next) => {
     checkValidationResult(req, res, next);
   },
@@ -52,8 +52,12 @@ router.route("/country").get(function (req, res) {
   sendResponse.to_user(res, 200, null, "country list fetch successfully", finalArray);
 });
 
-router.route("/states").get(journalistService.state);
+router.route("/languages").get(function (req, res) {
+  var data = require("../../helpers/language");
+  sendResponse.to_user(res, 200, null, "language list fetch successfully", data);
+});
 
+router.route("/states").get(journalistService.state);
 router.route("/city").get(journalistService.city);
 
 router.route("/login").post(

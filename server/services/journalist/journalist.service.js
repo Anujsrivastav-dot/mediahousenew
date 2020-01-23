@@ -125,7 +125,27 @@ module.exports = {
           null
         );
       } else {
-        // req.body.profilePic = newFileName;
+        var fileArray=req.files;
+        console.log(fileArray)
+        var profilePic,shortVideo,uploadResume;
+        var l=0;
+        fileArray['profilePic'].forEach(img => {
+            profilePic=img['filename'];
+         l++;
+       });
+       var k=0;
+       fileArray['shortVideo'].forEach(vid => {
+        shortVideo=vid['filename'];
+       k++;
+       });
+       var i=0;
+       fileArray['uploadResume'].forEach(txt => {
+        uploadResume=txt['filename'];
+       i++;
+       });
+        req.body.profilePic=profilePic; 
+        req.body.shortVideo=shortVideo; 
+        req.body.uploadResume=uploadResume; 
         req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.platformBenefits = req.body.platformBenefits.split(',');
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
