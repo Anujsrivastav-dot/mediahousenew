@@ -104,8 +104,6 @@ module.exports = {
 
   signupJournalist: async (req, res) => {
      console.log("yuuiyty",req.body.previousWorks);
-
-    //console.log(req.body.platformBenefits.split());
     try {
       // var newFileName = req.file.filename;
       var condition = {
