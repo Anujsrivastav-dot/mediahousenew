@@ -90,7 +90,7 @@ module.exports = {
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
         req.body.targetAudience = req.body.targetAudience.split(",");
         var resume;
-        if(req.file.mimetype=="image/jpeg" ||req.file.mimetype=="image/png"){
+        if(req.file.mimetype=="application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||req.file.mimetype=="application/msword"||req.file.mimetype=="application/pdf"){
           resume=req.file.filename;
         }
         else{
