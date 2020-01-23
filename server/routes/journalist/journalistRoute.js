@@ -52,8 +52,12 @@ router.route("/country").get(function (req, res) {
   sendResponse.to_user(res, 200, null, "country list fetch successfully", finalArray);
 });
 
-router.route("/states").get(journalistService.state);
+router.route("/languages").get(function (req, res) {
+  var data = require("../../helpers/language");
+  sendResponse.to_user(res, 200, null, "language list fetch successfully", data);
+});
 
+router.route("/states").get(journalistService.state);
 router.route("/city").get(journalistService.city);
 
 router.route("/login").post(
