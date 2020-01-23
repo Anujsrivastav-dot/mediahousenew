@@ -145,19 +145,43 @@ var checkAdminEmail = [
   check("adminEmail", "EmailId is required").exists(),
   check("adminEmail", "Invalid email address").isEmail()
 ]
-
-
-
 var validateObj = {};
 validateObj.saveDataReq=[...firstName,...lastName,...middleName,...mobileNumber,...password,...checkEmail,...shortBio]
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.categoryReq = [...categoryName];
-// validateObj.journalistReq = [...journalistId,]
-
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];
 validateObj.storyKeywordReq = [...storyKeywordName];
+
+validateObj.journalistReq = [
+  ...firstName,
+  ...lastName,
+  ...middleName,
+  ...mobileNumber,
+  ...checkEmail,
+  ...shortBio,
+  ...password,
+  ...resumeDetail,
+  ...facebookLink,
+  ...twitterLink,
+  ...youtubeLink,
+  ...snapChatLink,
+  ...linkedinLink,
+  ...instagramLink,
+  ...prevWork,
+  ...areaOfInterests,
+  ...refrences,
+];
+validateObj.postStoryReq = [...uploadVideos];
+validateObj.jLoginReq = [...checkEmail, ...password];
+validateObj.adminLoginReq = [...checkAdminEmail, ...password];
+validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
+validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
+
+// ==============================
+//   validation for mobile api 
+// ==============================
 validateObj.personalReq = [
   ...firstName,
   ...lastName,
@@ -185,29 +209,6 @@ validateObj.refrences = [...refrences,...journalistId,...stepCount];
 validateObj.previousWorks = [...prevWork,...journalistId,...stepCount];
 validateObj.socialAccountLinks = [...facebookLink,...journalistId,...stepCount];
 validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion,...stepCount];
-validateObj.journalistReq = [
-  ...firstName,
-  ...lastName,
-  ...middleName,
-  ...mobileNumber,
-  ...checkEmail,
-  ...shortBio,
-  ...password,
-  ...resumeDetail,
-  ...facebookLink,
-  ...twitterLink,
-  ...youtubeLink,
-  ...snapChatLink,
-  ...linkedinLink,
-  ...instagramLink,
-  ...prevWork,
-  ...areaOfInterests,
-  ...refrences,
-];
-validateObj.postStoryReq = [...uploadVideos];
-validateObj.jLoginReq = [...checkEmail, ...password];
-validateObj.adminLoginReq = [...checkAdminEmail, ...password];
-validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
-validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
+
 
 module.exports = validateObj;
