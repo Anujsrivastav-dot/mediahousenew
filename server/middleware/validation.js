@@ -80,7 +80,6 @@ var checkEmail = [
   facebookLink = [check("facebookLink", "facebookLink is required").exists()],
   twitterLink = [check("twitterLink", "twitterLink is required").exists()],
   linkedinLink = [check("linkedinLink", "linkedinLink is required").exists()],
-  snapChatLink = [check("snapChatLink", "snapChatLink is required").exists()],
   instagramLink = [
     check("instagramLink", "instagramLink is required").exists()
   ],
@@ -172,7 +171,7 @@ validateObj.journalistReq = [
 validateObj.professionalDetailsReq = [
   ...areaOfInterests,
   ...targetAudience,
-  ...resumeDetails,
+  ...resumeDetail,
   ...journalistId,
 
 ];
