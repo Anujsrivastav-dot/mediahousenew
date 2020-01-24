@@ -15,7 +15,7 @@ const CITY = require("../../helpers/city");
 module.exports = {
 
   // ==============================
-  //   Journalist Signup API
+  //   Journalist Signup API 
   // ==============================
 
   personalInfo: async (req, res) => {
@@ -189,10 +189,6 @@ module.exports = {
     }
   },
 
-  // ==============================
-  //   Journalist Signup API END
-  // ==============================
-  
   // ==============================
   //   All State list API
   // ==============================

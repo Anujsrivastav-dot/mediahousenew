@@ -12,100 +12,13 @@ randomOtp();
 // const COUNTRIES =require("../../helpers/country");
 const STATES = require("../../helpers/state");
 const CITY = require("../../helpers/city");
-module.exports = {
-
-// ==============================
-  //   Journalist Save Data API
-  // ==============================
-  
-  "saveProfileData": async (req, res) => {
-   try {
-   
-     var condition = {
-       $or: [{
-         emailId: req.body.emailId,
-       }, {
-         mobileNumber: req.body.mobileNumber
-       }]
-     };
-     var success = await db.journalist.findOne(condition);
-     if (success) {
-       sendResponse.to_user(
-         res,
-         409,
-         "DATA_ALREADY_EXIST",
-         "Email id or mobile number already taken",
-         null
-       );
-     } else {
-      var fileArray=req.files;
-      var profilePic;
-      var shortVideo;
-      var l=0;
-      fileArray['profilePic'].forEach(img => {
-          profilePic=img['filename'];
-       l++;
-     });
-     var k=0;
-     fileArray['shortVideo'].forEach(vid => {
-      shortVideo=vid['filename'];
-     k++;
-     });
-      req.body.profilePic = profilePic;
-      req.body.shortVideo = shortVideo;
-       req.body.password = encryptDecrypt.encrypt(req.body.password);
-       var journalists = new db.journalist(req.body);
-       await journalists.save();
-       sendResponse.to_user(
-         res,
-         200,
-         null,
-         "Personal info saved successfully",
-         journalists
-       );
-     }
-   } catch (e) {
-     console.log("err====", e);
-     sendResponse.to_user(res, 400, e, "Something went wrong");
-   }
- },
-
-
- "saveProfessionalDetails": async (req, res) => {
-  try {
-    console.log("testtst",req.body.journalistId)
-      const filter = { _id: req.body.journalistId };     
-      var check = await db.journalist.find({});
-      console.log("check success",check);
-      // if (check) {
-      //     sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Id already taken", null);
-      // }
-      // else {
-          var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-              new: true
-          })
-          if (!success) {
-              sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-          }
-          else {
-              sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
-          }
-      // }
-  } catch (e) {
-
-      sendResponse.to_user(res, 400, e, 'Something went wrong');
-  }
-},
-
+module.exports = {  
   // ==============================
   //   Journalist Signup API
   // ==============================
-  
 
-  signupJournalist: async (req, res) => {
-     console.log("yuuiyty",req.body.previousWorks);
+  "personalInformation": async (req, res) => {
     try {
-      // var newFileName = req.file.filename;
       var condition = {
         $or: [{
           emailId: req.body.emailId,
@@ -124,14 +37,15 @@ module.exports = {
         );
       } else {
         var fileArray=req.files;
-        console.log(fileArray)
-        var profilePic,shortVideo,uploadResume;
+        var profilePic;
+        var shortVideo;
         fileArray['profilePic'].forEach(img => {
           if(img['mimetype']=="image/jpeg" ||img['mimetype']=="image/png"){
             profilePic=img['filename'];
           }
           else{
             sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            return;
             }
          });
         fileArray['shortVideo'].forEach(vid => {
@@ -140,41 +54,140 @@ module.exports = {
           }
           else{
             sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+            return;
+            }
             
-            }
         });
-        fileArray['uploadResume'].forEach(txt => {
-          if(txt['mimetype']=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"|| txt['mimetype']=="application/msword" ||txt['mimetype']=="application/pdf"){
-          uploadResume=txt['filename'];
-          }
-          else{
-            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
-            }
-        });
+        req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.profilePic=profilePic; 
         req.body.shortVideo=shortVideo; 
-        req.body.uploadResume=uploadResume; 
-        req.body.password = encryptDecrypt.encrypt(req.body.password);
-        req.body.platformBenefits = req.body.platformBenefits.split(',');
-        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
-        req.body.previousWorks =JSON.parse(req.body.previousWorks);
-        req.body.refrences =JSON.parse( req.body.refrences);
         var journalists = new db.journalist(req.body);
-        await journalists.save();
+        if(shortVideo&&profilePic){
+          await journalists.save();
+        }
+        
         sendResponse.to_user(
           res,
           200,
           null,
-          "Journalist registered successfully",
+          "Personal Information Saved successfully",
           journalists
         );
       }
-    } catch (e) {
-      console.log("err====", e);
+    } 
+    catch (e) {
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
 
+  
+  "saveProfessionalDetails": async (req, res) => {
+    try {
+     
+        const filter = { _id: req.body.journalistId };     
+        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+        req.body.targetAudience = req.body.targetAudience.split(",");
+        var resume;
+        if(req.file.mimetype=="application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||req.file.mimetype=="application/msword"||req.file.mimetype=="application/pdf"){
+          resume=req.file.filename;
+        }
+        else{
+          sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+          }
+            req.body.uploadResume = resume
+            if(resume){
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
+            }
+         }
+    } catch (e) {
+  
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+
+  "saveRefrences": async (req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };     
+        req.body.refrences =req.body.refrences;
+        
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Refrences saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+  "savePreviousWork": async (req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };     
+        req.body.previousWorks =req.body.previousWorks;
+        
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Previous Works saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+  "saveSocialAccountLink": async (req, res) => {
+    try {
+        const filter = { _id: req.body.journalistId };     
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Social Account Links saved Successfully", success);
+            }
+    } catch (e) {
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+
+  "savePlatformBenefits": async (req, res) => {
+    try {
+     
+        const filter = { _id: req.body.journalistId };     
+      
+        req.body.platformBenefits = req.body.platformBenefits.split(",");
+            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Platform Benefits  saved Successfully", success);
+            }
+        // }
+    } catch (e) {
+  
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+  },
+  
+  
   // ==============================
   //   All State list API
   // ==============================

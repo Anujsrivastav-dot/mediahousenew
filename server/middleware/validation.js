@@ -162,17 +162,25 @@ validateObj.journalistReq = [
   ...checkEmail,
   ...shortBio,
   ...password,
-  ...resumeDetail,
-  ...facebookLink,
-  ...twitterLink,
-  ...youtubeLink,
-  ...snapChatLink,
-  ...linkedinLink,
-  ...instagramLink,
-  ...prevWork,
-  ...areaOfInterests,
-  ...refrences,
+  ...designationId,
+  ...langCode,
+  ...pinCode,
+  ...country,
+  ...state,
+  ...city,
 ];
+validateObj.professionalDetailsReq = [
+  ...areaOfInterests,
+  ...targetAudience,
+  ...resumeDetails,
+  ...journalistId,
+
+];
+validateObj.refrencesReq = [...refrences,...journalistId];
+validateObj.previousWorksReq = [...prevWork,...journalistId];
+validateObj.socialAccountLinksReq = [...facebookLink,...journalistId];
+validateObj.platformBenefitReq = [...platformBenefitId,...journalistId,...platformSuggestion];
+
 validateObj.postStoryReq = [...uploadVideos];
 validateObj.jLoginReq = [...checkEmail, ...password];
 validateObj.adminLoginReq = [...checkAdminEmail, ...password];
