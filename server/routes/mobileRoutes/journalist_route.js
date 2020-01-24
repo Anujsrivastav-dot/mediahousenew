@@ -58,13 +58,13 @@ router.route("/previousWorks").put(validate.previousWorks, (req, res, next) => {
   journalistService.previousWorks
 );
 
-router.route("/socialAccountLinks").post(validate.socialAccountLinks, (req, res, next) => {
+router.route("/socialAccountLinks").put(validate.socialAccountLinks, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
   journalistService.socialAccountLinks
 );
 
-router.route("/platformBenefits").post(validate.platformBenefit, (req, res, next) => {
+router.route("/platformBenefits").put(validate.platformBenefit, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
   journalistService.platformBenefits
