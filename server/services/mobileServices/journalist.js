@@ -117,7 +117,7 @@ module.exports = {
   "refrences": async (req, res) => {
     try {
         const filter = { _id: req.body.journalistId };     
-        req.body.refrences =JSON.parse( req.body.refrences);
+        req.body.refrences = req.body.refrences;
         
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true
@@ -135,7 +135,7 @@ module.exports = {
   "previousWorks": async (req, res) => {
     try {
         const filter = { _id: req.body.journalistId };     
-        req.body.previousWorks =JSON.parse( req.body.previousWorks);
+        req.body.previousWorks =req.body.previousWorks;
         
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true

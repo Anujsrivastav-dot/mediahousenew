@@ -42,17 +42,17 @@ router.route("/personalInfo").post(cpUpload,validate.personalReq, (req, res, nex
   journalistService.personalInfo
 );
 
-router.route("/professionalDetails").post(Upload,validate.professionalDetails, (req, res, next) => {
+router.route("/professionalDetails").put(Upload,validate.professionalDetails, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
   journalistService.professionalDetails
 );
-router.route("/refrences").post(validate.refrences, (req, res, next) => {
+router.route("/refrences").put(validate.refrences, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
   journalistService.refrences
 );
-router.route("/previousWorks").post(validate.previousWorks, (req, res, next) => {
+router.route("/previousWorks").put(validate.previousWorks, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
   journalistService.previousWorks
