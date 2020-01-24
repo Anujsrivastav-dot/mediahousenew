@@ -44,7 +44,10 @@ module.exports = {
     storyType: require("../models/adminModel/storyType"),
     storyKeyword: require("../models/adminModel/storyKeyword"),
     staticContent: require("../models/adminModel/staticContent"),
-    socioLinks: require("../models/adminModel/socioLinks")
+    socioLinks: require("../models/adminModel/socioLinks"),
+    mediahouseType: require("../models/adminModel/mediahouseType"),
+    frequency: require("../models/adminModel/frequency"),
+    mediahouse: require("../models/mediahouseModel/mediahouse")
    
    
 }

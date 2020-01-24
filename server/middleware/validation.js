@@ -137,6 +137,9 @@ platformSuggestion =[check("platformSuggestion", "platformSuggestion is required
 headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
 price = [check("price", "price is required").exists()];
+categoryId = [check("categoryId", "categoryId is required").exists()];
+date = [check("date", "date is required").exists()];
+keywordId = [check("keywordId", "keywordId is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
@@ -216,6 +219,7 @@ validateObj.refrences = [...refrences,...journalistId,...stepCount];
 validateObj.previousWorks = [...prevWork,...journalistId,...stepCount];
 validateObj.socialAccountLinks = [...facebookLink,...journalistId,...stepCount];
 validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion,...stepCount];
+validateObj.blog = [...headLine,...categoryId,...langCode,...country,...state,...city,...date,...keywordId,...journalistId,...stepCount];
 
 
 module.exports = validateObj;
