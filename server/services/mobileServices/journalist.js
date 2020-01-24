@@ -376,8 +376,109 @@ module.exports = {
     }
   },
 
-
-
+  // ==============================
+  //  Story API
+  // ==============================
+  "blog": async(req, res) => {
+    try {
+         
+        req.body.keywordId = req.body.keywordId.split(",");
+        var story = new db.story(req.body);
+        await story.save();
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "blog details saved successfully",
+          story
+        );
+      
+    } catch (e) {
+      console.log("err====", e);
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+  },
+  "uploadBlog": async(req, res) => {
+    try {
+         var imageArray=req.files;
+         console.log(imageArray)
+             var textNote =req.body.textNote.split(",");
+             var imageNote =req.body.imageNote.split(",");
+             var videoNote =req.body.videoNote.split(",");
+             var docNote =req.body.docNote.split(",");
+             var thumbnaleNote =req.body.thumbnaleNote.split(",");
+             var audioNote =req.body.audioNote.split(","); 
+             var uploadTexts=[];
+             var uploadImages=[];
+             var uploadVideos=[];
+             var uploadThumbnails=[];
+             var supportingDocs=[];
+             var uploadAudios=[];
+             var l=0;
+             imageArray['uploadTexts'].forEach(txt => {
+              if(txt['mimetype']=="txt"){
+                uploadTexts.push({text:txt['filename'],textNote:textNote[l]},);
+              l++;
+              }
+               else{
+                sendResponse.to_user(res, 400, "File_type_Error", "Please upload text file");
+               }
+            });
+            var k=0;
+            imageArray['uploadImages'].forEach(img => {
+              uploadImages.push({Image:img['filename'],imageNote:imageNote[k]},);
+            k++;
+            });
+              var  j=0;
+              imageArray['uploadVideos'].forEach(vid => {
+                if(vid['mimetype']=="video/mp4"){
+                  uploadVideos.push({video:vid['filename'],videoNote:videoNote[j]},);
+                  j++;
+                }
+                 else{
+                  sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+                 }
+              });
+            var i=0;
+            imageArray['uploadThumbnails'].forEach(thumb => {
+              uploadThumbnails.push({thumbnale:thumb['filename'],thumbnaleNote:thumbnaleNote[i]},);
+            i++; 
+            });
+            var m=0;
+            imageArray['supportingDocs'].forEach(docs => {
+              supportingDocs.push({doc:docs['filename'],docNote:docNote[m]},);
+              m++; 
+            });
+            var n=0;
+            imageArray['uploadAudios'].forEach(audio => {
+              uploadAudios.push({audio:audio['filename'],audioNote:audioNote[n]},);
+              n++; 
+            });
+           
+            req.body.uploadTexts=uploadTexts; 
+            req.body.uploadImages=uploadImages;
+            req.body.uploadVideos=uploadVideos;
+            req.body.uploadThumbnails=uploadThumbnails;
+            req.body.supportingDocs=supportingDocs;
+            req.body.uploadAudios=uploadAudios;
+        // var story = new db.story(req.body);
+        // await story.save();
+            const filter = { _id: req.body.blogId };
+            var success = await db.story.findByIdAndUpdate(filter, req.body, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Blog added  successfully", success);
+            }
+      
+    } catch (e) {
+      console.log(e)
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
+  },
 
 
 };

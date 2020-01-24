@@ -129,7 +129,10 @@ var mongoose = require('mongoose');
         typeStatus: {
             type: Number,
             default: 0   // 0 for save story 1 for post story 
-        }, 
+        },
+        stepCount: {
+            type: Number
+          }, 
         collaboratedStatus: {
             type: Number,
             default: 0   // 0 for inactive 1 for pending 2 for active
