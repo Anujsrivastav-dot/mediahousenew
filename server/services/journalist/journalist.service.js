@@ -83,7 +83,6 @@ module.exports = {
   
   "saveProfessionalDetails": async (req, res) => {
     try {
-     
         const filter = { _id: req.body.journalistId };     
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
         req.body.targetAudience = req.body.targetAudience.split(",");
@@ -116,7 +115,6 @@ module.exports = {
     try {
         const filter = { _id: req.body.journalistId };     
         req.body.refrences =req.body.refrences;
-        
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
@@ -167,10 +165,8 @@ module.exports = {
 
   "savePlatformBenefits": async (req, res) => {
     try {
-     
         const filter = { _id: req.body.journalistId };     
-      
-        req.body.platformBenefits = req.body.platformBenefits.split(",");
+        // req.body.platformBenefits = req.body.platformBenefits.split(",");
             var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
@@ -178,11 +174,11 @@ module.exports = {
                 sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
             }
             else {
-                sendResponse.to_user(res, 200, null, "Platform Benefits  saved Successfully", success);
+                sendResponse.to_user(res, 200, null, "Journalist registered Successfully", success);
             }
         // }
     } catch (e) {
-  
+      console.log("e",e);
         sendResponse.to_user(res, 400, e, 'Something went wrong');
     }
   },
