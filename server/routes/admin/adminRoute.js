@@ -177,4 +177,18 @@ router
 
     .delete(admin.deleteSocioLinks)
 
+//router for mediahouseType 
+router
+    .route('/mediahouseType')
+    .post(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addBenefit)
+
+    .get(admin.getBenefit)
+
+    .put(validate.benefitReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateBenefit)
+
+    .delete(admin.deleteBenefit)    
 module.exports = router;
