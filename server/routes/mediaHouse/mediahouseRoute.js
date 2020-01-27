@@ -43,34 +43,17 @@ router.route("/personalInformation").post(cpUpload,validate.mediahousePersonalRe
 mediahouseService.personalInformation
 );
 
-router.route("/professionalDetail").put(Upload,validate.professionalDetailsReq, (req, res, next) => {
+router.route("/companyInformation").put(validate.companyInformationReq, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
-  mediahouseService.saveProfessionalDetails
-);
-router.route("/refrence").put(validate.refrencesReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  mediahouseService.saveRefrences
-);
-router.route("/previousWork").put(validate.previousWorksReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  mediahouseService.savePreviousWork
+  mediahouseService.companyInformation
 );
 
-router.route("/socialAccountLink").put(validate.socialAccountLinksReq, (req, res, next) => {
+router.route("/socialAccountLink").put(validate.mediahouseSocialAccountLinks, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
-  mediahouseService.saveSocialAccountLink
+  mediahouseService.socialAccountLink
 );
-
-router.route("/platformBenefit").put(validate.platformBenefitReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  mediahouseService.savePlatformBenefits
-);
- 
 //============County List==============
 router.route("/country").get(function (req, res) {
   finalArray = [];
@@ -94,6 +77,7 @@ router.route("/states").get(mediahouseService.state);
 //=============City list=============
 
 router.route("/city").get(mediahouseService.city);
+
 //=============Journalist Login=============
 
 router.route("/login").post(

@@ -141,10 +141,14 @@ platformBenefitId =[check("platformBenefits", "platformBenefits id is required")
 platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
 headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
+mediahouseId = [check("mediahouseId", "mediahouseId is required").exists()];
+website = [check("website", "website is required").exists()];
+frequencyId = [check("frequencyId", "frequencyId is required").exists()];
 price = [check("price", "price is required").exists()];
 categoryId = [check("categoryId", "categoryId is required").exists()];
 date = [check("date", "date is required").exists()];
 keywordId = [check("keywordId", "keywordId is required").exists()];
+audience = [check("audience", "audience is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
@@ -178,23 +182,7 @@ validateObj.journalistReq = [
   ...state,
   ...city,
 ];
-validateObj.mediahousePersonalReq = [
-  ...firstName,
-  ...lastName,
-  ...middleName,
-  ...mobileNumber,
-  ...checkEmail,
-  ...shortBio,
-  ...password,
-  ...designationId,
-  ...langCode,
-  ...pinCode,
-  ...country,
-  ...state,
-  ...city,
-  ...mailingAddress,
-  ...organisationName
-];
+
 validateObj.professionalDetailsReq = [
   ...areaOfInterests,
   ...targetAudience,
@@ -213,6 +201,38 @@ validateObj.adminLoginReq = [...checkAdminEmail, ...password];
 validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
 validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
 
+// ==============================
+//   validation for mediahouse api 
+// ==============================
+validateObj.mediahousePersonalReq = [
+  ...firstName,
+  ...lastName,
+  ...middleName,
+  ...mobileNumber,
+  ...checkEmail,
+  ...shortBio,
+  ...password,
+  ...designationId,
+  ...langCode,
+  ...pinCode,
+  ...country,
+  ...state,
+  ...city,
+  ...mailingAddress,
+  ...organisationName,
+  ...stepCount
+];
+validateObj.companyInformationReq = [
+  ...areaOfInterests,
+  ...targetAudience,
+  ...mediahouseId,
+  ...frequencyId,
+  ...website,
+  ...audience,
+  ...keywordId,
+  ...stepCount
+];
+validateObj.mediahouseSocialAccountLinks = [...facebookLink,...mediahouseId,...stepCount];
 // ==============================
 //   validation for mobile api 
 // ==============================
