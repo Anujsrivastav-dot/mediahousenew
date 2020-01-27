@@ -26,7 +26,7 @@ module.exports = {
           mobileNumber: req.body.mobileNumber
         }]
       };
-      var success = await db.journalist.findOne(condition);
+      var success = await db.mediahouse.findOne(condition);
       if (success) {
         sendResponse.to_user(
           res,
@@ -71,7 +71,7 @@ module.exports = {
           200,
           null,
           "Personal Information Saved successfully",
-          journalists
+          mediahouse
         );
       }
     } 
@@ -96,7 +96,7 @@ module.exports = {
           }
             req.body.uploadResume = resume
             if(resume){
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -117,7 +117,7 @@ module.exports = {
         const filter = { _id: req.body.journalistId };     
         req.body.refrences =req.body.refrences;
         
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -135,7 +135,7 @@ module.exports = {
         const filter = { _id: req.body.journalistId };     
         req.body.previousWorks =req.body.previousWorks;
         
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -151,7 +151,7 @@ module.exports = {
   "saveSocialAccountLink": async (req, res) => {
     try {
         const filter = { _id: req.body.journalistId };     
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -171,7 +171,7 @@ module.exports = {
         const filter = { _id: req.body.journalistId };     
       
         req.body.platformBenefits = req.body.platformBenefits.split(",");
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -240,7 +240,7 @@ module.exports = {
         emailId: req.body.emailId,
         password: encryptDecrypt.encrypt(req.body.password)
       };
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       if (!journalistData) {
         sendResponse.to_user(
           res,
@@ -272,7 +272,7 @@ module.exports = {
         emailId: req.body.emailId,
         // status: 1,
       }
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       if (!journalistData) {
         sendResponse.to_user(res, 400, null, ' Email id does not exist.', null);
       } else {
@@ -324,7 +324,7 @@ module.exports = {
       var condition = {
         emailId: req.body.emailId
       }
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       // console.log("==>>journalistData", journalistData.otp)
       if (!journalistData) {
         sendResponse.to_user(res, 400, null, ' Email id does not exist', null);
@@ -358,14 +358,14 @@ module.exports = {
   "resetPassword": async (req, res) => {
     try {
       if (req.body.newPassword == req.body.confirmPassword) {
-        var success = await db.journalist.findOne({
+        var success = await db.mediahouse.findOne({
           emailId: req.body.emailId,
 
         });
         if (!success) {
           sendResponse.to_user(res, 400, null, 'Email id does not exist', null);
         } else {
-          await db.journalist.findOneAndUpdate({
+          await db.mediahouse.findOneAndUpdate({
             emailId: req.body.emailId,
 
           }, {
