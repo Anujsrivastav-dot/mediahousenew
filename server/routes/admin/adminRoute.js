@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let validate = require('../../middleware/validation')
+const sendResponse = require("../../helpers/responseHandler");
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -177,6 +178,15 @@ router
 
     .delete(admin.deleteSocioLinks)
 
+    //Language List
+    router.route("/languageLists").get(function (req, res) {
+         finalArray = [];
+        var data = require("../../helpers/language");
+        for (var i = 0; i < data.length; i++) {
+            this.finalArray.push({"id":data[i].lang_id,"text":data[i].lang_name})
+          }
+        sendResponse.to_user(res, 200, null, "language list fetch successfully", finalArray);
+      });
 //router for mediahouseType 
 router
     .route('/mediahouseType')
