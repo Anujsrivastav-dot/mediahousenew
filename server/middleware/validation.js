@@ -130,16 +130,25 @@ var checkEmail = [
 //     .withMessage("mobileNumber cannot be empty")
 // ];
 refrences =[check("refrences", "refrences is required").exists()];
+mediahouseTypeName =[check("mediahouseTypeName", "mediahouseTypeName is required").exists()];
+mediahouseFrequencyName =[check("mediahouseFrequencyName", "mediahouseFrequencyName is required").exists()];
 stepCount =[check("stepCount", "stepCount is required").exists()];
+mailingAddress =[check("mailingAddress", "mailingAddress is required").exists()];
+mediahouseTypeId =[check("mediahouseTypeId", "mediahouseTypeId is required").exists()];
+organisationName =[check("organisationName", "organisationName is required").exists()];
 prevWork =[check("previousWorks", "previousWorks is required").exists()];
 platformBenefitId =[check("platformBenefits", "platformBenefits id is required").exists()];
 platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
 headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
+mediahouseId = [check("mediahouseId", "mediahouseId is required").exists()];
+website = [check("website", "website is required").exists()];
+frequencyId = [check("frequencyId", "frequencyId is required").exists()];
 price = [check("price", "price is required").exists()];
 categoryId = [check("categoryId", "categoryId is required").exists()];
 date = [check("date", "date is required").exists()];
 keywordId = [check("keywordId", "keywordId is required").exists()];
+audience = [check("audience", "audience is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
@@ -151,6 +160,8 @@ var validateObj = {};
 validateObj.saveDataReq=[...firstName,...lastName,...middleName,...mobileNumber,...password,...checkEmail,...shortBio]
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
+validateObj.mediahouseTypeReq = [...mediahouseTypeName];
+validateObj.mediahouseFrequencyReq = [...mediahouseFrequencyName];
 validateObj.categoryReq = [...categoryName];
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];
@@ -171,6 +182,7 @@ validateObj.journalistReq = [
   ...state,
   ...city,
 ];
+
 validateObj.professionalDetailsReq = [
   ...areaOfInterests,
   ...targetAudience,
@@ -189,6 +201,38 @@ validateObj.adminLoginReq = [...checkAdminEmail, ...password];
 validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
 validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
 
+// ==============================
+//   validation for mediahouse api 
+// ==============================
+validateObj.mediahousePersonalReq = [
+  ...firstName,
+  ...lastName,
+  ...middleName,
+  ...mobileNumber,
+  ...checkEmail,
+  ...shortBio,
+  ...password,
+  ...designationId,
+  ...langCode,
+  ...pinCode,
+  ...country,
+  ...state,
+  ...city,
+  ...mailingAddress,
+  ...organisationName,
+  ...stepCount
+];
+validateObj.companyInformationReq = [
+  ...areaOfInterests,
+  ...targetAudience,
+  ...mediahouseId,
+  ...frequencyId,
+  ...website,
+  ...audience,
+  ...keywordId,
+  ...stepCount
+];
+validateObj.mediahouseSocialAccountLinks = [...facebookLink,...mediahouseId,...stepCount];
 // ==============================
 //   validation for mobile api 
 // ==============================

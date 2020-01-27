@@ -18,7 +18,8 @@ function checkValidationResult(req, res, next) {
 }
 
 let mediahouseService = require("../../services/mediaHouse/mediahouse.service");
-
+let myContentService = require("../../services/journalist/myContent.service");
+let enquiryService = require("../../services/journalist/enquiry.service");
 
 
 var storage = multer.diskStorage({
@@ -36,40 +37,23 @@ var Upload = uploadImg.single('uploadResume')
 
 //============journalist signup api ===========
 
-router.route("/personalInformation").post(cpUpload,validate.journalistReq, (req, res, next) => {
+router.route("/personalInformation").post(cpUpload,validate.mediahousePersonalReq, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
 mediahouseService.personalInformation
 );
 
-router.route("/professionalDetail").put(Upload,validate.professionalDetailsReq, (req, res, next) => {
+router.route("/companyInformation").put(validate.companyInformationReq, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
-  journalistService.saveProfessionalDetails
-);
-router.route("/refrence").put(validate.refrencesReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  journalistService.saveRefrences
-);
-router.route("/previousWork").put(validate.previousWorksReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  journalistService.savePreviousWork
+  mediahouseService.companyInformation
 );
 
-router.route("/socialAccountLink").put(validate.socialAccountLinksReq, (req, res, next) => {
+router.route("/socialAccountLink").put(validate.mediahouseSocialAccountLinks, (req, res, next) => {
   checkValidationResult(req, res, next)
 },
-  journalistService.saveSocialAccountLink
+  mediahouseService.socialAccountLink
 );
-
-router.route("/platformBenefit").put(validate.platformBenefitReq, (req, res, next) => {
-  checkValidationResult(req, res, next)
-},
-  journalistService.savePlatformBenefits
-);
- 
 //============County List==============
 router.route("/country").get(function (req, res) {
   finalArray = [];
@@ -88,11 +72,12 @@ router.route("/languages").get(function (req, res) {
 });
 //=============State list=============
 
-router.route("/states").get(journalistService.state);
+router.route("/states").get(mediahouseService.state);
 
 //=============City list=============
 
-router.route("/city").get(journalistService.city);
+router.route("/city").get(mediahouseService.city);
+
 //=============Journalist Login=============
 
 router.route("/login").post(
@@ -100,18 +85,18 @@ router.route("/login").post(
   (req, res, next) => {
     checkValidationResult(req, res, next);
   },
-  journalistService.journalistLogin
+  mediahouseService.journalistLogin
 );
 
-router.route("/forgotPassword").post(journalistService.forgotPassword);
+router.route("/forgotPassword").post(mediahouseService.forgotPassword);
 
 router
   .route('/verifyOtp')
-  .post(journalistService.verifyOtp)
+  .post(mediahouseService.verifyOtp)
 
 router
   .route('/resetPassword')
-  .post(journalistService.resetPassword)
+  .post(mediahouseService.resetPassword)
 
 // Api for content upload//
 

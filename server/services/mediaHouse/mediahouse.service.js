@@ -26,7 +26,7 @@ module.exports = {
           mobileNumber: req.body.mobileNumber
         }]
       };
-      var success = await db.journalist.findOne(condition);
+      var success = await db.mediahouse.findOne(condition);
       if (success) {
         sendResponse.to_user(
           res,
@@ -71,7 +71,7 @@ module.exports = {
           200,
           null,
           "Personal Information Saved successfully",
-          journalists
+          mediahouse
         );
       }
     } 
@@ -81,84 +81,40 @@ module.exports = {
   },
 
   
-  "saveProfessionalDetails": async (req, res) => {
+  "companyInformation": async (req, res) => {
     try {
      
-        const filter = { _id: req.body.journalistId };     
+        const filter = { _id: req.body.mediahouseId };     
         req.body.areaOfInterest = req.body.areaOfInterest.split(",");
         req.body.targetAudience = req.body.targetAudience.split(",");
-        var resume;
-        if(req.file.mimetype=="application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||req.file.mimetype=="application/msword"||req.file.mimetype=="application/pdf"){
-          resume=req.file.filename;
+        req.body.keywordId = req.body.keywordId.split(",");
+        var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
+            new: true
+        })
+        if (!success) {
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Mediahouse Not Found With Id", null);
         }
-        else{
-          sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
-          }
-            req.body.uploadResume = resume
-            if(resume){
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
-            }
-         }
-    } catch (e) {
-  
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
-    }
-  },
+        else {
+            sendResponse.to_user(res, 200, null, "Company information saved successfully", success);
+        }
+    
+        } catch (e) {
+      
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+     },
 
-  "saveRefrences": async (req, res) => {
+  "socialAccountLink": async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-        req.body.refrences =req.body.refrences;
-        
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+        const filter = { _id: req.body.mediahouseId };     
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
                 sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
             }
             else {
-                sendResponse.to_user(res, 200, null, "Refrences saved Successfully", success);
-            }
-    } catch (e) {
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
-    }
-  },
-  "savePreviousWork": async (req, res) => {
-    try {
-        const filter = { _id: req.body.journalistId };     
-        req.body.previousWorks =req.body.previousWorks;
-        
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Previous Works saved Successfully", success);
-            }
-    } catch (e) {
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
-    }
-  },
-  "saveSocialAccountLink": async (req, res) => {
-    try {
-        const filter = { _id: req.body.journalistId };     
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Social Account Links saved Successfully", success);
+                sendResponse.to_user(res, 200, null, "Mediahouse registered Successfully", success);
             }
     } catch (e) {
         sendResponse.to_user(res, 400, e, 'Something went wrong');
@@ -171,7 +127,7 @@ module.exports = {
         const filter = { _id: req.body.journalistId };     
       
         req.body.platformBenefits = req.body.platformBenefits.split(",");
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
                 new: true
             })
             if (!success) {
@@ -240,7 +196,7 @@ module.exports = {
         emailId: req.body.emailId,
         password: encryptDecrypt.encrypt(req.body.password)
       };
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       if (!journalistData) {
         sendResponse.to_user(
           res,
@@ -272,7 +228,7 @@ module.exports = {
         emailId: req.body.emailId,
         // status: 1,
       }
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       if (!journalistData) {
         sendResponse.to_user(res, 400, null, ' Email id does not exist.', null);
       } else {
@@ -324,7 +280,7 @@ module.exports = {
       var condition = {
         emailId: req.body.emailId
       }
-      var journalistData = await db.journalist.findOne(condition);
+      var journalistData = await db.mediahouse.findOne(condition);
       // console.log("==>>journalistData", journalistData.otp)
       if (!journalistData) {
         sendResponse.to_user(res, 400, null, ' Email id does not exist', null);
@@ -358,14 +314,14 @@ module.exports = {
   "resetPassword": async (req, res) => {
     try {
       if (req.body.newPassword == req.body.confirmPassword) {
-        var success = await db.journalist.findOne({
+        var success = await db.mediahouse.findOne({
           emailId: req.body.emailId,
 
         });
         if (!success) {
           sendResponse.to_user(res, 400, null, 'Email id does not exist', null);
         } else {
-          await db.journalist.findOneAndUpdate({
+          await db.mediahouse.findOneAndUpdate({
             emailId: req.body.emailId,
 
           }, {

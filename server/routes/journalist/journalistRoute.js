@@ -10,7 +10,7 @@ let auth = require("../../middleware/auth");
 let config = require("../../helpers/config")();
 const sendRes = require("../../helpers/responseHandler");
 
-// check validation result
+// check validation result 
 function checkValidationResult(req, res, next) {
   var result = validationResult(req).array();
   console.log(result);

@@ -46,6 +46,7 @@ module.exports = {
     staticContent: require("../models/adminModel/staticContent"),
     socioLinks: require("../models/adminModel/socioLinks"),
     mediahouseType: require("../models/adminModel/mediahouseType"),
+    mediahouseFrequency: require("../models/adminModel/mediahouseFrequency"),
     frequency: require("../models/adminModel/frequency"),
     mediahouse: require("../models/mediahouseModel/mediahouse")
    

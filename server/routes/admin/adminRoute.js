@@ -190,15 +190,37 @@ router
 //router for mediahouseType 
 router
     .route('/mediahouseType')
-    .post(validate.benefitReq, (req, res, next) => {
+    .post(validate.mediahouseTypeReq, (req, res, next) => {
         checkValidationResult(req, res, next)
-    }, admin.addBenefit)
+    }, admin.addMediahouseType)
 
-    .get(admin.getBenefit)
+    .get(admin.getMediahouseType)
 
-    .put(validate.benefitReq, (req, res, next) => {
+    .put(validate.mediahouseTypeReq, (req, res, next) => {
         checkValidationResult(req, res, next)
-    }, admin.updateBenefit)
+    }, admin.updateMediahouseType)
 
-    .delete(admin.deleteBenefit)    
+    .delete(admin.deleteMediahouseType)  
+  //router for mediahouseType for web 
+ 
+router.route("/media-house-type")
+    .get(admin.getMediahouseTypeForWeb)
+//router for mediahouseType 
+router
+    .route('/mediahouseFrequency')
+    .post(validate.mediahouseFrequencyReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.addMediahouseFrequency)
+
+    .get(admin.getMediahouseFrequency)
+
+    .put(validate.mediahouseFrequencyReq, (req, res, next) => {
+        checkValidationResult(req, res, next)
+    }, admin.updateMediahouseFrequency)
+
+    .delete(admin.deleteMediahouseFrequency)   
+      //router for mediahouse frequency for web 
+
+    router.route("/media-house-frequency")
+    .get(admin.getMediahouseFrequencyForWeb)
 module.exports = router;

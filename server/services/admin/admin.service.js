@@ -694,4 +694,216 @@ module.exports = {
         }
     },
 
+    /// api for mediaHouse Type Keyword(add,delete,update,get)  
+    "addMediahouseType": async (req, res) => {
+        try {
+            var condition = {
+                mediahouseTypeName: {
+                    $regex: ".*" + req.body.mediahouseTypeName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var success = await db.mediahouseType.findOne(condition);
+            if (success) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Mediahouse type already taken", null);
+            } else {
+                var obj = new db.mediahouseType(req.body);
+                await obj.save();
+                sendResponse.to_user(res, 200, null, "Mediahouse type added successfully", obj);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    "getMediahouseType": async (req, res) => {
+        try {
+            var obj = await db.mediahouseType.find({ status: 1 }, { mediahouseTypeName: 1, status: 1, _id: 1 });
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "Mediahouse type get successfully", obj);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
+    "getMediahouseTypeForWeb": async (req, res) => {
+        try {
+            let finalArray=[];
+            var obj = await db.mediahouseType.find({ status: 1 }, { mediahouseTypeName: 1, status: 1, _id: 1 });
+            for(var i=0;i<obj.length;i++){
+                finalArray.push({id:obj[i]._id,text:obj[i].mediahouseTypeName})
+            }
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "Mediahouse type get successfully", finalArray);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
+    "updateMediahouseType": async (req, res) => {
+        try {
+            const filter = { _id: req.body.typeId };
+            const update = { mediahouseTypeName: req.body.mediahouseTypeName };
+            var condition = {
+                mediahouseTypeName: {
+                    $regex: ".*" + req.body.mediahouseTypeName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var check = await db.mediahouseType.findOne(condition);
+            if (check) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "Mediahouse type already taken", null);
+            }
+            else {
+                var success = await db.mediahouseType.findByIdAndUpdate(filter, update, {
+                    new: true
+                })
+                if (!success) {
+                    sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Media house type Not Found With Id", null);
+                }
+                else {
+                    sendResponse.to_user(res, 200, null, "Mediahouse type Updated Successfully", success);
+                }
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    "deleteMediahouseType": async (req, res) => {
+        try {
+            const filter = { _id: req.body.typeId };
+            var success = await db.mediahouseType.findByIdAndRemove(filter)
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Mediahouse type Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "Mediahouse type Deleted Successfully", success);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    /// api for list of journalist 
+
+    /// api for mediaHouse frequency Keyword(add,delete,update,get)  
+    "addMediahouseFrequency": async (req, res) => {
+        try {
+            var condition = {
+                mediahouseTypeName: {
+                    $regex: ".*" + req.body.mediahouseFrequencyName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var success = await db.mediahouseFrequency.findOne(condition);
+            if (success) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "mediahouse Frequency Name already taken", null);
+            } else {
+                var obj = new db.mediahouseFrequency(req.body);
+                await obj.save();
+                sendResponse.to_user(res, 200, null, "mediahouse Frequency Name added successfully", obj);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    "getMediahouseFrequency": async (req, res) => {
+        try {
+            var obj = await db.mediahouseFrequency.find({ status: 1 }, { mediahouseFrequencyName: 1, status: 1, _id: 1 });
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "mediahouse Frequency Name get successfully", obj);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
+    "getMediahouseFrequencyForWeb": async (req, res) => {
+        try {
+            let finalArray=[];
+            var obj = await db.mediahouseFrequency.find({ status: 1 }, { mediahouseFrequencyName: 1, status: 1, _id: 1 });
+               for(var i=0;i<obj.length;i++){
+                   finalArray.push({id:obj[i]._id,text:obj[i].mediahouseFrequencyName})
+               } 
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "mediahouse Frequency Name get successfully", finalArray);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
+    "updateMediahouseFrequency": async (req, res) => {
+        try {
+            const filter = { _id: req.body.typeId };
+            const update = { mediahouseFrequencyName: req.body.mediahouseFrequencyName };
+            var condition = {
+                mediahouseFrequencyName: {
+                    $regex: ".*" + req.body.mediahouseFrequencyName + ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var check = await db.mediahouseFrequency.findOne(condition);
+            if (check) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "mediahouse Frequency Name already taken", null);
+            }
+            else {
+                var success = await db.mediahouseFrequency.findByIdAndUpdate(filter, update, {
+                    new: true
+                })
+                if (!success) {
+                    sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "mediahouse Frequency Name Not Found With Id", null);
+                }
+                else {
+                    sendResponse.to_user(res, 200, null, "mediahouse Frequency Name Updated Successfully", success);
+                }
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    "deleteMediahouseFrequency": async (req, res) => {
+        try {
+            const filter = { _id: req.body.typeId };
+            var success = await db.mediahouseFrequency.findByIdAndRemove(filter)
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Mediahouse type Not Found With Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "mediahouse Frequency Name Deleted Successfully", success);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+
+    /// api for list of journalist 
+
 };
