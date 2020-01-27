@@ -111,7 +111,7 @@ module.exports = {
                 new: true
             })
             if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Mediahouse Not Found With Id", null);
             }
             else {
                 sendResponse.to_user(res, 200, null, "Mediahouse registered Successfully", success);
