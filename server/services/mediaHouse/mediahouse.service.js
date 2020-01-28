@@ -65,7 +65,6 @@ module.exports = {
         if(logo&&profilePic){
           await mediahouse.save();
         }
-        
         sendResponse.to_user(
           res,
           200,
@@ -76,6 +75,7 @@ module.exports = {
       }
     } 
     catch (e) {
+      console.log(e);
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
@@ -83,11 +83,11 @@ module.exports = {
   
   "companyInformation": async (req, res) => {
     try {
-     
+     console.log(req.body)
         const filter = { _id: req.body.mediahouseId };     
-        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
-        req.body.targetAudience = req.body.targetAudience.split(",");
-        req.body.keywordId = req.body.keywordId.split(",");
+        // req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+        // req.body.targetAudience = req.body.targetAudience.split(",");
+        // req.body.keywordId = req.body.keywordId.split(",");
         var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
             new: true
         })
@@ -99,7 +99,7 @@ module.exports = {
         }
     
         } catch (e) {
-      
+      console.log(e);
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
      },
@@ -120,29 +120,6 @@ module.exports = {
         sendResponse.to_user(res, 400, e, 'Something went wrong');
     }
   },
-
-  "savePlatformBenefits": async (req, res) => {
-    try {
-     
-        const filter = { _id: req.body.journalistId };     
-      
-        req.body.platformBenefits = req.body.platformBenefits.split(",");
-            var success = await db.mediahouse.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Platform Benefits  saved Successfully", success);
-            }
-        // }
-    } catch (e) {
-  
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
-    }
-  },
-  
   
   // ==============================
   //   All State list API

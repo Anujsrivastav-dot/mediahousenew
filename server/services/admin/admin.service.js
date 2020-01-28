@@ -541,6 +541,23 @@ module.exports = {
             sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
         }
     },
+    "getStoryKeywordForWeb": async (req, res) => {
+        try {
+            var finalArray=[];
+            var obj = await db.storyKeyword.find({ status: 1 }, { storyKeywordName: 1, status: 1, _id: 1 });
+            for(var i=0;i<obj.length;i++){
+                finalArray.push({id:obj[i]._id,text:obj[i].storyKeywordName})
+            }
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "Story Keyword get successfully", finalArray);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
 
     "updateStoryKeyword": async (req, res) => {
         try {

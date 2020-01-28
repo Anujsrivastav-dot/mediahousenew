@@ -21,7 +21,7 @@ var mongoose = require("mongoose"),
       logo: {
         type: String
       },
-      organisationName: {
+      organizationName: {
         type: String
       },
       mediahouseTypeId: {
@@ -88,7 +88,9 @@ var mongoose = require("mongoose"),
 
       }],
       keywordId: [{
-        type: String
+        type: ObjectId,
+        default:null,
+        ref:"storyKeyword"
       }],
       website: {
         type: String

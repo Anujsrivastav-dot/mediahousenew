@@ -135,7 +135,7 @@ mediahouseFrequencyName =[check("mediahouseFrequencyName", "mediahouseFrequencyN
 stepCount =[check("stepCount", "stepCount is required").exists()];
 mailingAddress =[check("mailingAddress", "mailingAddress is required").exists()];
 mediahouseTypeId =[check("mediahouseTypeId", "mediahouseTypeId is required").exists()];
-organisationName =[check("organisationName", "organisationName is required").exists()];
+organizationName =[check("organizationName", "organizationName is required").exists()];
 prevWork =[check("previousWorks", "previousWorks is required").exists()];
 platformBenefitId =[check("platformBenefits", "platformBenefits id is required").exists()];
 platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
@@ -219,7 +219,7 @@ validateObj.mediahousePersonalReq = [
   ...state,
   ...city,
   ...mailingAddress,
-  ...organisationName,
+  ...organizationName,
   ...stepCount
 ];
 validateObj.companyInformationReq = [
