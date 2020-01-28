@@ -295,7 +295,7 @@ module.exports = {
     try {
       var stateId = req.query.stateId;
       finalArray = [];
-      const filteredCity = CITY.filter(city => {
+      var filteredCity = CITY.filter(city => {
         return city.state_id === stateId;
       });
       for (var i = 0; i < filteredCity.length; i++) {
@@ -304,7 +304,7 @@ module.exports = {
           text: filteredCity[i].name
         });
       }
-      sendResponse.to_user(res, 200, null, "City list found", filteredCity);
+      sendResponse.to_user(res, 200, null, "City list found", finalArray);
     } catch (e) {
       console.log("err====", e);
       sendResponse.to_user(res, 400, e, "Something went wrong");

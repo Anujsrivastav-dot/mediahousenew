@@ -201,7 +201,10 @@ router
     }, admin.updateMediahouseType)
 
     .delete(admin.deleteMediahouseType)  
-    
+  //router for mediahouseType for web 
+ 
+router.route("/media-house-type")
+    .get(admin.getMediahouseTypeForWeb)
 //router for mediahouseType 
 router
     .route('/mediahouseFrequency')
@@ -215,5 +218,9 @@ router
         checkValidationResult(req, res, next)
     }, admin.updateMediahouseFrequency)
 
-    .delete(admin.deleteMediahouseFrequency)     
+    .delete(admin.deleteMediahouseFrequency)   
+      //router for mediahouse frequency for web 
+
+    router.route("/media-house-frequency")
+    .get(admin.getMediahouseFrequencyForWeb)
 module.exports = router;

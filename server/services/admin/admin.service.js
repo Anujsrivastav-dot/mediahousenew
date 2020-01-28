@@ -732,6 +732,24 @@ module.exports = {
         }
     },
 
+    "getMediahouseTypeForWeb": async (req, res) => {
+        try {
+            let finalArray=[];
+            var obj = await db.mediahouseType.find({ status: 1 }, { mediahouseTypeName: 1, status: 1, _id: 1 });
+            for(var i=0;i<obj.length;i++){
+                finalArray.push({id:obj[i]._id,text:obj[i].mediahouseTypeName})
+            }
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "Mediahouse type get successfully", finalArray);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
     "updateMediahouseType": async (req, res) => {
         try {
             const filter = { _id: req.body.typeId };
@@ -811,6 +829,24 @@ module.exports = {
             var obj = await db.mediahouseFrequency.find({ status: 1 }, { mediahouseFrequencyName: 1, status: 1, _id: 1 });
             if (obj != '') {
                 sendResponse.to_user(res, 200, null, "mediahouse Frequency Name get successfully", obj);
+            } else {
+                sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        } catch (e) {
+
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
+
+    "getMediahouseFrequencyForWeb": async (req, res) => {
+        try {
+            let finalArray=[];
+            var obj = await db.mediahouseFrequency.find({ status: 1 }, { mediahouseFrequencyName: 1, status: 1, _id: 1 });
+               for(var i=0;i<obj.length;i++){
+                   finalArray.push({id:obj[i]._id,text:obj[i].mediahouseFrequencyName})
+               } 
+            if (obj != '') {
+                sendResponse.to_user(res, 200, null, "mediahouse Frequency Name get successfully", finalArray);
             } else {
                 sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
             }
