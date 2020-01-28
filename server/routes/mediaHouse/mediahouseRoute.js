@@ -35,7 +35,7 @@ var uploadImg = multer({ storage: storage });
 var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'logo', maxCount: 8 }])
 var Upload = uploadImg.single('uploadResume')
 
-//============journalist signup api ===========
+//============Mediahouse signup api ===========
 
 router.route("/personalInformation").post(cpUpload,validate.mediahousePersonalReq, (req, res, next) => {
   checkValidationResult(req, res, next)

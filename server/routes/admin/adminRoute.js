@@ -148,6 +148,9 @@ router
 
     .delete(admin.deleteStoryKeyword)
 
+    //router for keyword list for web  
+router
+    .route("/keyword").get(admin.getStoryKeywordForWeb)
 //router for list of journalist  
 router
     .route('/journalist')
