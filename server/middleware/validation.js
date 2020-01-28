@@ -1,10 +1,9 @@
 const { check, oneOf } = require("express-validator/check");
 
 var checkEmail = [
-  check("emailId", "EmailId is required").exists(),
-  check("emailId", "Invalid email address").isEmail()
-],
-
+    check("emailId", "EmailId is required").exists(),
+    check("emailId", "Invalid email address").isEmail()
+  ],
   //=========================================//
   firstName = [
     check("firstName", "firstName is required")
@@ -40,8 +39,12 @@ var checkEmail = [
   categoryName = [check("categoryName", "categoryName is required").exists()],
   uploadVideos = [check("uploadVideos", "uploadVideos is required").exists()],
   enquiryTitle = [check("enquiryTitle", "enquiryTitle is required").exists()],
-  resumeDetails = [check("resumeDetails", "Resume Details is required").exists()],
-  enquiryDescription = [check("enquiryDescription", "enquiryDescription is required").exists()],
+  resumeDetails = [
+    check("resumeDetails", "Resume Details is required").exists()
+  ],
+  enquiryDescription = [
+    check("enquiryDescription", "enquiryDescription is required").exists()
+  ],
   storyCategoryName = [
     check("storyCategoryName", "storyCategoryName is required").exists()
   ],
@@ -97,48 +100,65 @@ var checkEmail = [
   //     .withMessage("link cannot be empty")
   // ];
 
-// refrences = [
-//   check("refrences[0].firstName", "firstName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("firstName cannot be empty"),
-//   check("refrences[0].middleName", "middleName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("middleName cannot be empty"),
-//   check("refrences[0].lastName", "lastName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("lastName cannot be empty"),
-//   check("refrences[0].designation", "designation is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("designation cannot be empty"),
-//   check("refrences[0].lastName", "lastName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("lastName cannot be empty"),
-//   check("refrences[0].mobileNumber", "mobileNumber is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("mobileNumber cannot be empty")
-// ];
-refrences =[check("refrences", "refrences is required").exists()];
-mediahouseTypeName =[check("mediahouseTypeName", "mediahouseTypeName is required").exists()];
-mediahouseFrequencyName =[check("mediahouseFrequencyName", "mediahouseFrequencyName is required").exists()];
-stepCount =[check("stepCount", "stepCount is required").exists()];
-mailingAddress =[check("mailingAddress", "mailingAddress is required").exists()];
-mediahouseTypeId =[check("mediahouseTypeId", "mediahouseTypeId is required").exists()];
-organisationName =[check("organisationName", "organisationName is required").exists()];
-prevWork =[check("previousWorks", "previousWorks is required").exists()];
-platformBenefitId =[check("platformBenefits", "platformBenefits id is required").exists()];
-platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
+  // refrences = [
+  //   check("refrences[0].firstName", "firstName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("firstName cannot be empty"),
+  //   check("refrences[0].middleName", "middleName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("middleName cannot be empty"),
+  //   check("refrences[0].lastName", "lastName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("lastName cannot be empty"),
+  //   check("refrences[0].designation", "designation is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("designation cannot be empty"),
+  //   check("refrences[0].lastName", "lastName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("lastName cannot be empty"),
+  //   check("refrences[0].mobileNumber", "mobileNumber is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("mobileNumber cannot be empty")
+  // ];
+  refrences = [check("refrences", "refrences is required").exists()];
+mediahouseTypeName = [
+  check("mediahouseTypeName", "mediahouseTypeName is required").exists()
+];
+mediahouseFrequencyName = [
+  check(
+    "mediahouseFrequencyName",
+    "mediahouseFrequencyName is required"
+  ).exists()
+];
+stepCount = [check("stepCount", "stepCount is required").exists()];
+mailingAddress = [
+  check("mailingAddress", "mailingAddress is required").exists()
+];
+mediahouseTypeId = [
+  check("mediahouseTypeId", "mediahouseTypeId is required").exists()
+];
+organisationName = [
+  check("organisationName", "organisationName is required").exists()
+];
+prevWork = [check("previousWorks", "previousWorks is required").exists()];
+platformBenefitId = [
+  check("platformBenefits", "platformBenefits id is required").exists()
+];
+platformSuggestion = [
+  check("platformSuggestion", "platformSuggestion is required").exists()
+];
 headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
 mediahouseId = [check("mediahouseId", "mediahouseId is required").exists()];
@@ -155,9 +175,17 @@ briefDescription = [
 var checkAdminEmail = [
   check("adminEmail", "EmailId is required").exists(),
   check("adminEmail", "Invalid email address").isEmail()
-]
+];
 var validateObj = {};
-validateObj.saveDataReq=[...firstName,...lastName,...middleName,...mobileNumber,...password,...checkEmail,...shortBio]
+validateObj.saveDataReq = [
+  ...firstName,
+  ...lastName,
+  ...middleName,
+  ...mobileNumber,
+  ...password,
+  ...checkEmail,
+  ...shortBio
+];
 validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.mediahouseTypeReq = [...mediahouseTypeName];
@@ -180,29 +208,38 @@ validateObj.journalistReq = [
   ...pinCode,
   ...country,
   ...state,
-  ...city,
+  ...city
 ];
 
 validateObj.professionalDetailsReq = [
   ...areaOfInterests,
   ...targetAudience,
   ...resumeDetail,
-  ...journalistId,
-
+  ...journalistId
 ];
-validateObj.refrencesReq = [...refrences,...journalistId];
-validateObj.previousWorksReq = [...prevWork,...journalistId];
-validateObj.socialAccountLinksReq = [...facebookLink,...journalistId];
-validateObj.platformBenefitReq = [...platformBenefitId,...journalistId,...platformSuggestion];
+validateObj.refrencesReq = [...refrences, ...journalistId];
+validateObj.previousWorksReq = [...prevWork, ...journalistId];
+validateObj.socialAccountLinksReq = [...facebookLink, ...journalistId];
+validateObj.platformBenefitReq = [
+  ...platformBenefitId,
+  ...journalistId,
+  ...platformSuggestion
+];
 
 validateObj.postStoryReq = [...uploadVideos];
 validateObj.jLoginReq = [...checkEmail, ...password];
 validateObj.adminLoginReq = [...checkAdminEmail, ...password];
 validateObj.enquiryReq = [...enquiryTitle, ...enquiryDescription];
-validateObj.socioLinkReq = [...facebookLink, ...twitterLink, ...instagramLink, ...linkedinLink, ...youtubeLink];
+validateObj.socioLinkReq = [
+  ...facebookLink,
+  ...twitterLink,
+  ...instagramLink,
+  ...linkedinLink,
+  ...youtubeLink
+];
 
 // ==============================
-//   validation for mediahouse api 
+//   validation for mediahouse api
 // ==============================
 validateObj.mediahousePersonalReq = [
   ...firstName,
@@ -232,9 +269,13 @@ validateObj.companyInformationReq = [
   ...keywordId,
   ...stepCount
 ];
-validateObj.mediahouseSocialAccountLinks = [...facebookLink,...mediahouseId,...stepCount];
+validateObj.mediahouseSocialAccountLinks = [
+  ...facebookLink,
+  ...mediahouseId,
+  ...stepCount
+];
 // ==============================
-//   validation for mobile api 
+//   validation for mobile api
 // ==============================
 validateObj.personalReq = [
   ...firstName,
@@ -253,17 +294,37 @@ validateObj.personalReq = [
   ...stepCount
 ];
 validateObj.professionalDetails = [
-              ...areaOfInterests,
-              ...targetAudience,
-              ...resumeDetails,
-              ...journalistId,
-              ...stepCount
-            ];
-validateObj.refrences = [...refrences,...journalistId,...stepCount];
-validateObj.previousWorks = [...prevWork,...journalistId,...stepCount];
-validateObj.socialAccountLinks = [...facebookLink,...journalistId,...stepCount];
-validateObj.platformBenefit = [...platformBenefitId,...journalistId,...platformSuggestion,...stepCount];
-validateObj.blog = [...headLine,...categoryId,...langCode,...country,...state,...city,...date,...keywordId,...journalistId,...stepCount];
-
+  ...areaOfInterests,
+  ...targetAudience,
+  ...resumeDetails,
+  ...journalistId,
+  ...stepCount
+];
+validateObj.refrences = [...refrences, ...journalistId, ...stepCount];
+validateObj.previousWorks = [...prevWork, ...journalistId, ...stepCount];
+validateObj.socialAccountLinks = [
+  ...facebookLink,
+  ...journalistId,
+  ...stepCount
+];
+validateObj.platformBenefit = [
+  ...platformBenefitId,
+  ...journalistId,
+  ...platformSuggestion,
+  ...stepCount
+];
+validateObj.blog = [
+  ...headLine,
+  ...categoryId,
+  ...langCode,
+  ...country,
+  ...state,
+  ...city,
+  ...date,
+  ...keywordId,
+  ...journalistId,
+  ...briefDescription,
+  ...stepCount
+];
 
 module.exports = validateObj;

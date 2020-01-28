@@ -3,28 +3,31 @@ const sendResponse = require("../../helpers/responseHandler");
 const encryptDecrypt = require("../../helpers/cryptoPassword");
 const generateToken = require("../../helpers/generateAuthToken");
 // var mailFunction = require("../../lib/mailer");
-var randomOtp = require('random-number');
-var nodemailer = require('nodemailer');
-var random = require('random-number-generator')
+var randomOtp = require("random-number");
+var nodemailer = require("nodemailer");
+var random = require("random-number-generator");
 
 randomOtp();
 
 // const COUNTRIES =require("../../helpers/country");
 const STATES = require("../../helpers/state");
 const CITY = require("../../helpers/city");
-module.exports = {  
+module.exports = {
   // ==============================
   //   Journalist Signup API
   // ==============================
 
-  "personalInformation": async (req, res) => {
+  personalInformation: async (req, res) => {
     try {
       var condition = {
-        $or: [{
-          emailId: req.body.emailId,
-        }, {
-          mobileNumber: req.body.mobileNumber
-        }]
+        $or: [
+          {
+            emailId: req.body.emailId
+          },
+          {
+            mobileNumber: req.body.mobileNumber
+          }
+        ]
       };
       var success = await db.journalist.findOne(condition);
       if (success) {
@@ -36,36 +39,52 @@ module.exports = {
           null
         );
       } else {
-        var fileArray=req.files;
+        var fileArray = req.files;
         var profilePic;
         var shortVideo;
-        fileArray['profilePic'].forEach(img => {
-          if(img['mimetype']=="image/jpeg" ||img['mimetype']=="image/png"){
-            profilePic=img['filename'];
-          }
-          else{
-            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+        fileArray["profilePic"].forEach(img => {
+          if (
+            img["mimetype"] == "image/jpeg" ||
+            img["mimetype"] == "image/png"
+          ) {
+            profilePic = img["filename"];
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload valid file"
+            );
             return;
-            }
-         });
-        fileArray['shortVideo'].forEach(vid => {
-          if(vid['mimetype']=="video/mp4"||vid['mimetype']=="video/3gpp" ||vid['mimetype']=="video/x-flv"||vid['mimetype']=="application/x-mpegURL"||vid['mimetype']=="video/x-msvideo"){
-          shortVideo=vid['filename'];
           }
-          else{
-            sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
+        });
+        fileArray["shortVideo"].forEach(vid => {
+          if (
+            vid["mimetype"] == "video/mp4" ||
+            vid["mimetype"] == "video/3gpp" ||
+            vid["mimetype"] == "video/x-flv" ||
+            vid["mimetype"] == "application/x-mpegURL" ||
+            vid["mimetype"] == "video/x-msvideo"
+          ) {
+            shortVideo = vid["filename"];
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload valid file"
+            );
             return;
-            }
-            
+          }
         });
         req.body.password = encryptDecrypt.encrypt(req.body.password);
-        req.body.profilePic=profilePic; 
-        req.body.shortVideo=shortVideo; 
+        req.body.profilePic = profilePic;
+        req.body.shortVideo = shortVideo;
         var journalists = new db.journalist(req.body);
-        if(shortVideo&&profilePic){
+        if (shortVideo && profilePic) {
           await journalists.save();
         }
-        
+
         sendResponse.to_user(
           res,
           200,
@@ -74,116 +93,176 @@ module.exports = {
           journalists
         );
       }
-    } 
-    catch (e) {
+    } catch (e) {
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
 
-  
-  "saveProfessionalDetails": async (req, res) => {
+  saveProfessionalDetails: async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-        req.body.areaOfInterest = req.body.areaOfInterest.split(",");
-        req.body.targetAudience = req.body.targetAudience.split(",");
-        var resume;
-        if(req.file.mimetype=="application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||req.file.mimetype=="application/msword"||req.file.mimetype=="application/pdf"){
-          resume=req.file.filename;
+      const filter = { _id: req.body.journalistId };
+      req.body.areaOfInterest = req.body.areaOfInterest.split(",");
+      req.body.targetAudience = req.body.targetAudience.split(",");
+      var resume;
+      if (
+        req.file.mimetype ==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        req.file.mimetype == "application/msword" ||
+        req.file.mimetype == "application/pdf"
+      ) {
+        resume = req.file.filename;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload valid file"
+        );
+      }
+      req.body.uploadResume = resume;
+      if (resume) {
+        var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+          new: true
+        });
+        if (!success) {
+          sendResponse.to_user(
+            res,
+            404,
+            "DATA_NOT_FOUND",
+            "Journalist Not Found With Id",
+            null
+          );
+        } else {
+          sendResponse.to_user(
+            res,
+            200,
+            null,
+            "Professional details saved Successfully",
+            success
+          );
         }
-        else{
-          sendResponse.to_user(res, 400, "File_type_Error", "Please upload valid file");
-          }
-            req.body.uploadResume = resume
-            if(resume){
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Professional details saved Successfully", success);
-            }
-         }
+      }
     } catch (e) {
-  
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
 
-  "saveRefrences": async (req, res) => {
+  saveRefrences: async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-        req.body.refrences =req.body.refrences;
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Refrences saved Successfully", success);
-            }
+      const filter = { _id: req.body.journalistId };
+      req.body.refrences = req.body.refrences;
+      var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+        new: true
+      });
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "Journalist Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Refrences saved Successfully",
+          success
+        );
+      }
     } catch (e) {
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
-  "savePreviousWork": async (req, res) => {
+  savePreviousWork: async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-        req.body.previousWorks =req.body.previousWorks;
-        
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Previous Works saved Successfully", success);
-            }
+      const filter = { _id: req.body.journalistId };
+      req.body.previousWorks = req.body.previousWorks;
+
+      var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+        new: true
+      });
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "Journalist Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Previous Works saved Successfully",
+          success
+        );
+      }
     } catch (e) {
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
-  "saveSocialAccountLink": async (req, res) => {
+  saveSocialAccountLink: async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Social Account Links saved Successfully", success);
-            }
+      const filter = { _id: req.body.journalistId };
+      var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+        new: true
+      });
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "Journalist Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Social Account Links saved Successfully",
+          success
+        );
+      }
     } catch (e) {
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
 
-  "savePlatformBenefits": async (req, res) => {
+  savePlatformBenefits: async (req, res) => {
     try {
-        const filter = { _id: req.body.journalistId };     
-        // req.body.platformBenefits = req.body.platformBenefits.split(",");
-            var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
-                new: true
-            })
-            if (!success) {
-                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "Journalist Not Found With Id", null);
-            }
-            else {
-                sendResponse.to_user(res, 200, null, "Journalist registered Successfully", success);
-            }
-        // }
+      const filter = { _id: req.body.journalistId };
+      // req.body.platformBenefits = req.body.platformBenefits.split(",");
+      var success = await db.journalist.findByIdAndUpdate(filter, req.body, {
+        new: true
+      });
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "Journalist Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Journalist registered Successfully",
+          success
+        );
+      }
+      // }
     } catch (e) {
-      console.log("e",e);
-        sendResponse.to_user(res, 400, e, 'Something went wrong');
+      console.log("e", e);
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
-  
-  
+
   // ==============================
   //   All State list API
   // ==============================
@@ -196,7 +275,11 @@ module.exports = {
       });
       for (var i = 0; i < filteredStates.length; i++) {
         console.log(filteredStates.length);
-        finalArray.push({ id: filteredStates[i].country_id, text: filteredStates[i].name, currencyName: filteredStates[i].currencyName })
+        finalArray.push({
+          id: filteredStates[i].country_id,
+          text: filteredStates[i].name,
+          currencyName: filteredStates[i].currencyName
+        });
       }
       sendResponse.to_user(res, 200, null, "State list found", finalArray);
     } catch (e) {
@@ -204,7 +287,6 @@ module.exports = {
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
-
 
   // ==============================
   //   All City list API
@@ -217,7 +299,10 @@ module.exports = {
         return city.state_id === stateId;
       });
       for (var i = 0; i < filteredCity.length; i++) {
-        finalArray.push({ id: filteredCity[i].state_id, text: filteredCity[i].name })
+        finalArray.push({
+          id: filteredCity[i].state_id,
+          text: filteredCity[i].name
+        });
       }
       sendResponse.to_user(res, 200, null, "City list found", filteredCity);
     } catch (e) {
@@ -225,7 +310,6 @@ module.exports = {
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
-
 
   // ==============================
   //   Journalist Login API
@@ -262,17 +346,17 @@ module.exports = {
   // ==============================
   //  Forgot password API
   // ==============================
-  "forgotPassword": async (req, res) => {
+  forgotPassword: async (req, res) => {
     try {
       var condition = {
-        emailId: req.body.emailId,
+        emailId: req.body.emailId
         // status: 1,
-      }
+      };
       var journalistData = await db.journalist.findOne(condition);
       if (!journalistData) {
-        sendResponse.to_user(res, 400, null, ' Email id does not exist.', null);
+        sendResponse.to_user(res, 400, null, " Email id does not exist.", null);
       } else {
-        var otpGen = random(9999, 1111) // random integer between 10 and 50
+        var otpGen = random(9999, 1111); // random integer between 10 and 50
         journalistData.otp = otpGen;
         await journalistData.save();
         var smtpTransport = nodemailer.createTransport({
@@ -288,61 +372,68 @@ module.exports = {
           to: "satyendra05cs@gmail.com",
           subject: "Recover your account",
           text: "Hey Please use the code",
-          html: "<b>your Recover code is:</b>" + otpGen,
-        }
+          html: "<b>your Recover code is:</b>" + otpGen
+        };
 
-        smtpTransport.sendMail(mail, function (error, response) {
+        smtpTransport.sendMail(mail, function(error, response) {
           if (error) {
-            console.log("err", error)
+            console.log("err", error);
             //sendResponse.to_user(res, 400, error, "Something went wrong");
           } else {
-            console.log("success", response)
-            sendResponse.to_user(res, 200, null, 'OTP has been sent on your registered email.', null);
+            console.log("success", response);
+            sendResponse.to_user(
+              res,
+              200,
+              null,
+              "OTP has been sent on your registered email.",
+              null
+            );
           }
           smtpTransport.close();
         });
-
       }
     } catch (e) {
       // console.log(e)
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
-
   },
-
 
   // ==============================
   //  Verify OTP API
   // ==============================
 
-  "verifyOtp": async (req, res) => {
+  verifyOtp: async (req, res) => {
     try {
       var condition = {
         emailId: req.body.emailId
-      }
+      };
       var journalistData = await db.journalist.findOne(condition);
       // console.log("==>>journalistData", journalistData.otp)
       if (!journalistData) {
-        sendResponse.to_user(res, 400, null, ' Email id does not exist', null);
-      }
-      else if (journalistData.otp != req.body.otp) {
-        sendResponse.to_user(res, 202, null, ' Invalid OTP', null);
-      }
-      else {
+        sendResponse.to_user(res, 400, null, " Email id does not exist", null);
+      } else if (journalistData.otp != req.body.otp) {
+        sendResponse.to_user(res, 202, null, " Invalid OTP", null);
+      } else {
         console.log("==>>data", journalistData);
         journalistData.verifyOtp = true;
         await journalistData.save();
         authToken = generateToken.authToken({
           _id: journalistData._id
         });
-        sendResponse.to_user(res, 200, null, 'OTP verified successfully, Please contact to admin', {
-          journalistToken: authToken,
-          _id: journalistData._id,
-          otp: journalistData.otp
-        });
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "OTP verified successfully, Please contact to admin",
+          {
+            journalistToken: authToken,
+            _id: journalistData._id,
+            otp: journalistData.otp
+          }
+        );
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
@@ -351,37 +442,45 @@ module.exports = {
   //  Reset password API
   // ==============================
 
-  "resetPassword": async (req, res) => {
+  resetPassword: async (req, res) => {
     try {
       if (req.body.newPassword == req.body.confirmPassword) {
         var success = await db.journalist.findOne({
-          emailId: req.body.emailId,
-
+          emailId: req.body.emailId
         });
         if (!success) {
-          sendResponse.to_user(res, 400, null, 'Email id does not exist', null);
+          sendResponse.to_user(res, 400, null, "Email id does not exist", null);
         } else {
-          await db.journalist.findOneAndUpdate({
-            emailId: req.body.emailId,
-
-          }, {
-            $set: {
-              "password": encryptDecrypt.encrypt(req.body.newPassword)
+          await db.journalist.findOneAndUpdate(
+            {
+              emailId: req.body.emailId
+            },
+            {
+              $set: {
+                password: encryptDecrypt.encrypt(req.body.newPassword)
+              }
             }
-          });
-          sendResponse.to_user(res, 200, null, 'Password reset successfully', null);
+          );
+          sendResponse.to_user(
+            res,
+            200,
+            null,
+            "Password reset successfully",
+            null
+          );
         }
       } else {
-        sendResponse.to_user(res, 400, null, "New password and confirm password doesn't match", null);
+        sendResponse.to_user(
+          res,
+          400,
+          null,
+          "New password and confirm password doesn't match",
+          null
+        );
       }
     } catch (e) {
       // console.log(e)
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
-  },
-
-
-
-
-
+  }
 };
