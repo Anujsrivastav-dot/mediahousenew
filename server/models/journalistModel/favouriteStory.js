@@ -2,27 +2,30 @@ var mongoose = require("mongoose"),
   Schema = mongoose.Schema,
   mongoosePaginate = require("mongoose-paginate"),
   ObjectId = Schema.ObjectId,
-  enquiry = new Schema(
+  favouriteStory = new Schema(
     {
       journalistId: {
         type: ObjectId,
         default: null,
         ref: "journalists"
       },
-      enquiryTitle: {
-        type: String
-      },
-      enquiryDescription: {
-        type: String
+      storyId: {
+        type: ObjectId,
+        default: null,
+        ref: "stories"
       },
       status: {
         type: Number,
-        default: 0 // status 1 is Active and 0 is inActive/delete
+        default: 1 // status 1 is favourite and 0 is unfavourite
       }
     },
     {
       timestamps: true
     }
   );
-enquiry.plugin(mongoosePaginate);
-module.exports = mongoose.model("enquiry", enquiry, "enquiry");
+favouriteStory.plugin(mongoosePaginate);
+module.exports = mongoose.model(
+  "favouriteStory",
+  favouriteStory,
+  "favouriteStory"
+);

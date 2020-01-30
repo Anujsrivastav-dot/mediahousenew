@@ -17,10 +17,8 @@ story = new Schema(
       default: null,
       ref: "category"
     },
-    storyCategoryId: {
-      type: ObjectId,
-      default: null,
-      ref: "storyCategories"
+    storyCategory: {
+      type: String
     },
     keywordId: [
       {
