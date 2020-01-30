@@ -48,6 +48,9 @@ var checkEmail = [
   storyCategoryName = [
     check("storyCategoryName", "storyCategoryName is required").exists()
   ],
+  storyCategory = [
+    check("storyCategory", "storyCategory is required").exists()
+  ],
   storyTypeName = [
     check("storyTypeName", "storyTypeName is required").exists()
   ],
@@ -100,50 +103,68 @@ var checkEmail = [
   //     .withMessage("link cannot be empty")
   // ];
 
-// refrences = [
-//   check("refrences[0].firstName", "firstName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("firstName cannot be empty"),
-//   check("refrences[0].middleName", "middleName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("middleName cannot be empty"),
-//   check("refrences[0].lastName", "lastName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("lastName cannot be empty"),
-//   check("refrences[0].designation", "designation is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("designation cannot be empty"),
-//   check("refrences[0].lastName", "lastName is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("lastName cannot be empty"),
-//   check("refrences[0].mobileNumber", "mobileNumber is required")
-//     .exists()
-//     .not()
-//     .isEmpty()
-//     .withMessage("mobileNumber cannot be empty")
-// ];
-refrences =[check("refrences", "refrences is required").exists()];
-mediahouseTypeName =[check("mediahouseTypeName", "mediahouseTypeName is required").exists()];
-mediahouseFrequencyName =[check("mediahouseFrequencyName", "mediahouseFrequencyName is required").exists()];
-stepCount =[check("stepCount", "stepCount is required").exists()];
-mailingAddress =[check("mailingAddress", "mailingAddress is required").exists()];
-mediahouseTypeId =[check("mediahouseTypeId", "mediahouseTypeId is required").exists()];
-organizationName =[check("organizationName", "organizationName is required").exists()];
-prevWork =[check("previousWorks", "previousWorks is required").exists()];
-platformBenefitId =[check("platformBenefits", "platformBenefits id is required").exists()];
-platformSuggestion =[check("platformSuggestion", "platformSuggestion is required").exists()];
+  // refrences = [
+  //   check("refrences[0].firstName", "firstName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("firstName cannot be empty"),
+  //   check("refrences[0].middleName", "middleName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("middleName cannot be empty"),
+  //   check("refrences[0].lastName", "lastName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("lastName cannot be empty"),
+  //   check("refrences[0].designation", "designation is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("designation cannot be empty"),
+  //   check("refrences[0].lastName", "lastName is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("lastName cannot be empty"),
+  //   check("refrences[0].mobileNumber", "mobileNumber is required")
+  //     .exists()
+  //     .not()
+  //     .isEmpty()
+  //     .withMessage("mobileNumber cannot be empty")
+  // ];
+  refrences = [check("refrences", "refrences is required").exists()];
+mediahouseTypeName = [
+  check("mediahouseTypeName", "mediahouseTypeName is required").exists()
+];
+mediahouseFrequencyName = [
+  check(
+    "mediahouseFrequencyName",
+    "mediahouseFrequencyName is required"
+  ).exists()
+];
+stepCount = [check("stepCount", "stepCount is required").exists()];
+mailingAddress = [
+  check("mailingAddress", "mailingAddress is required").exists()
+];
+mediahouseTypeId = [
+  check("mediahouseTypeId", "mediahouseTypeId is required").exists()
+];
+organizationName = [
+  check("organizationName", "organizationName is required").exists()
+];
+prevWork = [check("previousWorks", "previousWorks is required").exists()];
+platformBenefitId = [
+  check("platformBenefits", "platformBenefits id is required").exists()
+];
+platformSuggestion = [
+  check("platformSuggestion", "platformSuggestion is required").exists()
+];
 headLine = [check("headLine", "headLine is required").exists()];
 journalistId = [check("journalistId", "journalistId is required").exists()];
+storyId = [check("storyId", "storyId is required").exists()];
 mediahouseId = [check("mediahouseId", "mediahouseId is required").exists()];
 website = [check("website", "website is required").exists()];
 frequencyId = [check("frequencyId", "frequencyId is required").exists()];
@@ -152,6 +173,7 @@ categoryId = [check("categoryId", "categoryId is required").exists()];
 date = [check("date", "date is required").exists()];
 keywordId = [check("keywordId", "keywordId is required").exists()];
 audience = [check("audience", "audience is required").exists()];
+currency = [check("currency", "currency is required").exists()];
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
@@ -285,6 +307,7 @@ validateObj.professionalDetails = [
 ];
 validateObj.refrences = [...refrences, ...journalistId, ...stepCount];
 validateObj.previousWorks = [...prevWork, ...journalistId, ...stepCount];
+validateObj.favouriteStory = [...storyId, ...journalistId];
 validateObj.socialAccountLinks = [
   ...facebookLink,
   ...journalistId,
@@ -305,8 +328,22 @@ validateObj.blog = [
   ...city,
   ...date,
   ...keywordId,
-  ...journalistId,
   ...briefDescription,
+  ...stepCount
+];
+validateObj.story = [
+  ...headLine,
+  ...categoryId,
+  ...langCode,
+  ...country,
+  ...state,
+  ...city,
+  ...date,
+  ...keywordId,
+  ...briefDescription,
+  ...storyCategory,
+  ...currency,
+  ...price,
   ...stepCount
 ];
 

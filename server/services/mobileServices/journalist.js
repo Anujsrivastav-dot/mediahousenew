@@ -475,6 +475,7 @@ module.exports = {
   blog: async (req, res) => {
     try {
       req.body.keywordId = req.body.keywordId.split(",");
+      req.body.journalistId = req.journalist._id;
       var story = new db.story(req.body);
       await story.save();
       sendResponse.to_user(
@@ -655,6 +656,7 @@ module.exports = {
   sellStory: async (req, res) => {
     try {
       req.body.keywordId = req.body.keywordId.split(",");
+      req.body.journalistId = req.journalist._id;
       var story = new db.story(req.body);
       await story.save();
       sendResponse.to_user(
@@ -854,6 +856,93 @@ module.exports = {
       }
     } catch (e) {
       sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+
+  countStory: async (req, res) => {
+    try {
+      var obj = await db.story
+        .find({ journalistId: req.journalist._id })
+        .count();
+      if (obj != "") {
+        sendResponse.to_user(res, 200, null, "Story  count successfully", obj);
+      } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+
+  getSaveStory: async (req, res) => {
+    try {
+      var obj = await db.story.find({
+        typeStatus: 0,
+        journalistId: req.journalist._id
+      });
+      if (obj != "") {
+        sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+
+  getMyStory: async (req, res) => {
+    try {
+      var obj = await db.story.find({
+        typeStatus: 1,
+        journalistId: req.journalist._id
+      });
+      if (obj != "") {
+        sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
+      } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+
+  favouriteStory: async (req, res) => {
+    try {
+      // var obj = await db.favouriteStory.find({
+      //   storyId: req.body.storyId,
+      //   journalistId: req.body.journalistId
+      // });
+      // console.log(obj.status);
+      const filter = { storyId: req.body.storyId };
+
+      const update = { status: 0 };
+      var success = await db.favouriteStory.findOneAndUpdate(filter, update, {
+        new: true
+      });
+      if (success) {
+        //db.favouriteStory.deleteMany({ st: "hii" });
+        // db.favouriteStory.remove({ st: "hii" });
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "remove from favourite list",
+          success
+        );
+      } else {
+        var favourite = new db.favouriteStory(req.body);
+        await favourite.save();
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Story added to favourite list successfully",
+          favourite
+        );
+      }
+    } catch (e) {
+      console.log(e);
+      sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   }
 };

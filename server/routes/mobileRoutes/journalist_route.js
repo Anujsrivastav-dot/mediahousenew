@@ -6,7 +6,7 @@ const sendResponse = require("../../helpers/responseHandler");
 //!!!!!!express validation function to throw validation...........
 const { check, validationResult } = require("express-validator/check");
 //!!!!!!!!! authentication function................................
-let auth = require("../../middleware/auth");
+let auth = require("../../helpers/auth");
 let config = require("../../helpers/config")();
 const sendRes = require("../../helpers/responseHandler");
 
@@ -140,9 +140,13 @@ router.route("/resetPassword").post(journalistService.resetPassword);
 
 router
   .route("/uploadContent")
-  .post(uploadImg.array("myContent", 12), myContentService.myContent)
-  .get(myContentService.getMyContent)
-  .put(myContentService.updatemyContent);
+  .post(
+    uploadImg.array("myContent", 12),
+    auth.authenticateJournalist,
+    myContentService.myContent
+  )
+  .get(auth.authenticateJournalist, myContentService.getMyContent)
+  .put(auth.authenticateJournalist, myContentService.updatemyContent);
 
 // ==============================
 //  routes for  Enquiry
@@ -154,9 +158,10 @@ router
     (req, res, next) => {
       checkValidationResult(req, res, next);
     },
+    auth.authenticateJournalist,
     enquiryService.addEnquiry
   )
-  .get(enquiryService.getEnquiry);
+  .get(auth.authenticateJournalist, enquiryService.getEnquiry);
 
 // ==============================
 //  routes for  story sell and blog
@@ -168,12 +173,38 @@ router
     (req, res, next) => {
       checkValidationResult(req, res, next);
     },
+    auth.authenticateJournalist,
     journalistService.blog
   )
-  .put(blogUpload, journalistService.uploadBlog);
+  .put(blogUpload, auth.authenticateJournalist, journalistService.uploadBlog);
 router
   .route("/sellStory")
-  .post(journalistService.sellStory)
-  .put(blogUpload, journalistService.uploadStory);
-router.route("/getStory").get(journalistService.getStory);
+  .post(
+    validate.story,
+    (req, res, next) => {
+      checkValidationResult(req, res, next);
+    },
+    auth.authenticateJournalist,
+    journalistService.sellStory
+  )
+  .put(blogUpload, auth.authenticateJournalist, journalistService.uploadStory);
+router
+  .route("/getStory")
+  .get(auth.authenticateJournalist, journalistService.getStory);
+router
+  .route("/countStory")
+  .get(auth.authenticateJournalist, journalistService.countStory);
+router
+  .route("/getSaveStory")
+  .get(auth.authenticateJournalist, journalistService.getSaveStory);
+router
+  .route("/getMyStory")
+  .get(auth.authenticateJournalist, journalistService.getMyStory);
+router.route("/favouriteStory").post(
+  validate.favouriteStory,
+  (req, res, next) => {
+    checkValidationResult(req, res, next);
+  },
+  journalistService.favouriteStory
+);
 module.exports = router;
