@@ -315,11 +315,13 @@ module.exports = {
           null
         );
       } else {
+        console.log(journalistData.stepCount);
         authToken = generateToken.authToken({
           _id: journalistData._id
         });
         sendResponse.to_user(res, 200, null, "Login successfully", {
-          journalistToken: authToken
+          journalistToken: authToken,
+          stepCount: journalistData.stepCount
         });
       }
     } catch (e) {
