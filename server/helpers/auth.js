@@ -28,7 +28,6 @@ module.exports.authenticateJournalist = function(req, res, next) {
           } else if (!success) {
             sendResponse.to_user(res, 403, null, "Invalid token", null);
           } else {
-            console.log(success);
             if (success.status == 0) {
               req.journalist = success;
               next();

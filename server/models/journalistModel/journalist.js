@@ -1,5 +1,5 @@
 var mongoose = require("mongoose"),
-  // mongoosePaginate = require('mongoose-paginate'),
+  mongoosePaginate = require("mongoose-paginate"),
   Schema = mongoose.Schema,
   ObjectId = Schema.ObjectId,
   journalist = new Schema(
@@ -15,11 +15,11 @@ var mongoose = require("mongoose"),
         default: null,
         ref: "designation"
       },
-      categoryId: {
-        type: ObjectId,
-        default: null,
-        ref: "category"
-      },
+      // categoryId: {
+      //   type: ObjectId,
+      //   default: null,
+      //   ref: "category"
+      // },
       profilePic: {
         type: String
       },
@@ -146,6 +146,6 @@ var mongoose = require("mongoose"),
     }
   );
 
-// journalist.plugin(mongoosePaginate);
+journalist.plugin(mongoosePaginate);
 module.exports = mongoose.model("journalist", journalist, "journalists");
 //module.exports  = mongoose.model('session', session, 'session');

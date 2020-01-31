@@ -860,13 +860,64 @@ module.exports = {
     }
   },
 
+  getProfile: async (req, res) => {
+    try {
+      var obj = await db.journalist
+        .find({
+          _id: req.journalist._id
+        })
+        .populate("designationId", "designationName")
+        .populate("areaOfInterest", "categoryName");
+      if (obj != "") {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "journalist profile  get successfully",
+          obj
+        );
+      } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+  getAllJournalist: async (req, res) => {
+    try {
+      var options = {
+        select: "firstName middleName lastName",
+        sort: { createdAt: -1 },
+        limit: 10,
+        page: req.query.pageNumber || 1
+      };
+      var obj = await db.journalist.paginate({}, options);
+      if (obj != "") {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "journalist profile  get successfully",
+          obj
+        );
+      } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+    }
+  },
+
   getStory: async (req, res) => {
     try {
-      var obj = await db.story.find({
-        typeStatus: 1,
-        status: 1,
-        country: req.query.countryId
-      });
+      var obj = await db.story
+        .find({
+          typeStatus: 1,
+          status: 1,
+          country: req.query.countryId
+        })
+        .populate("keywordId", "storyKeywordName")
+        .populate("categoryId", "categoryName");
       if (obj != "") {
         sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
@@ -894,10 +945,13 @@ module.exports = {
 
   getSaveStory: async (req, res) => {
     try {
-      var obj = await db.story.find({
-        typeStatus: 0,
-        journalistId: req.journalist._id
-      });
+      var obj = await db.story
+        .find({
+          typeStatus: 0,
+          journalistId: req.journalist._id
+        })
+        .populate("keywordId", "storyKeywordName")
+        .populate("categoryId", "categoryName");
       if (obj != "") {
         sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
@@ -910,16 +964,21 @@ module.exports = {
 
   getMyStory: async (req, res) => {
     try {
-      var obj = await db.story.find({
-        typeStatus: 1,
-        journalistId: req.journalist._id
-      });
+      var obj = await db.story
+        .find({
+          typeStatus: 1,
+          journalistId: req.journalist._id
+        })
+        .populate("keywordId", "storyKeywordName")
+        .populate("categoryId", "categoryName");
+
       if (obj != "") {
         sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {
         sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
       }
     } catch (e) {
+      console.log(e);
       sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
     }
   },

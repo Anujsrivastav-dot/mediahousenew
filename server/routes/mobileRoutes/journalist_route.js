@@ -189,6 +189,12 @@ router
   )
   .put(blogUpload, auth.authenticateJournalist, journalistService.uploadStory);
 router
+  .route("/getJournalistProfile")
+  .get(auth.authenticateJournalist, journalistService.getProfile);
+router
+  .route("/getAllJournalist")
+  .get(auth.authenticateJournalist, journalistService.getAllJournalist);
+router
   .route("/getStory")
   .get(auth.authenticateJournalist, journalistService.getStory);
 router
