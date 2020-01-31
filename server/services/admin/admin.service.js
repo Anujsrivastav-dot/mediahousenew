@@ -815,7 +815,7 @@ module.exports = {
         }
     },
 
-    /// api for list of journalist 
+    /// api for list of journalist  
 
     /// api for mediaHouse frequency Keyword(add,delete,update,get)  
     "addMediahouseFrequency": async (req, res) => {
