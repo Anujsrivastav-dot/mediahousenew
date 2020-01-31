@@ -306,23 +306,39 @@ module.exports = {
         password: encryptDecrypt.encrypt(req.body.password)
       };
       var journalistData = await db.journalist.findOne(condition);
+      var mediahouseData = await db.mediahouse.findOne(condition);
       if (!journalistData) {
-        sendResponse.to_user(
-          res,
-          400,
-          null,
-          "Email id or password is incorrect.",
-          null
-        );
+        if (!mediahouseData) {
+          sendResponse.to_user(
+            res,
+            400,
+            null,
+            "Email id or password is incorrect.",
+            null
+          );
+        } else {
+          authToken = generateToken.authToken({
+            _id: mediahouseData._id
+          });
+          sendResponse.to_user(res, 200, null, "Login successfully", {
+            mediahouseToken: authToken,
+            stepCount: mediahouseData.stepCount,
+            journalistId: mediahouseData._id,
+            userType: mediahouseData.userType
+          });
+        }
       } else {
-        console.log(journalistData.stepCount);
-        authToken = generateToken.authToken({
-          _id: journalistData._id
-        });
-        sendResponse.to_user(res, 200, null, "Login successfully", {
-          journalistToken: authToken,
-          stepCount: journalistData.stepCount
-        });
+        if (journalistData) {
+          authToken = generateToken.authToken({
+            _id: journalistData._id
+          });
+          sendResponse.to_user(res, 200, null, "Login successfully", {
+            journalistToken: authToken,
+            stepCount: journalistData.stepCount,
+            journalistId: journalistData._id,
+            userType: journalistData.userType
+          });
+        }
       }
     } catch (e) {
       console.log(e);

@@ -205,6 +205,7 @@ router.route("/favouriteStory").post(
   (req, res, next) => {
     checkValidationResult(req, res, next);
   },
+  auth.authenticateJournalist,
   journalistService.favouriteStory
 );
 module.exports = router;

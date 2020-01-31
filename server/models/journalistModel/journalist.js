@@ -75,15 +75,18 @@ var mongoose = require("mongoose"),
         type: Boolean,
         default: false
       },
-      areaOfInterest: [{
-        type: ObjectId,
-        default:null,
-        ref:"category"
-
-      }],
-      targetAudience: [{
-        type: String
-      }],
+      areaOfInterest: [
+        {
+          type: ObjectId,
+          default: null,
+          ref: "category"
+        }
+      ],
+      targetAudience: [
+        {
+          type: String
+        }
+      ],
       resumeDetails: {
         type: String
       },
@@ -128,6 +131,10 @@ var mongoose = require("mongoose"),
       paymentStatus: {
         type: Number, //0 for inactive 1 for active
         default: 0
+      },
+      userType: {
+        type: String, //0 for inactive 1 for active
+        default: "journalist"
       },
       status: {
         type: Number,

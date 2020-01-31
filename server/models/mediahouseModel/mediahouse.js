@@ -72,26 +72,32 @@ var mongoose = require("mongoose"),
         type: Boolean,
         default: false
       },
-      areaOfInterest: [{
-        type: ObjectId,
-        default:null,
-        ref:"category"
-
-      }],
-      targetAudience: [{
-        type: String
-      }],
-      frequencyId: [{
-        type: ObjectId,
-        default:null,
-        ref:"frequency"
-
-      }],
-      keywordId: [{
-        type: ObjectId,
-        default:null,
-        ref:"storyKeyword"
-      }],
+      areaOfInterest: [
+        {
+          type: ObjectId,
+          default: null,
+          ref: "category"
+        }
+      ],
+      targetAudience: [
+        {
+          type: String
+        }
+      ],
+      frequencyId: [
+        {
+          type: ObjectId,
+          default: null,
+          ref: "frequency"
+        }
+      ],
+      keywordId: [
+        {
+          type: ObjectId,
+          default: null,
+          ref: "storyKeyword"
+        }
+      ],
       website: {
         type: String
       },
@@ -118,6 +124,10 @@ var mongoose = require("mongoose"),
       },
       youtubeLink: {
         type: String
+      },
+      userType: {
+        type: String, //0 for inactive 1 for active
+        default: "mediahouse"
       },
       status: {
         type: Number,
