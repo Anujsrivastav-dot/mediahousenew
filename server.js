@@ -58,6 +58,7 @@ app.use("/api/user", require("./server/routes/mobileRoutes/journalist_route"));
 
 app.use(express.static("admin"));
 app.use(express.static("user"));
+app.use('/images', express.static("images"))
 
 // app.get('/', function(req, res) {
 //     res.sendFile(__dirname + '/admin/index.html');
