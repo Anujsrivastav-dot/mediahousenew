@@ -310,6 +310,7 @@ module.exports = {
       };
       var journalistData = await db.journalist.findOne(condition);
       var mediahouseData = await db.mediahouse.findOne(condition);
+      console.log(mediahouseData);
       if (!journalistData) {
         if (!mediahouseData) {
           sendResponse.to_user(
@@ -327,7 +328,9 @@ module.exports = {
             mediahouseToken: authToken,
             stepCount: mediahouseData.stepCount,
             journalistId: mediahouseData._id,
-            userType: mediahouseData.userType
+            userType: mediahouseData.userType,
+            prevData:mediahouseData,
+            prevJouralistData:journalistData
           });
         }
       } else {
