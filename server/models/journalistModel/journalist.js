@@ -44,15 +44,9 @@ var mongoose = require("mongoose"),
       mobileNumber: {
         type: String
       },
-      country: {
-        type: String
-      },
-      state: {
-        type: String
-      },
-      city: {
-        type: String
-      },
+      country: {},
+      state: {},
+      city: {},
       pincode: {
         type: String
       },
