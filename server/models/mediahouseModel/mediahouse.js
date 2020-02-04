@@ -107,6 +107,12 @@ var mongoose = require("mongoose"),
       stepCount: {
         type: Number
       },
+      prevData:{
+        type:String
+      },
+      prevJouralistData:{
+        type:String
+      },
       facebookLink: {
         type: String
       },
