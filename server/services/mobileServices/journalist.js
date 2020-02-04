@@ -329,8 +329,8 @@ module.exports = {
             stepCount: mediahouseData.stepCount,
             journalistId: mediahouseData._id,
             userType: mediahouseData.userType,
-            prevData:mediahouseData,
-            prevJouralistData:journalistData
+            prevData: mediahouseData,
+            prevJouralistData: journalistData
           });
         }
       } else {
