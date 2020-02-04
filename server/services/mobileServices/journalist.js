@@ -47,7 +47,7 @@ module.exports = {
             img["mimetype"] == "image/jpeg" ||
             img["mimetype"] == "image/png"
           ) {
-            profilePic = img["filename"];
+            profilePic = img["path"];
           } else {
             sendResponse.to_user(
               res,
@@ -66,7 +66,7 @@ module.exports = {
             vid["mimetype"] == "application/x-mpegURL" ||
             vid["mimetype"] == "video/x-msvideo"
           ) {
-            shortVideo = vid["filename"];
+            shortVideo = vid["path"];
           } else {
             sendResponse.to_user(
               res,
@@ -80,6 +80,9 @@ module.exports = {
         req.body.password = encryptDecrypt.encrypt(req.body.password);
         req.body.profilePic = profilePic;
         req.body.shortVideo = shortVideo;
+        req.body.country = JSON.parse(req.body.country);
+        req.body.city = JSON.parse(req.body.city);
+        req.body.state = JSON.parse(req.body.state);
         var journalists = new db.journalist(req.body);
         if (shortVideo && profilePic) {
           await journalists.save();
@@ -110,7 +113,7 @@ module.exports = {
         req.file.mimetype == "application/msword" ||
         req.file.mimetype == "application/pdf"
       ) {
-        resume = req.file.filename;
+        resume = req.file.path;
       } else {
         sendResponse.to_user(
           res,
@@ -494,6 +497,9 @@ module.exports = {
     try {
       req.body.keywordId = req.body.keywordId.split(",");
       req.body.journalistId = req.journalist._id;
+      req.body.country = JSON.parse(req.body.country);
+      req.body.city = JSON.parse(req.body.city);
+      req.body.state = JSON.parse(req.body.state);
       var story = new db.story(req.body);
       await story.save();
       sendResponse.to_user(
@@ -527,7 +533,7 @@ module.exports = {
       var l = 0;
       imageArray["uploadTexts"].forEach(txt => {
         if (txt["mimetype"] == "text/plain") {
-          uploadTexts.push({ text: txt["filename"], textNote: textNote[l] });
+          uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
           l++;
         } else {
           sendResponse.to_user(
@@ -542,7 +548,7 @@ module.exports = {
       imageArray["uploadImages"].forEach(img => {
         if (img["mimetype"] == "image/jpeg" || img["mimetype"] == "image/png") {
           uploadImages.push({
-            Image: img["filename"],
+            Image: img["path"],
             imageNote: imageNote[k]
           });
           k++;
@@ -567,7 +573,7 @@ module.exports = {
           vid["mimetype"] == "video/quicktime"
         ) {
           uploadVideos.push({
-            video: vid["filename"],
+            video: vid["path"],
             videoNote: videoNote[j]
           });
           j++;
@@ -587,7 +593,7 @@ module.exports = {
           thumb["mimetype"] == "image/png"
         ) {
           uploadThumbnails.push({
-            thumbnale: thumb["filename"],
+            thumbnale: thumb["path"],
             thumbnaleNote: thumbnaleNote[i]
           });
           i++;
@@ -608,7 +614,7 @@ module.exports = {
           docs["mimetype"] == "application/msword" ||
           docs["mimetype"] == "application/pdf"
         ) {
-          supportingDocs.push({ doc: docs["filename"], docNote: docNote[m] });
+          supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
           m++;
         } else {
           sendResponse.to_user(
@@ -623,7 +629,7 @@ module.exports = {
       imageArray["uploadAudios"].forEach(audio => {
         if (audio["mimetype"] == "audio/mpeg") {
           uploadAudios.push({
-            audio: audio["filename"],
+            audio: audio["path"],
             audioNote: audioNote[n]
           });
           n++;
@@ -675,6 +681,9 @@ module.exports = {
     try {
       req.body.keywordId = req.body.keywordId.split(",");
       req.body.journalistId = req.journalist._id;
+      req.body.country = JSON.parse(req.body.country);
+      req.body.city = JSON.parse(req.body.city);
+      req.body.state = JSON.parse(req.body.state);
       var story = new db.story(req.body);
       await story.save();
       sendResponse.to_user(
@@ -693,6 +702,7 @@ module.exports = {
   uploadStory: async (req, res) => {
     try {
       var imageArray = req.files;
+      console.log(imageArray);
       var textNote = req.body.textNote.split(",");
       var imageNote = req.body.imageNote.split(",");
       var videoNote = req.body.videoNote.split(",");
@@ -708,7 +718,7 @@ module.exports = {
       var l = 0;
       imageArray["uploadTexts"].forEach(txt => {
         if (txt["mimetype"] == "text/plain") {
-          uploadTexts.push({ text: txt["filename"], textNote: textNote[l] });
+          uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
           l++;
         } else {
           sendResponse.to_user(
@@ -723,7 +733,7 @@ module.exports = {
       imageArray["uploadImages"].forEach(img => {
         if (img["mimetype"] == "image/jpeg" || img["mimetype"] == "image/png") {
           uploadImages.push({
-            Image: img["filename"],
+            Image: img["path"],
             imageNote: imageNote[k]
           });
           k++;
@@ -748,7 +758,7 @@ module.exports = {
           vid["mimetype"] == "video/quicktime"
         ) {
           uploadVideos.push({
-            video: vid["filename"],
+            video: vid["path"],
             videoNote: videoNote[j]
           });
           j++;
@@ -768,7 +778,7 @@ module.exports = {
           thumb["mimetype"] == "image/png"
         ) {
           uploadThumbnails.push({
-            thumbnale: thumb["filename"],
+            thumbnale: thumb["path"],
             thumbnaleNote: thumbnaleNote[i]
           });
           i++;
@@ -789,7 +799,7 @@ module.exports = {
           docs["mimetype"] == "application/msword" ||
           docs["mimetype"] == "application/pdf"
         ) {
-          supportingDocs.push({ doc: docs["filename"], docNote: docNote[m] });
+          supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
           m++;
         } else {
           sendResponse.to_user(
@@ -804,7 +814,7 @@ module.exports = {
       imageArray["uploadAudios"].forEach(audio => {
         if (audio["mimetype"] == "audio/mpeg") {
           uploadAudios.push({
-            audio: audio["filename"],
+            audio: audio["path"],
             audioNote: audioNote[n]
           });
           n++;
@@ -914,10 +924,11 @@ module.exports = {
         .find({
           typeStatus: 1,
           status: 1,
-          country: req.query.countryId
+          "country.id": req.query.countryId
         })
         .populate("keywordId", "storyKeywordName")
         .populate("categoryId", "categoryName");
+
       if (obj != "") {
         sendResponse.to_user(res, 200, null, "Story  get successfully", obj);
       } else {

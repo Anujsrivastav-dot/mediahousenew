@@ -33,15 +33,9 @@ story = new Schema(
     date: {
       type: Date
     },
-    country: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    city: {
-      type: String
-    },
+    country: {},
+    state: {},
+    city: {},
     briefDescription: {
       type: String
     },
