@@ -653,7 +653,7 @@ module.exports = {
       req.body.supportingDocs = supportingDocs;
       req.body.uploadAudios = uploadAudios;
 
-      const filter = { _id: req.body.storyId };
+      const filter = { _id: req.body.blogId };
       var success = await db.story.findByIdAndUpdate(filter, req.body, {
         new: true
       });
