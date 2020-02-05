@@ -6,7 +6,7 @@ const sendResponse = require("../../helpers/responseHandler");
 //express validation function to throw validation
 const { check, validationResult } = require("express-validator/check");
 // authentication function
-let auth = require("../../middleware/auth");
+let auth = require("../../helpers/auth");
 let config = require("../../helpers/config")();
 const sendRes = require("../../helpers/responseHandler");
 
@@ -136,6 +136,10 @@ router
   )
   .get(enquiryService.getEnquiry)
 
+  // Api for get stories // 
+  router
+  .route("/get-stories")
+  .get(auth.authenticateJournalist, journalistService.getStory);
 
 
 module.exports = router;

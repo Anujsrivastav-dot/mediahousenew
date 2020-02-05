@@ -482,5 +482,29 @@ module.exports = {
       // console.log(e)
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
+  },
+
+
+getStory: async (req, res) => {
+  try {
+    var obj = await db.story
+      .find({
+        typeStatus: 1,
+        status: 1,
+        "country.id": req.query.countryId
+      })
+      .populate("keywordId", "storyKeywordName")
+      .populate("categoryId", "categoryName");
+
+    if (obj) {
+      sendResponse.to_user(res, 200, null, "Stories get successfully", obj);
+    } else {
+      sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+    }
+  } catch (e) {
+    sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
   }
-};
+}
+
+
+}

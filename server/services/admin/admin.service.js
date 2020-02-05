@@ -5,7 +5,7 @@ const upload = require("../../helpers/uploadImage");
 const encryptDecrypt = require("../../helpers/cryptoPassword");
 const generateToken = require("../../helpers/generateAuthToken");
 
-console.log(encryptDecrypt.decrypt("bea6bb07de7889b4f467a128d3490839"))
+console.log(encryptDecrypt.decrypt("947754c584e6cd2538b1130d1a172d29"))
 module.exports = {
 
     // api for desigantion(add,delete,update,get)    
