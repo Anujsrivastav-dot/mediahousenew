@@ -504,7 +504,30 @@ getStory: async (req, res) => {
   } catch (e) {
     sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
   }
-}
+},
+
+"blog": async (req, res) => {
+  try {
+    req.body.keywordId = req.body.keywordId.split(",");
+    req.body.journalistId = req.journalist._id;
+    req.body.country = JSON.parse(req.body.country);
+    req.body.city = JSON.parse(req.body.city);
+    req.body.state = JSON.parse(req.body.state);
+    var story = new db.story(req.body);
+    await story.save();
+    sendResponse.to_user(
+      res,
+      200,
+      null,
+      "blog details saved successfully",
+      story
+    );
+  } catch (e) {
+    console.log("err====", e);
+    sendResponse.to_user(res, 400, e, "Something went wrong");
+  }
+},
+
 
 
 }

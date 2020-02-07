@@ -243,6 +243,19 @@ validateObj.socioLinkReq = [
   ...youtubeLink
 ];
 
+validateObj.blogReq = [
+  ...headLine,
+  ...categoryId,
+  ...langCode,
+  ...country,
+  ...state,
+  ...city,
+  ...date,
+  ...keywordId,
+  ...briefDescription,
+  ...stepCount
+];
+
 // ==============================
 //   validation for mediahouse api
 // ==============================

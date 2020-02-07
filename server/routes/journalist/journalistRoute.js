@@ -70,6 +70,16 @@ router.route("/platformBenefit").put(validate.platformBenefitReq, (req, res, nex
 },
   journalistService.savePlatformBenefits
 );
+router
+  .route("/blog-post")
+  .post(
+    validate.blogReq,
+    (req, res, next) => {
+      checkValidationResult(req, res, next);
+    },
+    auth.authenticateJournalist,
+    journalistService.blog
+  )
  
 //============County List==============
 router.route("/country").get(function (req, res) {
