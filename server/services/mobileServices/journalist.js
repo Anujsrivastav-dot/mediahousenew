@@ -52,7 +52,7 @@ module.exports = {
             sendResponse.to_user(
               res,
               400,
-              "File_type_Error",
+              "Image_File_type_Error",
               "Please upload valid file"
             );
             return;
@@ -71,7 +71,7 @@ module.exports = {
             sendResponse.to_user(
               res,
               400,
-              "File_type_Error",
+              "Video_File_type_Error",
               "Please upload valid file"
             );
             return;
