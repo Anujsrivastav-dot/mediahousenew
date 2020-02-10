@@ -9,7 +9,7 @@ module.exports = {
       file.forEach(file => {
         uploadFiles.push({
           contentOriginalName: file["originalname"],
-          contentDuplicateName: file["filename"]
+          contentDuplicateName: file["path"]
         });
       });
       req.body.myContent = uploadFiles;
