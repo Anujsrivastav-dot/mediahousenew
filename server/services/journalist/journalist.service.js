@@ -508,11 +508,11 @@ getStory: async (req, res) => {
 
 "blog": async (req, res) => {
   try {
-    req.body.keywordId = req.body.keywordId.split(",");
+    req.body.keywordId = req.body.keywordId;
     req.body.journalistId = req.journalist._id;
-    req.body.country = JSON.parse(req.body.country);
-    req.body.city = JSON.parse(req.body.city);
-    req.body.state = JSON.parse(req.body.state);
+    req.body.country =req.body.country;
+    req.body.city = req.body.city;
+    req.body.state =req.body.state;
     var story = new db.story(req.body);
     await story.save();
     sendResponse.to_user(
@@ -527,6 +527,169 @@ getStory: async (req, res) => {
     sendResponse.to_user(res, 400, e, "Something went wrong");
   }
 },
+
+"uploadBlogs": async (req, res) => {
+  try {
+    var imageArray = req.files;
+    var textNote = req.body.textNote.split(",");
+    var imageNote = req.body.imageNote.split(",");
+    var videoNote = req.body.videoNote.split(",");
+    var docNote = req.body.docNote.split(",");
+    var thumbnaleNote = req.body.thumbnaleNote.split(",");
+    var audioNote = req.body.audioNote.split(",");
+    var uploadTexts = [];
+    var uploadImages = [];
+    var uploadVideos = [];
+    var uploadThumbnails = [];
+    var supportingDocs = [];
+    var uploadAudios = [];
+    var l = 0;
+    imageArray["uploadTexts"].forEach(txt => {
+      if (txt["mimetype"] == "text/plain") {
+        uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
+        l++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload text file for text"
+        );
+      }
+    });
+    var k = 0;
+    imageArray["uploadImages"].forEach(img => {
+      if (img["mimetype"] == "image/jpeg" || img["mimetype"] == "image/png") {
+        uploadImages.push({
+          Image: img["path"],
+          imageNote: imageNote[k]
+        });
+        k++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload image file for image"
+        );
+      }
+    });
+    var j = 0;
+
+    imageArray["uploadVideos"].forEach(vid => {
+      if (
+        vid["mimetype"] == "video/mp4" ||
+        vid["mimetype"] == "video/3gpp" ||
+        vid["mimetype"] == "video/x-flv" ||
+        vid["mimetype"] == "application/x-mpegURL" ||
+        vid["mimetype"] == "video/x-msvideo" ||
+        vid["mimetype"] == "video/quicktime"
+      ) {
+        uploadVideos.push({
+          video: vid["path"],
+          videoNote: videoNote[j]
+        });
+        j++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload video file for videos"
+        );
+      }
+    });
+    var i = 0;
+    imageArray["uploadThumbnails"].forEach(thumb => {
+      if (
+        thumb["mimetype"] == "image/jpeg" ||
+        thumb["mimetype"] == "image/png"
+      ) {
+        uploadThumbnails.push({
+          thumbnale: thumb["path"],
+          thumbnaleNote: thumbnaleNote[i]
+        });
+        i++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload image file for thumbnail"
+        );
+      }
+    });
+    var m = 0;
+    imageArray["supportingDocs"].forEach(docs => {
+      if (
+        docs["mimetype"] ==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        docs["mimetype"] == "application/msword" ||
+        docs["mimetype"] == "application/pdf"
+      ) {
+        supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
+        m++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload doc file"
+        );
+      }
+    });
+    var n = 0;
+    imageArray["uploadAudios"].forEach(audio => {
+      if (audio["mimetype"] == "audio/mpeg") {
+        uploadAudios.push({
+          audio: audio["path"],
+          audioNote: audioNote[n]
+        });
+        n++;
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_type_Error",
+          "Please upload audio file for audio"
+        );
+      }
+    });
+
+    req.body.uploadTexts = uploadTexts;
+    req.body.uploadImages = uploadImages;
+    req.body.uploadVideos = uploadVideos;
+    req.body.uploadThumbnails = uploadThumbnails;
+    req.body.supportingDocs = supportingDocs;
+    req.body.uploadAudios = uploadAudios;
+
+    const filter = { _id: req.body.blogId };
+    var success = await db.story.findByIdAndUpdate(filter, req.body, {
+      new: true
+    });
+    if (!success) {
+      sendResponse.to_user(
+        res,
+        404,
+        "DATA_NOT_FOUND",
+        "Journalist Not Found With Id",
+        null
+      );
+    } else {
+      sendResponse.to_user(
+        res,
+        200,
+        null,
+        "Story added  successfully",
+        success
+      );
+    }
+  } catch (e) {
+    console.log(e);
+    sendResponse.to_user(res, 400, e, "Something went wrong");
+  }
+},
+
 
 
 

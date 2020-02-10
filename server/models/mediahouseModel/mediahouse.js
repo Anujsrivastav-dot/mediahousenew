@@ -53,7 +53,7 @@ var mongoose = require("mongoose"),
       city: {
         type: String
       },
-      pincode: {
+      pinCode: {
         type: String
       },
       password: {

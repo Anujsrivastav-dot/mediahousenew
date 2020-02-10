@@ -35,6 +35,36 @@ var uploadImg = multer({ storage: storage });
 var cpUpload = uploadImg.fields([{ name: 'profilePic', maxCount: 8 }, { name: 'shortVideo', maxCount: 8 }])
 var Upload = uploadImg.single('uploadResume')
 
+
+
+// =====================================
+// multer function for blog/doc upload
+// =====================================
+var storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    //   console.log(req.file)
+    callback(null, "images");
+  },
+  filename: function(req, file, callback) {
+    var fileName = Date.now() + "_" + file.originalname;
+    callback(null, fileName);
+  }
+});
+var uploadImg = multer({ storage: storage });
+var cpUpload = uploadImg.fields([
+  { name: "profilePic", maxCount: 8 },
+  { name: "shortVideo", maxCount: 8 }
+]);
+var blogUpload = uploadImg.fields([
+  { name: "uploadTexts", maxCount: 8 },
+  { name: "uploadImages", maxCount: 8 },
+  { name: "uploadVideos", maxCount: 8 },
+  { name: "uploadThumbnails", maxCount: 8 },
+  { name: "supportingDocs", maxCount: 8 },
+  { name: "uploadAudios", maxCount: 8 }
+]);
+var Upload = uploadImg.single("uploadResume");
+
 //============journalist signup api ===========
 
 router.route("/personalInformation").post(cpUpload,validate.journalistReq, (req, res, next) => {
@@ -80,6 +110,10 @@ router
     auth.authenticateJournalist,
     journalistService.blog
   )
+  router
+  .route("/upload-blog-doc")
+  .put(blogUpload, auth.authenticateJournalist, journalistService.uploadBlogs);
+
  
 //============County List==============
 router.route("/country").get(function (req, res) {

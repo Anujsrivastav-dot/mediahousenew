@@ -45,6 +45,7 @@ module.exports = {
         fileArray["profilePic"].forEach(img => {
           if (
             img["mimetype"] == "image/jpeg" ||
+            img["mimetype"] == "image/jpg" ||
             img["mimetype"] == "image/png"
           ) {
             profilePic = img["path"];
