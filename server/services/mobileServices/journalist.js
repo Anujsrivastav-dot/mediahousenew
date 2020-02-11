@@ -721,7 +721,7 @@ module.exports = {
           res,
           404,
           "DATA_NOT_FOUND",
-          "Journalist Not Found With Id",
+          "blog Not Found With Id",
           null
         );
       } else {
