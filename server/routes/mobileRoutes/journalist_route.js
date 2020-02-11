@@ -146,8 +146,8 @@ router
     myContentService.myContent
   )
   .get(auth.authenticateJournalist, myContentService.getMyContent)
-  .put(auth.authenticateJournalist, myContentService.updatemyContent);
-
+  .put(auth.authenticateJournalist, myContentService.updatemyContent)
+  .delete(myContentService.deleteMyContent);
 // ==============================
 //  routes for  Enquiry
 // ==============================

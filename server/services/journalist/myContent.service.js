@@ -80,5 +80,31 @@ module.exports = {
     } catch (e) {
       sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
     }
+  },
+  deleteMyContent: async (req, res) => {
+    console.log();
+    try {
+      const filter = { "myContent._id": req.body.id };
+      var success = await db.myContents.findByIdAndRemove(filter);
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "myContents Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "myContents Deleted Successfully",
+          success
+        );
+      }
+    } catch (e) {
+      sendResponse.to_user(res, 400, e, "Something went wrong");
+    }
   }
 };

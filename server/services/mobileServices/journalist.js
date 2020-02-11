@@ -64,7 +64,7 @@ module.exports = {
             vid["mimetype"] == "video/mp4" ||
             vid["mimetype"] == "video/3gpp" ||
             vid["mimetype"] == "video/x-flv" ||
-            vid["mimetype"] == "video/quicktime"||
+            vid["mimetype"] == "video/quicktime" ||
             vid["mimetype"] == "application/x-mpegURL" ||
             vid["mimetype"] == "video/x-msvideo"
           ) {

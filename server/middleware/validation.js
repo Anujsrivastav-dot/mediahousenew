@@ -295,6 +295,7 @@ validateObj.mediahouseSocialAccountLinks = [
 // ==============================
 //   validation for mobile api
 // ==============================
+
 validateObj.personalReq = [
   ...firstName,
   ...lastName,
