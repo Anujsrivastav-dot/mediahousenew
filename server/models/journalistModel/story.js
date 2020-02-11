@@ -18,7 +18,8 @@ story = new Schema(
       ref: "category"
     },
     storyCategory: {
-      type: String
+      type: String,
+      default: null
     },
     keywordId: [
       {
@@ -28,7 +29,8 @@ story = new Schema(
       }
     ],
     langCode: {
-      type: String
+      type: String,
+      default: null
     },
     date: {
       type: Date
@@ -40,9 +42,6 @@ story = new Schema(
       type: String
     },
     pincode: {
-      type: String
-    },
-    currency: {
       type: String
     },
     shortBio: {
@@ -115,22 +114,28 @@ story = new Schema(
       }
     ],
     currency: {
-      type: String
+      type: String,
+      default: null
     },
     price: {
-      type: String
+      type: String,
+      default: null
     },
     collaborationGroupId: {
-      type: String
+      type: String,
+      default: null
     },
     purchasingLimit: {
-      type: String
+      type: String,
+      default: null
     },
     auctionDuration: {
-      type: String
+      type: String,
+      default: null
     },
     auctionBiddingPrice: {
-      type: String
+      type: String,
+      default: null
     },
     status: {
       type: Number,

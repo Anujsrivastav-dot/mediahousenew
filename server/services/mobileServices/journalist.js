@@ -536,118 +536,175 @@ module.exports = {
       var supportingDocs = [];
       var uploadAudios = [];
       var l = 0;
-      imageArray["uploadTexts"].forEach(txt => {
-        if (txt["mimetype"] == "text/plain") {
-          uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
-          l++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload text file for text"
-          );
-        }
-      });
+      //console.log(imageArray);
+      if (imageArray["uploadTexts"]) {
+        imageArray["uploadTexts"].forEach(txt => {
+          if (txt["mimetype"] == "text/plain") {
+            uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
+            l++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload text file for text"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(res, 400, "File_Error", "uploadTexts is required");
+        return;
+      }
       var k = 0;
-      imageArray["uploadImages"].forEach(img => {
-        if (img["mimetype"] == "image/jpeg" || img["mimetype"] == "image/png") {
-          uploadImages.push({
-            Image: img["path"],
-            imageNote: imageNote[k]
-          });
-          k++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload image file for image"
-          );
-        }
-      });
+      if (imageArray["uploadImages"]) {
+        imageArray["uploadImages"].forEach(img => {
+          if (
+            img["mimetype"] == "image/jpeg" ||
+            img["mimetype"] == "image/png"
+          ) {
+            uploadImages.push({
+              Image: img["path"],
+              imageNote: imageNote[k]
+            });
+            k++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload image file for image"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadImages is required"
+        );
+        return;
+      }
       var j = 0;
-
-      imageArray["uploadVideos"].forEach(vid => {
-        if (
-          vid["mimetype"] == "video/mp4" ||
-          vid["mimetype"] == "video/3gpp" ||
-          vid["mimetype"] == "video/x-flv" ||
-          vid["mimetype"] == "application/x-mpegURL" ||
-          vid["mimetype"] == "video/x-msvideo" ||
-          vid["mimetype"] == "video/quicktime"
-        ) {
-          uploadVideos.push({
-            video: vid["path"],
-            videoNote: videoNote[j]
-          });
-          j++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload video file for videos"
-          );
-        }
-      });
+      if (imageArray["uploadVideos"]) {
+        imageArray["uploadVideos"].forEach(vid => {
+          if (
+            vid["mimetype"] == "video/mp4" ||
+            vid["mimetype"] == "video/3gpp" ||
+            vid["mimetype"] == "video/x-flv" ||
+            vid["mimetype"] == "application/x-mpegURL" ||
+            vid["mimetype"] == "video/x-msvideo" ||
+            vid["mimetype"] == "video/quicktime"
+          ) {
+            uploadVideos.push({
+              video: vid["path"],
+              videoNote: videoNote[j]
+            });
+            j++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload video file for videos"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadVideos is required"
+        );
+        return;
+      }
       var i = 0;
-      imageArray["uploadThumbnails"].forEach(thumb => {
-        if (
-          thumb["mimetype"] == "image/jpeg" ||
-          thumb["mimetype"] == "image/png"
-        ) {
-          uploadThumbnails.push({
-            thumbnale: thumb["path"],
-            thumbnaleNote: thumbnaleNote[i]
-          });
-          i++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload image file for thumbnail"
-          );
-        }
-      });
+      if (imageArray["uploadThumbnails"]) {
+        imageArray["uploadThumbnails"].forEach(thumb => {
+          if (
+            thumb["mimetype"] == "image/jpeg" ||
+            thumb["mimetype"] == "image/png"
+          ) {
+            uploadThumbnails.push({
+              thumbnale: thumb["path"],
+              thumbnaleNote: thumbnaleNote[i]
+            });
+            i++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload image file for thumbnail"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadThumbnails is required"
+        );
+        return;
+      }
       var m = 0;
-      imageArray["supportingDocs"].forEach(docs => {
-        if (
-          docs["mimetype"] ==
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-          docs["mimetype"] == "application/msword" ||
-          docs["mimetype"] == "application/pdf"
-        ) {
-          supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
-          m++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload doc file"
-          );
-        }
-      });
+      if (imageArray["supportingDocs"]) {
+        imageArray["supportingDocs"].forEach(docs => {
+          if (
+            docs["mimetype"] ==
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+            docs["mimetype"] == "application/msword" ||
+            docs["mimetype"] == "application/pdf"
+          ) {
+            supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
+            m++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload doc file"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "supportingDocs is required"
+        );
+        return;
+      }
       var n = 0;
-      imageArray["uploadAudios"].forEach(audio => {
-        if (audio["mimetype"] == "audio/mpeg") {
-          uploadAudios.push({
-            audio: audio["path"],
-            audioNote: audioNote[n]
-          });
-          n++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload audio file for audio"
-          );
-        }
-      });
-
+      if (imageArray["uploadAudios"]) {
+        imageArray["uploadAudios"].forEach(audio => {
+          if (audio["mimetype"] == "audio/mpeg") {
+            uploadAudios.push({
+              audio: audio["path"],
+              audioNote: audioNote[n]
+            });
+            n++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload audio file for audio"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadAudios is required"
+        );
+        return;
+      }
       req.body.uploadTexts = uploadTexts;
       req.body.uploadImages = uploadImages;
       req.body.uploadVideos = uploadVideos;
@@ -707,7 +764,6 @@ module.exports = {
   uploadStory: async (req, res) => {
     try {
       var imageArray = req.files;
-      console.log(imageArray);
       var textNote = req.body.textNote.split(",");
       var imageNote = req.body.imageNote.split(",");
       var videoNote = req.body.videoNote.split(",");
@@ -721,118 +777,175 @@ module.exports = {
       var supportingDocs = [];
       var uploadAudios = [];
       var l = 0;
-      imageArray["uploadTexts"].forEach(txt => {
-        if (txt["mimetype"] == "text/plain") {
-          uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
-          l++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload text file for text"
-          );
-        }
-      });
+      //console.log(imageArray);
+      if (imageArray["uploadTexts"]) {
+        imageArray["uploadTexts"].forEach(txt => {
+          if (txt["mimetype"] == "text/plain") {
+            uploadTexts.push({ text: txt["path"], textNote: textNote[l] });
+            l++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload text file for text"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(res, 400, "File_Error", "uploadTexts is required");
+        return;
+      }
       var k = 0;
-      imageArray["uploadImages"].forEach(img => {
-        if (img["mimetype"] == "image/jpeg" || img["mimetype"] == "image/png") {
-          uploadImages.push({
-            Image: img["path"],
-            imageNote: imageNote[k]
-          });
-          k++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload image file for image"
-          );
-        }
-      });
+      if (imageArray["uploadImages"]) {
+        imageArray["uploadImages"].forEach(img => {
+          if (
+            img["mimetype"] == "image/jpeg" ||
+            img["mimetype"] == "image/png"
+          ) {
+            uploadImages.push({
+              Image: img["path"],
+              imageNote: imageNote[k]
+            });
+            k++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload image file for image"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadImages is required"
+        );
+        return;
+      }
       var j = 0;
-
-      imageArray["uploadVideos"].forEach(vid => {
-        if (
-          vid["mimetype"] == "video/mp4" ||
-          vid["mimetype"] == "video/3gpp" ||
-          vid["mimetype"] == "video/x-flv" ||
-          vid["mimetype"] == "application/x-mpegURL" ||
-          vid["mimetype"] == "video/x-msvideo" ||
-          vid["mimetype"] == "video/quicktime"
-        ) {
-          uploadVideos.push({
-            video: vid["path"],
-            videoNote: videoNote[j]
-          });
-          j++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload video file for videos"
-          );
-        }
-      });
+      if (imageArray["uploadVideos"]) {
+        imageArray["uploadVideos"].forEach(vid => {
+          if (
+            vid["mimetype"] == "video/mp4" ||
+            vid["mimetype"] == "video/3gpp" ||
+            vid["mimetype"] == "video/x-flv" ||
+            vid["mimetype"] == "application/x-mpegURL" ||
+            vid["mimetype"] == "video/x-msvideo" ||
+            vid["mimetype"] == "video/quicktime"
+          ) {
+            uploadVideos.push({
+              video: vid["path"],
+              videoNote: videoNote[j]
+            });
+            j++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload video file for videos"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadVideos is required"
+        );
+        return;
+      }
       var i = 0;
-      imageArray["uploadThumbnails"].forEach(thumb => {
-        if (
-          thumb["mimetype"] == "image/jpeg" ||
-          thumb["mimetype"] == "image/png"
-        ) {
-          uploadThumbnails.push({
-            thumbnale: thumb["path"],
-            thumbnaleNote: thumbnaleNote[i]
-          });
-          i++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload image file for thumbnail"
-          );
-        }
-      });
+      if (imageArray["uploadThumbnails"]) {
+        imageArray["uploadThumbnails"].forEach(thumb => {
+          if (
+            thumb["mimetype"] == "image/jpeg" ||
+            thumb["mimetype"] == "image/png"
+          ) {
+            uploadThumbnails.push({
+              thumbnale: thumb["path"],
+              thumbnaleNote: thumbnaleNote[i]
+            });
+            i++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload image file for thumbnail"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadThumbnails is required"
+        );
+        return;
+      }
       var m = 0;
-      imageArray["supportingDocs"].forEach(docs => {
-        if (
-          docs["mimetype"] ==
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-          docs["mimetype"] == "application/msword" ||
-          docs["mimetype"] == "application/pdf"
-        ) {
-          supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
-          m++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload doc file"
-          );
-        }
-      });
+      if (imageArray["supportingDocs"]) {
+        imageArray["supportingDocs"].forEach(docs => {
+          if (
+            docs["mimetype"] ==
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+            docs["mimetype"] == "application/msword" ||
+            docs["mimetype"] == "application/pdf"
+          ) {
+            supportingDocs.push({ doc: docs["path"], docNote: docNote[m] });
+            m++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload doc file"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "supportingDocs is required"
+        );
+        return;
+      }
       var n = 0;
-      imageArray["uploadAudios"].forEach(audio => {
-        if (audio["mimetype"] == "audio/mpeg") {
-          uploadAudios.push({
-            audio: audio["path"],
-            audioNote: audioNote[n]
-          });
-          n++;
-        } else {
-          sendResponse.to_user(
-            res,
-            400,
-            "File_type_Error",
-            "Please upload audio file for audio"
-          );
-        }
-      });
-
+      if (imageArray["uploadAudios"]) {
+        imageArray["uploadAudios"].forEach(audio => {
+          if (audio["mimetype"] == "audio/mpeg") {
+            uploadAudios.push({
+              audio: audio["path"],
+              audioNote: audioNote[n]
+            });
+            n++;
+          } else {
+            sendResponse.to_user(
+              res,
+              400,
+              "File_type_Error",
+              "Please upload audio file for audio"
+            );
+          }
+        });
+      } else {
+        sendResponse.to_user(
+          res,
+          400,
+          "File_Error",
+          "uploadAudios is required"
+        );
+        return;
+      }
       req.body.uploadTexts = uploadTexts;
       req.body.uploadImages = uploadImages;
       req.body.uploadVideos = uploadVideos;
@@ -840,37 +953,29 @@ module.exports = {
       req.body.supportingDocs = supportingDocs;
       req.body.uploadAudios = uploadAudios;
 
-      const filter = { _id: req.body.storyId };
-      if (
-        uploadTexts &&
-        uploadImages &&
-        uploadVideos &&
-        uploadThumbnails &&
-        supportingDocs &&
-        uploadAudios
-      ) {
-        var success = await db.story.findByIdAndUpdate(filter, req.body, {
-          new: true
-        });
-        if (!success) {
-          sendResponse.to_user(
-            res,
-            404,
-            "DATA_NOT_FOUND",
-            "Journalist Not Found With Id",
-            null
-          );
-        } else {
-          sendResponse.to_user(
-            res,
-            200,
-            null,
-            "Story added  successfully",
-            success
-          );
-        }
+      const filter = { _id: req.body.blogId };
+      var success = await db.story.findByIdAndUpdate(filter, req.body, {
+        new: true
+      });
+      if (!success) {
+        sendResponse.to_user(
+          res,
+          404,
+          "DATA_NOT_FOUND",
+          "Journalist Not Found With Id",
+          null
+        );
+      } else {
+        sendResponse.to_user(
+          res,
+          200,
+          null,
+          "Story added  successfully",
+          success
+        );
       }
     } catch (e) {
+      console.log(e);
       sendResponse.to_user(res, 400, e, "Something went wrong");
     }
   },
