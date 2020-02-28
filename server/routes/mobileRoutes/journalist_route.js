@@ -119,10 +119,10 @@ router.route("/city").get(journalistService.city);
 // routes for Login
 // ==============================
 router.route("/login").post(
-  validate.jLoginReq,
-  (req, res, next) => {
-    checkValidationResult(req, res, next);
-  },
+  // validate.jLoginReq,
+  // (req, res, next) => {
+  //   checkValidationResult(req, res, next);
+  // },
   journalistService.journalistLogin
 );
 // ==============================
@@ -184,10 +184,10 @@ router
     (req, res, next) => {
       checkValidationResult(req, res, next);
     },
-    auth.authenticateJournalist,
+  
     journalistService.sellStory
   )
-  .put(blogUpload, auth.authenticateJournalist, journalistService.uploadStory);
+  .put(blogUpload, journalistService.uploadStory);
 router
   .route("/getJournalistProfile")
   .get(auth.authenticateJournalist, journalistService.getProfile);

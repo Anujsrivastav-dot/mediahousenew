@@ -3,10 +3,12 @@ let router = express.Router();
 let validate = require('../../middleware/validation')
 const sendResponse = require("../../helpers/responseHandler");
 var multer = require('multer');
+var async = require("async")
+var verifyAdmin = require("../../helpers/auth")
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
         console.log(req.body)
-        callback(null, 'images')
+        callback(null, 'uploads')
     },
     filename: function (req, file, callback) {
         var fileName = Date.now() + '_' + file.originalname;
@@ -15,15 +17,13 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-//  console.log(storage)
-//express validation function to throw validation
 const {
     check,
     validationResult
 } = require('express-validator/check');
 // authentication function 
 let auth = require('../../middleware/auth');
-let varify = require('../../middleware/verifyToken');
+let verify = require('../../middleware/verifyToken');
 let config = require('../../helpers/config')();
 const sendRes = require("../../helpers/responseHandler");
 
@@ -41,12 +41,10 @@ let admin = require("../../services/admin/admin.service");
 let content = require("../../services/admin/staticContent.service");
 
 //var cpUpload = upload.fields([{ name: 'video', maxCount: 8 }, { name: 'file', maxCount: 8 }])
-
-//router for Admin
 router
     .route('/admin')
     .post(admin.add)
-    .get(admin.get, varify.verifyUserToken);
+    .get(admin.get, verify.verifyUserToken);
 router.route("/login").post(
     validate.adminLoginReq,
     (req, res, next) => {
@@ -54,8 +52,16 @@ router.route("/login").post(
     },
     admin.adminLogin
 );
+//JOURNALIST DETAILS
+router.route("/getJernalistDetails/:id")
+.get(verifyAdmin.authenticateAdmin,admin.journalistDetailsById)
 
-
+//GET ALL JOURNALIST DETAILS
+router.route("/getAllJournalist")
+.get(verifyAdmin.authenticateAdmin,admin.getJournalistlist)
+//JOURNALIST SEARCH API
+router.route("/SearchJournalist")
+.get(verifyAdmin.authenticateAdmin,admin.JournalistSearch)
 //router for designation
 router
     .route('/designation')
@@ -71,9 +77,6 @@ router
 
     .delete(admin.deleteDesignation)
 
-
-
-//router for benifit  of platform  
 router
     .route('/benefit')
     .post(validate.benefitReq, (req, res, next) => {
@@ -217,13 +220,56 @@ router
 
     .get(admin.getMediahouseFrequency)
 
-    .put(validate.mediahouseFrequencyReq, (req, res, next) => {
+    .put(verifyAdmin.authenticateAdmin,validate.mediahouseFrequencyReq, (req, res, next) => {
         checkValidationResult(req, res, next)
     }, admin.updateMediahouseFrequency)
 
-    .delete(admin.deleteMediahouseFrequency)   
+    .delete(verifyAdmin.authenticateAdmin,admin.deleteMediahouseFrequency)   
       //router for mediahouse frequency for web 
 
     router.route("/media-house-frequency")
-    .get(admin.getMediahouseFrequencyForWeb)
+    .get(verifyAdmin.authenticateAdmin,admin.getMediahouseFrequencyForWeb)
+
+    router.route("/setkeyword")
+   .post(admin.storykeyword)
+
+   //MEDIA HOUSE LIST API
+    router.route("/getMediahouselist")
+    .get(verifyAdmin.authenticateAdmin,admin.getMediahouselist)
+//CHANGEPASSWORD
+router.route("/change-password")
+.put(verifyAdmin.authenticateAdmin,validate.changePasswordReq,(req,res,next)=> {
+    checkValidationResult(req,res,next);
+},admin.changePassword);
+//BLOCK/UNBLOCK API
+    router.route("/block")
+    .put(verifyAdmin.authenticateAdmin,admin.updateStatus)
+
+    //STORY LIST
+    router.route("/getStory")
+    .get(verifyAdmin.authenticateAdmin,admin.storyList)
+//FAQ API
+router.route("/Faq")
+.post(verifyAdmin.authenticateAdmin,validate.faqvalidation,(req,res,next)=> {
+    checkValidationResult(req,res,next);
+},admin.FAQ)
+//CONTACT US API
+router.route("/contactUs")
+.post(verifyAdmin.authenticateAdmin,validate.contactUsReq,(req,res,next)=> {
+    checkValidationResult(req,res,next);
+},admin.contactUs)
+
+//UPDATE ADMIN PROFILE
+router.route("/updateProfile")
+.put(verifyAdmin.authenticateAdmin,upload.single("file"),admin.updateProfileReq)
+//DELETE FAQ
+router.route("/deleteFaq")
+.delete(verifyAdmin.authenticateAdmin,admin.deleteFaq)
+//UPDATEFAQ
+
+router.route("/updateFaq")
+.put(verifyAdmin.authenticateAdmin,admin.updateFaq)
+//STORY SEARCH
+router.route("/storyFilter")
+.get(verifyAdmin.authenticateAdmin,admin.StorySearch)
 module.exports = router;

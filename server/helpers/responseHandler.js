@@ -2,8 +2,21 @@ module.exports = {
     withOutData,
     withObjectData,
     toUser,
-    to_user
+    to_user,
+    toblock
 };
+
+function toblock(res, code, error, resMsg, data) {
+    var res_data = {
+        responseCode: code,
+        responseMessage: resMsg,
+        error: error
+    }
+    if (data) {
+        res_data.result = data;
+    }
+    res.status(code).json(res_data);
+}
 
 function to_user(res, code, error, resMsg, data) {
     var res_data = {

@@ -141,5 +141,6 @@ var mongoose = require("mongoose"),
   );
 
 journalist.plugin(mongoosePaginate);
+journalist.index({emailId: "text",firstName: "text"})
 module.exports = mongoose.model("journalist", journalist, "journalists");
 //module.exports  = mongoose.model('session', session, 'session');

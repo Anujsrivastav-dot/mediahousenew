@@ -3,7 +3,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     admin = new Schema({
-       
+        file:{type:String},
+        firstName:{type:String},
+        middleName:{type:String},
+        lastName:{type:String},
         adminName: {
             type: String
         },
@@ -15,7 +18,7 @@ var mongoose = require('mongoose'),
         },
         status: {
             type: Number,
-            default: 1 // status 1 is Active and 0 is inActive/delete
+            default: 0 // status 1 is Active and 0 is inActive/delete
         }
     }, {
         timestamps: true

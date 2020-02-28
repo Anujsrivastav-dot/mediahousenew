@@ -1,20 +1,32 @@
 const jwt = require("jsonwebtoken");
 var sendResponse = require("../helpers/responseHandler");
+let config = require("../helpers/config")();
+const db = require("../dbConnection/dao");
 
-
-
-module.exports.verifyUserToken = function (req, res, next) {
-	if (!req.headers.hasOwnProperty("token")) {
-		sendResponse.withOutData(res, 402, "token requireed");
-	}
-	else {
-		jwt.verify(req.headers.token, "asddf", function (err, token) {
-			if (err) {
-				sendResponse.withOutData(res, 404, " invalid token");
-			}
-			else {
-				next()
-			}
-		})
+module.exports.verifyUserToken = async (req, res, next)=> {
+	
+	let token = req.headers.authtoken;
+	if (token) {
+		jwt.verify(token,config.secretKey, function(err, data) {
+		if(data) {
+			
+			sendResponse.to_user(
+				res,
+				200,
+				null,
+				"token is verified successfully",
+				data
+			  );
+		}
+		else {
+			sendResponse.to_user(
+				res,
+				200,
+				null,
+				"token is not verified",
+				data
+			  );
+		}
+})
 	}
 }

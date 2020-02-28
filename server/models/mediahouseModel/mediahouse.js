@@ -1,6 +1,7 @@
 var mongoose = require("mongoose"),
   // mongoosePaginate = require('mongoose-paginate'),
   Schema = mongoose.Schema,
+mongoosePaginate = require('mongoose-paginate'),
   ObjectId = Schema.ObjectId,
   mediahouse = new Schema(
     {
@@ -88,7 +89,7 @@ var mongoose = require("mongoose"),
         {
           type: ObjectId,
           default: null,
-          ref: "frequency"
+          ref: "mediahouseFrequency"
         }
       ],
       keywordId: [
@@ -146,5 +147,6 @@ var mongoose = require("mongoose"),
   );
 
 // journalist.plugin(mongoosePaginate);
+mediahouse.plugin(mongoosePaginate);
 module.exports = mongoose.model("mediahouse", mediahouse, "mediahouse");
 //module.exports  = mongoose.model('session', session, 'session');

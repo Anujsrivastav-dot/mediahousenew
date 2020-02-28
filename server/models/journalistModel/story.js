@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-// mongoosePaginate = require('mongoose-paginate'),
+mongoosePaginate = require('mongoose-paginate'),
 Schema = mongoose.Schema;
 ObjectId = Schema.ObjectId;
 story = new Schema(
@@ -158,6 +158,6 @@ story = new Schema(
   }
 );
 
-// story.plugin(mongoosePaginate);
+story.plugin(mongoosePaginate);
 module.exports = mongoose.model("story", story, "stories");
 //module.exports  = mongoose.model('session', session, 'session');

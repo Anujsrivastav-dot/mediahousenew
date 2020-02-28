@@ -742,7 +742,7 @@ module.exports = {
   sellStory: async (req, res) => {
     try {
       req.body.keywordId = req.body.keywordId.split(",");
-      req.body.journalistId = req.journalist._id;
+     // req.body.journalistId = req.journalist._id;
       req.body.country = JSON.parse(req.body.country);
       req.body.city = JSON.parse(req.body.city);
       req.body.state = JSON.parse(req.body.state);

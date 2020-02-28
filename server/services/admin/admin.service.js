@@ -4,11 +4,317 @@ const generate = require("../../helpers/generateAuthToken");
 const upload = require("../../helpers/uploadImage");
 const encryptDecrypt = require("../../helpers/cryptoPassword");
 const generateToken = require("../../helpers/generateAuthToken");
-
+var jwt =  require("jsonwebtoken")
 console.log(encryptDecrypt.decrypt("947754c584e6cd2538b1130d1a172d29"))
+
+//DEFAULT SIGNUP API
+
+adminInit = async (req,res) => {
+    const success = new db.admin({
+      adminName:"testAdmin",
+      adminEmail:"admin2601@gmail.com",
+      password: encryptDecrypt.encrypt("12345678"),
+      type:"ADMIN"
+    })
+     await db.admin.count({}, (err, result)=> {
+      if (!result) {
+        var admin = new db.admin(success)
+     admin.save()
+      } 
+    });
+    }
+    adminInit();
 module.exports = {
 
-    // api for desigantion(add,delete,update,get)    
+    //GET JOURNALIST LIST API
+   "getJournalistlist":async(req,res) => {
+    try {
+       // { $regex: ".*" + req.query.headLine + ".*", $options: "si"
+                         //  }
+       var JournalistFilter = db.journalist.find({
+        $text: { $search: req.query.searchValue , $caseSensitive: false}},{score: {$meta:"textScore"}}).sort({score: {$meta:"textScore"}}
+    )
+            var options = {
+                  populate :[{
+                    path: "designationId",
+                    select: [
+                      "designationName"
+                    ]
+                  },{
+                    path: "areaOfInterest",
+                    select: [
+                      "categoryName"
+                    ]
+                  }],
+                lean: true,
+                page: req.query.page, 
+                limit: 10
+              };
+        var obJaurnalist = await db.journalist.paginate( JournalistFilter, options)
+        if ( obJaurnalist != '') {
+            sendResponse.to_user(res, 200, null, "admin get journalist list successfully", obJaurnalist);
+        } else {
+            sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+        }
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+//GET JOURNALIST SEARCH API
+
+"JournalistSearch":async(req,res) => {
+
+try {
+   const newSearch = req.query.newValue 
+    
+    var success = await db.journalist.find({ 
+        $text: {$search: newSearch }
+        })
+    if(!success){
+        sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "list not found", null);
+    }
+    else {
+        sendResponse.to_user(res, 200, null, "your search result", success);
+    }
+}
+catch (e) {
+     console.log(e)
+    sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}
+},
+//JOURNALIST DETAIL BY ID
+"journalistDetailsById":async(req,res) => {
+    try {
+        const filter = {_id:req.params.id};
+        var success = await db.journalist.findById(filter);
+        if(!success){
+            sendResponse.to_user(res, 404, "DATA_NOT_FOUND", " Not Found With Id", null);
+        }
+        else {
+            sendResponse.to_user(res, 200, null, "journalist details are....", success);
+        }
+    }
+    catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}},
+//DELETE FAQ
+"deleteFaq":async(req,res)=> {
+try {
+    const filter = {_id:req.body._id};
+    var success = await db.Faq.findByIdAndRemove(filter);
+    if(!success){
+        sendResponse.to_user(res, 404, "DATA_NOT_FOUND", " Not Found With Id", null);
+    }
+    else {
+        sendResponse.to_user(res, 200, null, "Deleted Successfully", success);
+    }
+}
+catch (e) {
+     console.log(e)
+    sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}
+},
+//UPDATE FAQ IN SETTING
+"updateFaq": async (req, res) => {
+    try {
+        const filter = { _id: req.body._id };
+        const update = { question: req.body.question,answers:req.body.answers };
+        
+        
+        
+            var success = await db.Faq.findByIdAndUpdate(filter, update, {
+                new: true
+            })
+            if (!success) {
+                sendResponse.to_user(res, 404, "DATA_NOT_FOUND", " Not Found With this Id", null);
+            }
+            else {
+                sendResponse.to_user(res, 200, null, "updated successfully ", success);
+            }
+        
+    } catch (e) {
+
+        sendResponse.to_user(res, 400, e, 'Something went wrong');
+    }
+},
+//FAQ API
+"FAQ":async (req,res)=> {
+    try {
+        var condition = {
+            question : req.body.question
+        }
+        var success = await db.Faq.findOne(condition)
+        if(success) {
+            sendResponse.to_user(res, 200, "question is already exist", null);
+            
+        }
+        else {
+            var adminFaq = new db.Faq(req.body)
+            await adminFaq.save();
+            console.log("admin>>>>>>>"+JSON.stringify(adminFaq))
+            sendResponse.to_user(res, 200, null, "saved successfully", adminFaq);
+        }
+        
+        
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+"contactUs":async (req,res)=> {
+    try {
+        var condition = {
+            email: req.body.email 
+        }
+        var success = await db.contactUs.findOne(condition)
+        if(success) {
+            sendResponse.to_user(res, 200, "email is already exist", null);
+            
+        }
+        else {
+            var contactReq = new db.contactUs(req.body)
+            await contactReq.save();
+            console.log("admin>>>>>>>"+JSON.stringify(contactReq))
+            sendResponse.to_user(res, 200, null, "saved successfully", contactReq);
+        }
+        
+        
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+//STORY FILTER API
+"StorySearch":async(req,res)=> {
+    try {
+       
+        var success = await db.story.find();
+    if(!success) {
+    
+    sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "list not found", null);
+}
+       else {
+           var condition = {
+            $and :[{
+                storyCategory:req.query.storyCategory},
+                {
+                    headLine: { $regex: ".*" + req.query.headLine + ".*", $options: "si"
+                           }
+            }]
+           }
+          const filter =  await db.story.find(condition).populate("keywordId","storyKeywordName")
+           sendResponse.to_user(res, 200, null, "admin get story list successfully", filter);
+       }
+    }
+    catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong ');
+    }
+    
+},
+//GET JOURNALIST DETAIL BY ID
+"GetJournalistDetails":async(req,res)=> {
+    try {
+        var condition = {
+            _id: req.params.id 
+        }
+        var success = await db.journalist.findOne(condition)
+        if(success) {
+            sendResponse.to_user(res, 200, "Get journalist details", null);
+            
+        }
+        else {
+            
+            sendResponse.to_user(res, 200, null, "no list found by this Id", contactReq);
+        }
+        
+        
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+
+},
+//STORYLIST API
+"storyList":async(req,res) => {
+    try {
+        var condition = {
+            $and :[{
+                storyCategory:{ $regex: ".*" + req.query.storyCategory + ".*", $options: "si"
+            }},
+                {
+                    headLine: { $regex: ".*" + req.query.headLine + ".*", $options: "si"
+                           }
+            }]
+           }
+        var options = {
+              populate :[{
+                path: "categoryId",
+                select: [
+                  "categoryName"
+                ]
+              },{
+                path: "keywordId",
+                select: [
+                  "storykeywordName"
+                ]
+              }],
+            lean: true,
+            page: req.query.page, 
+            limit: 10
+          };
+    var storyList = await db.story.paginate(condition, options)
+    if ( storyList != '') {
+        sendResponse.to_user(res, 200, null, "admin get story list successfully", storyList);
+    } else {
+        sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+    }
+} catch (e) {
+     console.log(e)
+    sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}
+},
+"updateProfileReq": async(req,res) => {
+
+    //UPDATE ADMIN PROFILE
+try {
+   var updateProfile =  await db.admin.findByIdAndUpdate(req.admin._id, {
+            $set:{firstName:req.body.firstName,
+        middleName:req.body.middleName,
+         lastName:req.body.lastName,
+         file:req.file.filename }
+         
+            })
+            sendResponse.to_user(res, 200, null, "Profile Updated Successfully", updateProfile);
+        }
+        catch (e) {
+            console.log(e)
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+},
+//CHANGE PASSWORD API
+"changePassword": async(req, res) => {
+    try {
+        if (req.admin.password == encryptDecrypt.encrypt(req.body.password)) {
+            console.log("user>>>>>>" + JSON.stringify(req.admin))
+            await db.admin.findByIdAndUpdate(req.admin._id, {
+                $set: {
+                    password: encryptDecrypt.encrypt(req.body.newPassword)
+                }
+            });
+            sendResponse.to_user(res, 200, null, "Password changed successfully", null);
+        } else {
+            sendResponse.to_user(res, 400, "MIS_MATCH", "Old Password does not match.", null);
+        }
+    } catch (e) {
+         console.log(e)
+        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+    }
+},
+
+      
     "add": async (req, res) => {
         try {
             req.body.password = encryptDecrypt.encrypt(req.body.password);
@@ -16,7 +322,7 @@ module.exports = {
             await obj.save();
             sendResponse.to_user(res, 200, null, "admin added successfully", obj);
 
-        } catch (e) {
+    }   catch (e) {
             console.log(e)
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
@@ -36,7 +342,7 @@ module.exports = {
             sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
         }
     },
-    adminLogin: async (req, res) => {
+    "adminLogin": async (req, res) => {
         try {
             var condition = {
                 adminEmail: req.body.adminEmail,
@@ -56,14 +362,15 @@ module.exports = {
                     _id: adminData._id
                 });
                 sendResponse.to_user(res, 200, null, "Login successfully", {
-                    journalistToken: authToken
+                    adminToken: authToken
                 });
             }
         } catch (e) {
-            console.log(e);
+             console.log(e);
             sendResponse.to_user(res, 400, e, "Something went wrong");
         }
     },
+    
 
 
     // api for desigantion(add,delete,update,get)    
@@ -822,7 +1129,7 @@ module.exports = {
     "addMediahouseFrequency": async (req, res) => {
         try {
             var condition = {
-                mediahouseTypeName: {
+                mediahouseFrequencyName: {
                     $regex: ".*" + req.body.mediahouseFrequencyName + ".*",
                     $options: "si"
                 },
@@ -921,7 +1228,103 @@ module.exports = {
             sendResponse.to_user(res, 400, e, 'Something went wrong');
         }
     },
+    
+    "storykeyword":async (req,res) => {
+        try {
+            var condition = {
+               storyKeywordName : {
+                    $regex: ".*" + req.body. storyKeywordName+ ".*",
+                    $options: "si"
+                },
+                status: 1
+            };
+            var success = await db.storyKeyword.findOne(condition);
+            if (success) {
+                sendResponse.to_user(res, 409, "DATA_ALREADY_EXIST", "storykeyword already taken", null);
+            } else {
+                var obj = new db.storyKeyword(req.body);
+                await obj.save();
+                sendResponse.to_user(res, 200, null, "storykeyword added successfully", obj);
+            }
+        } catch (e) {
+            console.log(e)
+            sendResponse.to_user(res, 400, e, 'Something went wrong');
+        }
+    },
+    //GET MEDIA HOUSE LIST API
+    "getMediahouselist":async(req,res) => {
+        try {
+            var options = {
+                populate :[{
+                    path: "designationId",
+                    select: [
+                      "designationName"
+                    ]
+                  },{
+                    path: "areaOfInterest",
+                    select: [
+                      "categoryName"
+                    ]
+                  },
+                  {
+                    path: "mediahouseTypeId",
+                    select: [
+                      "mediahouseTypeName"
+                    ]
+                  },
+                  {
+                    path: "frequencyId",
+                    select: [
+                      "mediaFrequencyName"
+                    ]
+                  },
+                  {
+                    path: "keywordId",
+                    select: [
+                      "storykeywordName"
+                    ]
+                  }
+                ],
+                lean: true,
+                page: req.query.page, 
+                limit: 10
+              };
+               var result =  await db.mediahouse.paginate({}, options)
+               if ( result != '') {
+               sendResponse.to_user(res, 200,null,"admin get mediahouse list successfully", result);
+            }  else {
+               sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+            }
+        }      catch (e) {
+            
+            sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+        }
+    },
 
-    /// api for list of journalist 
+    "updateStatus": async(req, res) => {
+        try {
+            var success = await db.journalist.findByIdAndUpdate(req.query.journalistId, {
+                $set: {
+                    status:req.query.status
+                }
+                
+            },{new:true});
+            if(success)  {
+                console.log(req.query.status)
+            var msg = req.query.status === 1 ? 'active' : 'inActive'
+            console.log("ststus....." + JSON.stringify(req.query.status) )
+            sendResponse.to_user( res, 200,null, "journalist" + " "+ msg + " " + "successfully", success)
+            }
+             else  {
+                sendResponse.to_user( res, 400,null, 'journalist id not found.')
+            }
+        } catch (e) {
+             console.log(e)
+            sendResponse.to_user(res, 400,"Bad request", 'Something went wrong.')
+        }
+    }
 
-};
+
+    
+    
+}

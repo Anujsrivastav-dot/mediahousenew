@@ -49,5 +49,7 @@ module.exports = {
   mediahouseType: require("../models/adminModel/mediahouseType"),
   mediahouseFrequency: require("../models/adminModel/mediahouseFrequency"),
   frequency: require("../models/adminModel/frequency"),
-  mediahouse: require("../models/mediahouseModel/mediahouse")
+  mediahouse: require("../models/mediahouseModel/mediahouse"),
+  Faq: require("../models/adminModel/Faq"),
+  contactUs: require("../models/adminModel/contactUs")
 };

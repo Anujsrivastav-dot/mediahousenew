@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     frequency = new Schema({
-        frequencyName: {
+        mediahouseFrequencyName: {
             type: String
         },
         status: {

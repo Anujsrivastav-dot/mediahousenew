@@ -25,7 +25,7 @@ var mongoose = require('mongoose'),
             type: String
         },
         mobileNumber:{
-            type: String
+            type: Number
         },
         countryId:{
             type: String
@@ -139,5 +139,6 @@ var mongoose = require('mongoose'),
 
 
  journalist.plugin(mongoosePaginate);
+ journalist.index({emailId: "text",firstNamemo: "text"})
 module.exports = mongoose.model('journalist', journalist, 'journalists');
 //module.exports  = mongoose.model('session', session, 'session');

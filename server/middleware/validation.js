@@ -174,6 +174,18 @@ date = [check("date", "date is required").exists()];
 keywordId = [check("keywordId", "keywordId is required").exists()];
 audience = [check("audience", "audience is required").exists()];
 currency = [check("currency", "currency is required").exists()];
+question = [check("question", "question is required").exists()];
+answers = [check("answers", "answers is required").exists()]
+name = [check("name", "name is required").exists()];
+email = [check("email", "email is required").exists()]
+message = [check("message", "message is required").exists()]
+ newPassword = [ check("newPassword", "newPassword is required")
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage("password cannot be empty")
+]
+
 briefDescription = [
   check("briefDescription", "briefDescription is required").exists()
 ];
@@ -195,11 +207,13 @@ validateObj.designationReq = [...designationName];
 validateObj.benefitReq = [...benefitName];
 validateObj.mediahouseTypeReq = [...mediahouseTypeName];
 validateObj.mediahouseFrequencyReq = [...mediahouseFrequencyName];
+validateObj.changePasswordReq = [...password,...newPassword];
+validateObj.faqvalidation = [...question,...answers]
 validateObj.categoryReq = [...categoryName];
 validateObj.storyCategoryReq = [...storyCategoryName];
 validateObj.storyTypeReq = [...storyTypeName];
 validateObj.storyKeywordReq = [...storyKeywordName];
-
+validateObj.contactUsReq = [...name,...email,...message]
 validateObj.journalistReq = [
   ...firstName,
   ...lastName,

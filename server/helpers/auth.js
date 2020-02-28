@@ -48,3 +48,52 @@ module.exports.authenticateJournalist = function(req, res, next) {
     sendResponse.to_user(res, 403, null, "No token provided", null);
   }
 };
+
+
+//GET AUTHHORIZATION TOKEN FOR ADMIN
+module.exports.authenticateAdmin = function(req, res, next) {
+  
+  let token = req.headers.authtoken;
+  if (token) {
+  jwt.verify(token, config.secretKey, function(err, admin) {
+  console.log("admin>>>>>" + JSON.stringify(admin))
+   if (err) {
+        sendResponse.to_user(
+          res,
+          403,
+          null,
+          "Failed to authenticate token.",
+          null
+        );
+    }
+    else {
+     db.admin.findById(admin._id).exec((err, success) => {
+     if (err) {
+            sendResponse.to_user(res, 500, null, "Server error", null);
+          }
+     else if (!success) {
+            sendResponse.to_user(res, 403, null, "Invalid token", null);
+          }
+     else {
+           
+      if (success.status == 0) {
+           req.admin = success;
+            next();
+            } 
+      else {
+              sendResponse.to_user(
+                res,
+                403,
+                null,
+                "you are not verified ",
+                null
+              );
+            }
+          }
+        });
+      }
+    });
+  }    else {
+    sendResponse.to_user(res, 403, null, "No token provided", null);
+  }
+};
