@@ -247,7 +247,7 @@ router.route("/change-password")
 
     //STORY LIST
     router.route("/getStory")
-    .get(verifyAdmin.authenticateAdmin,admin.storyList)
+    .get(verifyAdmin.authenticateAdmin,admin.StorySearch)
 //FAQ API
 router.route("/Faq")
 .post(verifyAdmin.authenticateAdmin,validate.faqvalidation,(req,res,next)=> {
@@ -272,4 +272,7 @@ router.route("/updateFaq")
 //STORY SEARCH
 router.route("/storyFilter")
 .get(verifyAdmin.authenticateAdmin,admin.StorySearch)
+
+router.route("/transactionHistory")
+.get(verifyAdmin.authenticateAdmin,admin.transactionHistory)
 module.exports = router;

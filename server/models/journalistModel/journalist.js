@@ -1,9 +1,11 @@
 var mongoose = require("mongoose"),
   mongoosePaginate = require("mongoose-paginate"),
+   mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
   Schema = mongoose.Schema,
   ObjectId = Schema.ObjectId,
   journalist = new Schema(
     {
+      gID: {type: ObjectId,ref:'mediahouse'},
       langCode: {
         type: String
       },
@@ -139,7 +141,7 @@ var mongoose = require("mongoose"),
       timestamps: true
     }
   );
-
+  journalist.plugin(mongooseAggregatePaginate);
 journalist.plugin(mongoosePaginate);
 journalist.index({emailId: "text",firstName: "text"})
 module.exports = mongoose.model("journalist", journalist, "journalists");

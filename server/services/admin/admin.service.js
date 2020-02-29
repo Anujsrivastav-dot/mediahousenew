@@ -26,14 +26,26 @@ adminInit = async (req,res) => {
     adminInit();
 module.exports = {
 
-    //GET JOURNALIST LIST API
+    //GET JOURNALIST LIST API C:\Users\designoweb\Desktop\mediahouse_backend\server\routes\mobileRoutes\journalist_route.js
    "getJournalistlist":async(req,res) => {
     try {
-       // { $regex: ".*" + req.query.headLine + ".*", $options: "si"
-                         //  }
-       var JournalistFilter = db.journalist.find({
-        $text: { $search: req.query.searchValue , $caseSensitive: false}},{score: {$meta:"textScore"}}).sort({score: {$meta:"textScore"}}
-    )
+        var condition = { $or: [
+            {
+              emailId: {
+                $regex: "^" + req.query.searchValue + ".*",
+                $options: "si"
+              }
+            },
+            {
+              firstName: {
+                $regex: ".*" + req.query.searchValue + ".*",
+                $options: "si"
+              }
+            }
+          ]}
+    //    var JournalistFilter = db.journalist.find({
+    //     $text: { $search: req.query.searchValue , $caseSensitive: false}},{score: {$meta:"textScore"}}).sort({score: {$meta:"textScore"}}
+    // )
             var options = {
                   populate :[{
                     path: "designationId",
@@ -50,7 +62,7 @@ module.exports = {
                 page: req.query.page, 
                 limit: 10
               };
-        var obJaurnalist = await db.journalist.paginate( JournalistFilter, options)
+        var obJaurnalist = await db.journalist.paginate( condition, options)
         if ( obJaurnalist != '') {
             sendResponse.to_user(res, 200, null, "admin get journalist list successfully", obJaurnalist);
         } else {
@@ -60,6 +72,158 @@ module.exports = {
          console.log(e)
         sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
     }
+},
+"transactionHistory":async(req,res) => {
+    if(req.query.trans === "translate") {
+        try {
+    //  const transactionHistory = await db.journalist.aggregate([
+    // {$lookup:{from:"mediahouse",localField:"gID",
+    // foreignField:" Mid",as:"transactionhistory"}}])
+    const options = {
+        populate :[{
+            path: "designationId",
+            select: [
+              "designationName"
+            ]
+          },{
+            path: "areaOfInterest",
+            select: [
+              "categoryName"
+            ]
+          },
+          {
+            path: "mediahouseTypeId",
+            select: [
+              "mediahouseTypeName"
+            ]
+          },
+          {
+            path: "frequencyId",
+            select: [
+              "mediaFrequencyName"
+            ]
+          },
+          {
+            path: "keywordId",
+            select: [
+              "storykeywordName"
+            ]
+          }
+        ],
+        lean: true,
+         page : 1, limit : 1}
+    var transcribe =  await db.journalist.aggregatePaginate(db.journalist.aggregate([
+        {$lookup:{from:"mediahouse",localField:"gID",
+        foreignField:" Mid",as:"transactionhistory"}}]), options)
+    
+if ( transcribe != '') {
+    //console.log("transparent>>>>>>>>>" + JSON.stringify(transparent))
+    sendResponse.to_user(res, 200, null, "admin get journalist and mediahouse list successfully", transcribe);
+} else {
+    sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+}}
+catch (e) {
+    console.log(e)
+   sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}
+}
+else if(req.query.trans === "journalist") {
+   //const journalLists = await db.journalist.find({})
+   try {
+   var options = {
+    populate :[{
+        path: "designationId",
+        select: [
+          "designationName"
+        ]
+      },{
+        path: "areaOfInterest",
+        select: [
+          "categoryName"
+        ]
+      },
+      {
+        path: "mediahouseTypeId",
+        select: [
+          "mediahouseTypeName"
+        ]
+      },
+      {
+        path: "frequencyId",
+        select: [
+          "mediaFrequencyName"
+        ]
+      },
+      {
+        path: "keywordId",
+        select: [
+          "storykeywordName"
+        ]
+      }
+    ],
+  lean: true,
+  page: req.query.page, 
+  limit: 10
+};
+var journalList = await db.journalist.paginate({}, options)
+   if(journalList!="") {
+   sendResponse.to_user(res, 200, null, "admin get journalist list successfully", journalList);}
+   else {
+    sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+   }
+} catch (e) {
+    console.log(e)
+   sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');
+}}
+else if(req.query.trans === "mediahouse") {
+    //var mediaHouseLists = await db.mediahouse.find({})
+    try {
+    var options = {
+        populate :[{
+            path: "designationId",
+            select: [
+              "designationName"
+            ]
+          },{
+            path: "areaOfInterest",
+            select: [
+              "categoryName"
+            ]
+          },
+          {
+            path: "mediahouseTypeId",
+            select: [
+              "mediahouseTypeName"
+            ]
+          },
+          {
+            path: "frequencyId",
+            select: [
+              "mediaFrequencyName"
+            ]
+          },
+          {
+            path: "keywordId",
+            select: [
+              "storykeywordName"
+            ]
+          }
+        ],
+      lean: true,
+      page: req.query.page, 
+      limit: 10
+    };
+var mediaHouseList = await db.mediahouse.paginate( {}, options)
+    if( mediaHouseList!="") {
+        sendResponse.to_user(res, 200, null, "admin get mediahouse list successfully", mediaHouseList);}
+        else {
+         sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+        }
+    }
+    catch (e) {
+        console.log(e)
+       sendResponse.to_user(res, 400, "Bad request", 'Something went wrong');    
+ }}
 },
 //GET JOURNALIST SEARCH API
 
@@ -121,9 +285,6 @@ catch (e) {
     try {
         const filter = { _id: req.body._id };
         const update = { question: req.body.question,answers:req.body.answers };
-        
-        
-        
             var success = await db.Faq.findByIdAndUpdate(filter, update, {
                 new: true
             })
@@ -133,7 +294,6 @@ catch (e) {
             else {
                 sendResponse.to_user(res, 200, null, "updated successfully ", success);
             }
-        
     } catch (e) {
 
         sendResponse.to_user(res, 400, e, 'Something went wrong');
@@ -189,31 +349,83 @@ catch (e) {
 //STORY FILTER API
 "StorySearch":async(req,res)=> {
     try {
-       
-        var success = await db.story.find();
-    if(!success) {
-    
-    sendResponse.to_user(res, 404, "DATA_NOT_FOUND", "list not found", null);
-}
-       else {
-           var condition = {
-            $and :[{
-                storyCategory:req.query.storyCategory},
-                {
-                    headLine: { $regex: ".*" + req.query.headLine + ".*", $options: "si"
-                           }
-            }]
-           }
-          const filter =  await db.story.find(condition).populate("keywordId","storyKeywordName")
-           sendResponse.to_user(res, 200, null, "admin get story list successfully", filter);
+        var storyCategory =  req.query.storyCategory;
+        if (storyCategory == "All") {
+          var condition = {
+            $or: [
+              {
+                headLine: {
+                  $regex: ".*" + req.query.searchValue + ".*",
+                  $options: "si"
+                }
+              },
+              {
+                keywords: {
+                  $regex: ".*" + req.query.searchValue + ".*",
+                  $options: "si"
+                }
+              }
+            ]
+          };
+        } else {
+          var condition = {
+            storyCategory: storyCategory,
+            $or: [
+              {
+                headLine: {
+                  $regex: ".*" + req.query.searchValue + ".*",
+                  $options: "si"
+                }
+              },
+              {
+                keywords: {
+                  $regex: ".*" + req.query.searchValue + ".*",
+                  $options: "si"
+                }
+              }
+            ]
+            
+          };
+        }
+       var options = {
+           populate:[{
+               path:"keywordId",
+               select:["storyKeywordName"]
+           }],
+           lean:true,
+            page:1,
+            limit:10
        }
-    }
-    catch (e) {
-         console.log(e)
-        sendResponse.to_user(res, 400, "Bad request", 'Something went wrong ');
-    }
-    
+       var storyList = await db.story.paginate(condition,options)
+        if (storyList != "") {
+          sendResponse.to_user(res, 200, null, "Story  get successfully", storyList);
+        } else {
+          sendResponse.to_user(res, 200, "NO_CONTENT", "No Data Avilable", null);
+        }
+      } catch (e) {
+        console.log(e);
+        sendResponse.to_user(res, 400, "Bad request", "Something went wrong");
+      }
+    // try {
+
+    //     //    var condition = {
+    //     //     $and :[{
+    //     //         storyCategory:req.query.storyCategory},
+    //     //         {
+    //     //             headLine: { $regex: ".*" + req.query.headLine + ".*", $options: "si"
+    //     //                    }
+    //     //     }]
+    //     //    }
+    //     //   const filter =  await db.story.find(condition).populate("keywordId","storyKeywordName")
+    //     //    sendResponse.to_user(res, 200, null, "admin get story list successfully", filter);
+       
+    // }
+    // catch (e) {
+    //      console.log(e)
+    //     sendResponse.to_user(res, 400, "Bad request", 'Something went wrong ');
+    // }
 },
+
 //GET JOURNALIST DETAIL BY ID
 "GetJournalistDetails":async(req,res)=> {
     try {
@@ -959,7 +1171,6 @@ try {
     /// api for SocioLinks(add,delete,update,get)  
     "addSocioLinks": async (req, res) => {
         try {
-
             var obj = new db.socioLinks(req.body);
             await obj.save();
             sendResponse.to_user(res, 200, null, "SocioLinks added successfully", obj);

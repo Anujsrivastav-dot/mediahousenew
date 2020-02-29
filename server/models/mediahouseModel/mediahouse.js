@@ -1,10 +1,13 @@
 var mongoose = require("mongoose"),
   // mongoosePaginate = require('mongoose-paginate'),
   Schema = mongoose.Schema,
+  mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
 mongoosePaginate = require('mongoose-paginate'),
+
   ObjectId = Schema.ObjectId,
   mediahouse = new Schema(
     {
+      Mid: {type:Schema.Types.ObjectId,ref:'journalists' },
       langCode: {
         type: String
       },
@@ -147,6 +150,7 @@ mongoosePaginate = require('mongoose-paginate'),
   );
 
 // journalist.plugin(mongoosePaginate);
+mediahouse.plugin(mongooseAggregatePaginate)
 mediahouse.plugin(mongoosePaginate);
 module.exports = mongoose.model("mediahouse", mediahouse, "mediahouse");
 //module.exports  = mongoose.model('session', session, 'session');
